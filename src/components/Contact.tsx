@@ -24,45 +24,45 @@ const Contact = () => {
   }
 
   return (
-    <section id="contact" className="min-h-screen flex items-center bg-white/50">
-      <div className="max-w-7xl px-8 md:px-16 lg:px-24 w-full mx-auto">
-        <h2 className="text-5xl md:text-6xl font-medium text-gray-900 mb-16">Contact</h2>
+    <section id="contact" className="min-h-screen flex items-center bg-white/50 px-4">
+      <div className="max-w-7xl px-4 sm:px-8 md:px-16 lg:px-24 w-full mx-auto">
+        <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-medium text-gray-900 mb-8 sm:mb-12 lg:mb-16">Contact</h2>
         
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-12 lg:gap-16 xl:gap-24">
           {/* Left Side - Contact Info */}
-          <div className="space-y-10">
+          <div className="space-y-6 sm:space-y-8 lg:space-y-10">
             {/* Email */}
-            <div className="flex items-center gap-6 group">
-              <Mail className="w-10 h-10 md:w-12 md:h-12 text-blue-600 shrink-0" />
+            <div className="flex items-center gap-4 sm:gap-6 group">
+              <Mail className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-blue-600 shrink-0" />
               <a 
                 href="mailto:ibrahimraafatt@gmail.com"
-                className="text-xl md:text-2xl text-blue-600 hover:text-blue-800 transition-colors break-all"
+                className="text-base sm:text-lg md:text-xl lg:text-2xl text-blue-600 hover:text-blue-800 transition-colors break-all"
               >
                 Ibrahimraafatt@gmail.com
               </a>
             </div>
 
             {/* GitHub */}
-            <div className="flex items-center gap-6 group">
-              <Github className="w-10 h-10 md:w-12 md:h-12 text-blue-600 shrink-0" />
+            <div className="flex items-center gap-4 sm:gap-6 group">
+              <Github className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-blue-600 shrink-0" />
               <a 
                 href="https://github.com/IbrahimRaafat"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xl md:text-2xl text-blue-600 hover:text-blue-800 transition-colors break-all"
+                className="text-base sm:text-lg md:text-xl lg:text-2xl text-blue-600 hover:text-blue-800 transition-colors break-all"
               >
                 github.com/IbrahimRaafat
               </a>
             </div>
 
             {/* LinkedIn */}
-            <div className="flex items-center gap-6 group">
-              <Linkedin className="w-10 h-10 md:w-12 md:h-12 text-blue-600 shrink-0" />
+            <div className="flex items-center gap-4 sm:gap-6 group">
+              <Linkedin className="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 text-blue-600 shrink-0" />
               <a 
                 href="https://www.linkedin.com/in/ibrahimraafat2000/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-xl md:text-2xl text-blue-600 hover:text-blue-800 transition-colors break-all"
+                className="text-base sm:text-lg md:text-xl lg:text-2xl text-blue-600 hover:text-blue-800 transition-colors break-all"
               >
                 linkedin.com/in/ibrahimraafat2000
               </a>
@@ -71,9 +71,9 @@ const Contact = () => {
 
           {/* Right Side - Contact Form */}
           <div>
-            <form onSubmit={handleSubmit} className="space-y-4 max-w-md">
+            <form onSubmit={handleSubmit} className="space-y-4 w-full max-w-md">
               {/* Name and Email on Same Line */}
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 {/* Name Field */}
                 <div>
                   <label htmlFor="name" className="block text-gray-700 text-sm mb-1.5 font-medium">
