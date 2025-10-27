@@ -24,7 +24,7 @@ export default function Home() {
       {/* <Experience /> */}
 
       {/* Projects Section */}
-      {/* <Projects /> */}
+      <Projects />
 
       {/* Contact Section */}
       <Contact />
