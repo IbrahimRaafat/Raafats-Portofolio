@@ -5,6 +5,7 @@ interface Project {
   company: string
   tags: string[]
   image?: string
+  link?: string
 }
 
 const Projects = () => {
@@ -14,21 +15,24 @@ const Projects = () => {
   const projects: Project[] = [
     {
       id: 1,
-      company: 'Company Name',
-      tags: ['Branding'],
-      image: '/project1.jpg'
+      company: 'Maz Mrkt',
+      tags: ['Website','ERP',"Shopify"],
+      image: '/project1.jpg',
+      link:"https://www.mazmrkt.com"
     },
     {
       id: 2,
       company: 'Company Name',
       tags: ['Branding', 'Website'],
-      image: '/project2.jpg'
+      image: '/project2.jpg',
+      link:''
     },
     {
       id: 3,
       company: 'Company Name',
       tags: ['Branding', 'Website'],
-      image: '/project3.jpg'
+      image: '/project3.jpg',
+      link:'',
     }
   ]
 
@@ -64,8 +68,11 @@ const Projects = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           {projects.map((project, index) => (
-            <div
+            <a
               key={project.id}
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
               className={`relative bg-white/50 border-2 border-blue-500 rounded-3xl p-6 cursor-pointer min-h-[350px] flex flex-col transition-all duration-700 ease-out ${
                 isVisible 
                   ? 'opacity-100 translate-y-0' 
@@ -98,7 +105,7 @@ const Projects = () => {
                   </span>
                 ))}
               </div>
-            </div>
+            </a>
           ))}
         </div>
       </div>

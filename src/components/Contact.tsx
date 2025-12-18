@@ -8,12 +8,34 @@ const Contact = () => {
     message: ''
   })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [status, setStatus] = useState<{
+    state: 'idle' | 'loading' | 'success' | 'error'
+    message?: string
+  }>({ state: 'idle' })
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission here
-    console.log('Form submitted:', formData)
-    // Reset form
-    setFormData({ name: '', email: '', message: '' })
+    setStatus({ state: 'loading' })
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      })
+
+      const data = await response.json()
+
+      if (!response.ok) {
+        throw new Error(data?.message || 'Failed to send message')
+      }
+
+      setStatus({ state: 'success', message: 'Message sent! I will get back to you soon.' })
+      setFormData({ name: '', email: '', message: '' })
+    } catch (error) {
+      const message = error instanceof Error ? error.message : 'Something went wrong. Please try again.'
+      setStatus({ state: 'error', message })
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -138,10 +160,22 @@ const Contact = () => {
               {/* Submit Button */}
               <button
                 type="submit"
-                className="w-30 bg-white text-black font-medium text-xs py-2.5 px-4 rounded-full hover:bg-blue-700 transition-colors"
+                disabled={status.state === 'loading'}
+                className="w-30 bg-white text-black font-medium text-xs py-2.5 px-4 rounded-full hover:bg-blue-700 transition-colors disabled:opacity-70 disabled:cursor-not-allowed"
               >
-                Send Message
+                {status.state === 'loading' ? 'Sending...' : 'Send Message'}
               </button>
+
+              {status.state !== 'idle' && (
+                <p
+                  className={`text-sm ${
+                    status.state === 'success' ? 'text-green-200' : 'text-red-200'
+                  }`}
+                  aria-live="polite"
+                >
+                  {status.message}
+                </p>
+              )}
             </form>
           </div>
         </div>
