@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 interface CircularTextProps {
   text: string;
@@ -12,36 +12,47 @@ export default function CircularText({
   fontSize = 12 
 }: CircularTextProps) {
   const [scrollSpeed, setScrollSpeed] = useState(1);
+  const targetSpeedRef = useRef(1);
+  const speedRef = useRef(1);
+  const lastScrollYRef = useRef(0);
+  const rafRef = useRef(0);
+
   const chars = text.split('');
   const angleStep = 360 / chars.length;
 
   useEffect(() => {
-    let lastScrollY = window.scrollY;
-    let scrollVelocity = 0;
+    lastScrollYRef.current = window.scrollY;
 
     const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-      const delta = Math.abs(currentScrollY - lastScrollY);
-      
-      // Increase speed based on scroll velocity (reduced multiplier)
-      scrollVelocity = delta * 0.02; // Reduced from 0.1 to 0.02
-      const newSpeed = 1 + Math.min(scrollVelocity, 3); // Cap maximum speed at 4x
-      setScrollSpeed(newSpeed);
-      
-      lastScrollY = currentScrollY;
+      const current = window.scrollY;
+      const delta = Math.abs(current - lastScrollYRef.current);
+      // Gentle multiplier and cap to avoid buzzing
+      const target = 1 + Math.min(delta * 0.004, 1.5);
+      targetSpeedRef.current = target;
+      lastScrollYRef.current = current;
     };
 
-    // Gradually return to normal speed when not scrolling
-    const resetSpeed = setInterval(() => {
-      setScrollSpeed(prev => Math.max(1, prev * 0.95));
-    }, 50);
+    const tick = () => {
+      // Ease towards target speed for smoothness
+      const next = speedRef.current + (targetSpeedRef.current - speedRef.current) * 0.08;
+      speedRef.current = next;
+      // Only update state when change is meaningful to avoid re-render spam
+      if (Math.abs(next - scrollSpeed) > 0.01) {
+        setScrollSpeed(next);
+      }
+      // Gradually relax target back to base
+      targetSpeedRef.current = 1 + (targetSpeedRef.current - 1) * 0.92;
+      rafRef.current = requestAnimationFrame(tick);
+    };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
+    rafRef.current = requestAnimationFrame(tick);
+
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      clearInterval(resetSpeed);
+      cancelAnimationFrame(rafRef.current);
     };
-  }, []);
+  }, [scrollSpeed]);
 
   return (
     <div className="relative inline-flex items-center justify-center w-40 h-40">
