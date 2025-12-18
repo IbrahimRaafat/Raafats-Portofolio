@@ -8,7 +8,6 @@ export default function App({ Component, pageProps }: AppProps) {
     const lenis = new Lenis({
       duration: 1.1,
       smoothWheel: true,
-      smoothTouch: false,
     });
 
     const raf = (time: number) => {
