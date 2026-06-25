@@ -17,11 +17,9 @@ interface ShaderUniforms {
 }
 
 function useAllTextures(): THREE.Texture[] {
-  const texture0 = useTexture(projects[0].src);
-  const texture1 = useTexture(projects[1].src);
-  const texture2 = useTexture(projects[2].src);
-  const texture3 = useTexture(projects[3].src);
-  return [texture0, texture1, texture2, texture3];
+  const texturePaths = projects.map(p => p.src);
+  const textures = useTexture(texturePaths);
+  return Array.isArray(textures) ? textures : [textures];
 }
 
 function TextureLoader({ onTexturesLoaded }: { onTexturesLoaded: (textures: THREE.Texture[]) => void }) {
