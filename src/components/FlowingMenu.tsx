@@ -164,11 +164,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
         onMouseLeave={handleMouseLeave}
         style={{ color: textColor }}
       >
-        {logo ? (
-          <img src={logo} alt={text} className="max-h-[120px] max-w-[200px] object-contain" />
-        ) : (
-          text
-        )}
+        {text}
       </a>
       <div
         className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none"
