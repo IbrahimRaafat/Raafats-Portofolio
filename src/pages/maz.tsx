@@ -118,8 +118,10 @@ export default function MazCase() {
           </p>
         </section>
 
-        {/* Services */}
-        <div className="grid md:grid-cols-3 gap-8 mb-24">
+        {/* Services Container */}
+        <div className="px-12 py-16 rounded-3xl backdrop-blur-md bg-white/10 border border-white/20 mb-20">
+          {/* Services Grid */}
+          <div className="grid md:grid-cols-3 gap-8">
           {/* Odoo Card */}
           <div className="group bg-white rounded-2xl p-12 border border-gray-200 hover:border-blue-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
             <img src="/images/odoo-logo.svg" alt="Odoo" className="w-full h-40 object-contain mb-8" />
@@ -145,6 +147,7 @@ export default function MazCase() {
             <p className="text-gray-600 leading-relaxed">
               Custom dashboards built with Apache Superset for real-time sales tracking, inventory monitoring, KPI analytics, and interactive reports.
             </p>
+          </div>
           </div>
         </div>
 
