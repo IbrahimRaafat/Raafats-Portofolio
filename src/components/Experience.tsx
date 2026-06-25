@@ -126,12 +126,23 @@ const Experience = () => {
     >
       <div className="max-w-7xl mx-auto w-full px-4 sm:px-8 md:px-16 lg:px-24">
         <div className="flex flex-col gap-6 sm:gap-4 mb-12">
-          <p className="text-blue-500 text-sm sm:text-base font-medium uppercase tracking-[0.2em]">
-            Work Experience
-          </p>
-          <h2 id="experience-heading" className="text-4xl sm:text-5xl lg:text-6xl font-medium text-blue-600 leading-tight">
-            Building products, pipelines, and experiences
-          </h2>
+          <div className="flex items-start justify-between gap-4">
+            <div className="flex-1">
+              <p className="text-blue-500 text-sm sm:text-base font-medium uppercase tracking-[0.2em]">
+                Work Experience
+              </p>
+              <h2 id="experience-heading" className="text-4xl sm:text-5xl lg:text-6xl font-medium text-blue-600 leading-tight">
+                Building products, pipelines, and experiences
+              </h2>
+            </div>
+            <a
+              href="/resume.pdf"
+              download="Ibrahim_Raafat_Resume.pdf"
+              className="flex-shrink-0 px-4 py-2 sm:px-6 sm:py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition duration-200 transform hover:scale-105 whitespace-nowrap text-sm sm:text-base"
+            >
+              Download CV
+            </a>
+          </div>
           <p className="text-lg sm:text-xl text-gray-700 max-w-3xl">
             Recent roles across engineering, automation, fabrication, and design, with measurable impact on delivery speed, reliability, and user outcomes.
           </p>
