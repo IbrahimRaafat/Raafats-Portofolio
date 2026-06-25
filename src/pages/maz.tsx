@@ -92,7 +92,7 @@ export default function MazCase() {
           <div className="group bg-white rounded-2xl p-8 border border-gray-200 hover:border-green-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
             <div className="mb-6">
               <div className="w-16 h-16 bg-gradient-to-br from-green-50 to-green-100 rounded-xl flex items-center justify-center mb-4 group-hover:from-green-100 group-hover:to-green-200 transition">
-                <span className="text-2xl">🛍️</span>
+                <img src="/images/shopify-logo.svg" alt="Shopify" className="w-10 h-10 object-contain" />
               </div>
               <h3 className="text-2xl font-bold text-gray-900" style={{ fontFamily: 'var(--font-poppins)' }}>Shopify Store</h3>
             </div>
