@@ -113,7 +113,7 @@ export default function CoinsClothCase() {
             </h1>
           </div>
 
-          <p className="text-lg text-gray-700 leading-relaxed max-w-3xl">
+          <p className="text-lg text-black leading-relaxed max-w-3xl">
             A complete e-commerce platform with custom dashboards for real-time insights, automated workflows with n8n integration, and Slack notifications for seamless operations and business intelligence.
           </p>
         </section>
@@ -126,7 +126,7 @@ export default function CoinsClothCase() {
             <div className="group bg-white rounded-2xl p-12 border border-gray-200 hover:border-blue-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
               <div className="w-full h-40 flex items-center justify-center mb-8 text-5xl">📊</div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-poppins)' }}>Custom Dashboards</h3>
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-black leading-relaxed">
                 Real-time dashboards with notifications, KPI tracking, sales analytics, and automated reports for data-driven business decisions.
               </p>
             </div>
@@ -135,7 +135,7 @@ export default function CoinsClothCase() {
             <div className="group bg-white rounded-2xl p-12 border border-gray-200 hover:border-purple-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
               <div className="w-full h-40 flex items-center justify-center mb-8 text-5xl">⚙️</div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-poppins)' }}>n8n Workflows</h3>
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-black leading-relaxed">
                 Automated workflows connecting e-commerce systems with business processes, reducing manual tasks and improving efficiency.
               </p>
             </div>
@@ -144,7 +144,7 @@ export default function CoinsClothCase() {
             <div className="group bg-white rounded-2xl p-12 border border-gray-200 hover:border-pink-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
               <div className="w-full h-40 flex items-center justify-center mb-8 text-5xl">💬</div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-poppins)' }}>Slack Notifications</h3>
-              <p className="text-gray-600 leading-relaxed">
+              <p className="text-black leading-relaxed">
                 Real-time Slack notifications for orders, inventory alerts, dashboard updates, and automated reports keeping the team informed.
               </p>
             </div>
@@ -156,7 +156,7 @@ export default function CoinsClothCase() {
           <h2 className="text-4xl font-bold text-gray-900 mb-2" style={{ fontFamily: 'var(--font-poppins)' }}>
             Interested?
           </h2>
-          <p className="text-gray-600 mb-8">Let's discuss your project. Fill out the form below and I'll get back to you shortly.</p>
+          <p className="text-black mb-8">Let's discuss your project. Fill out the form below and I'll get back to you shortly.</p>
 
           {submitted && (
             <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg text-green-700 font-medium">
