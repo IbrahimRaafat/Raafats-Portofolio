@@ -62,9 +62,9 @@ export default function CoinsClothCase() {
       {/* Grainient Background */}
       <div className="fixed inset-0 w-full h-full -z-10">
         <Grainient
-          color1="#a6a6a6"
-          color2="#ebebec"
-          color3="#555555"
+          color1="#622738"
+          color2="#f7ede6"
+          color3="#e75c2f"
           timeSpeed={0.25}
           colorBalance={0}
           warpStrength={1}
