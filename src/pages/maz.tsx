@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { Inter, Poppins } from "next/font/google";
-import Link from "next/link";
 import { useState } from "react";
+import StaggeredMenu from "@/components/StaggeredMenu";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -41,6 +41,16 @@ export default function MazCase() {
     }
   };
 
+  const menuItems = [
+    { label: 'Home', ariaLabel: 'Go to home page', link: '/' },
+    { label: 'Back', ariaLabel: 'Go back', link: '/' },
+  ];
+
+  const socialItems = [
+    { label: 'GitHub', link: 'https://github.com/IbrahimRaafat' },
+    { label: 'LinkedIn', link: 'https://linkedin.com/in/ibrahimraafat2000/' },
+  ];
+
   return (
     <div className={`${inter.variable} ${poppins.variable} font-sans bg-[#f1f1f1] min-h-screen`}>
       <Head>
@@ -48,15 +58,15 @@ export default function MazCase() {
         <meta name="description" content="Odoo ERP & Shopify e-commerce solution for Maz Mrkt" />
       </Head>
 
-      {/* Header */}
-      <header className="bg-white border-b border-gray-200">
-        <div className="max-w-4xl mx-auto px-6 py-6 flex items-center justify-between">
-          <Link href="/" className="text-sm font-semibold text-blue-600 hover:text-blue-700 transition">
-            ← Back
-          </Link>
-          <div className="w-24 h-10 bg-contain bg-no-repeat bg-center" style={{ backgroundImage: 'url(/images/maz-logo.svg)' }} />
-        </div>
-      </header>
+      {/* Staggered Menu */}
+      <StaggeredMenu
+        position="right"
+        isFixed
+        items={menuItems}
+        socialItems={socialItems}
+        displaySocials
+        displayItemNumbering={false}
+      />
 
       {/* Main Content */}
       <main className="max-w-5xl mx-auto px-6 py-16">
@@ -64,9 +74,12 @@ export default function MazCase() {
           <div className="inline-block px-4 py-1.5 bg-gradient-to-r from-blue-100 to-blue-50 text-blue-700 rounded-full text-xs font-semibold mb-6 border border-blue-200">
             E-Commerce & ERP Solution
           </div>
-          <h1 className="text-6xl font-bold text-gray-900 mb-6" style={{ fontFamily: 'var(--font-poppins)' }}>
-            Maz Mrkt
-          </h1>
+          <div className="flex items-center justify-between gap-6">
+            <h1 className="text-6xl font-bold text-gray-900" style={{ fontFamily: 'var(--font-poppins)' }}>
+              Maz Mrkt
+            </h1>
+            <img src="/images/maz-logo.svg" alt="Maz Mrkt" className="w-32 h-32 object-contain flex-shrink-0" />
+          </div>
           <p className="text-lg text-gray-600 leading-relaxed max-w-2xl">
             A comprehensive e-commerce and ERP solution combining Odoo inventory management with Shopify storefront,
             featuring real-time dashboards for tracking sales, inventory, and key business metrics.
