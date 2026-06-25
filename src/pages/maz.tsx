@@ -100,7 +100,7 @@ export default function MazCase() {
       {/* Main Content */}
       <main className="max-w-5xl mx-auto px-6 py-20 relative z-10">
         {/* Title & Description Section */}
-        <section className="mb-20 pt-20">
+        <section className="mb-20 pt-20 px-12 py-16 rounded-3xl backdrop-blur-md bg-white/10 border border-white/20">
           <div className="inline-block px-4 py-1.5 bg-gradient-to-r from-blue-100 to-blue-50 text-blue-700 rounded-full text-xs font-semibold mb-6 border border-blue-200">
             E-Commerce & ERP Solution
           </div>
