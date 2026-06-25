@@ -98,7 +98,25 @@ export default function MazCase() {
       />
 
       {/* Main Content */}
-      <main className="max-w-5xl mx-auto px-6 py-16 relative z-10">
+      <main className="max-w-5xl mx-auto px-6 py-20 relative z-10">
+        {/* Title & Description Section */}
+        <section className="mb-20 pt-20">
+          <div className="inline-block px-4 py-1.5 bg-gradient-to-r from-blue-100 to-blue-50 text-blue-700 rounded-full text-xs font-semibold mb-6 border border-blue-200">
+            E-Commerce & ERP Solution
+          </div>
+
+          <div className="flex items-center justify-between gap-8 mb-8">
+            <h1 className="text-6xl font-bold text-white" style={{ fontFamily: 'var(--font-poppins)' }}>
+              Maz Mrkt
+            </h1>
+            <img src="/images/maz-logo.svg" alt="Maz Mrkt" className="w-32 h-32 object-contain flex-shrink-0" />
+          </div>
+
+          <p className="text-lg text-gray-100 leading-relaxed max-w-3xl">
+            A comprehensive e-commerce and ERP solution combining Odoo inventory management with Shopify storefront,
+            featuring real-time dashboards for tracking sales, inventory, and key business metrics.
+          </p>
+        </section>
 
         {/* Services */}
         <div className="grid md:grid-cols-3 gap-8 mb-24">
