@@ -86,7 +86,7 @@ export default function MazCase() {
 
           {/* Shopify Card */}
           <div className="group bg-white rounded-2xl p-12 border border-gray-200 hover:border-green-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
-            <img src="/images/shopify-logo.svg" alt="Shopify" className="w-20 h-20 object-contain mb-8" />
+            <img src="/images/shopify-logo.svg" alt="Shopify" className="w-full h-40 object-contain mb-8" />
             <h3 className="text-2xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-poppins)' }}>Shopify Store</h3>
             <p className="text-gray-600 leading-relaxed">
               Custom storefront design with seamless Odoo integration, payment gateway setup, and real-time inventory synchronization.
@@ -95,7 +95,7 @@ export default function MazCase() {
 
           {/* Analytics Card */}
           <div className="group bg-white rounded-2xl p-12 border border-gray-200 hover:border-purple-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
-            <img src="/images/superset-logo.svg" alt="Apache Superset" className="w-20 h-20 object-contain mb-8" />
+            <img src="/images/superset-logo.svg" alt="Apache Superset" className="w-full h-40 object-contain mb-8" />
             <h3 className="text-2xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-poppins)' }}>Analytics Dashboard</h3>
             <p className="text-gray-600 leading-relaxed">
               Custom dashboards built with Apache Superset for real-time sales tracking, inventory monitoring, KPI analytics, and interactive reports.
