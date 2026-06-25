@@ -26,15 +26,15 @@ export default function CircularText({
     const handleScroll = () => {
       const current = window.scrollY;
       const delta = Math.abs(current - lastScrollYRef.current);
-      // Gentle multiplier and cap to avoid buzzing
-      const target = 1 + Math.min(delta * 0.004, 1.5);
+      // Faster multiplier for quicker response
+      const target = 1 + Math.min(delta * 0.012, 3);
       targetSpeedRef.current = target;
       lastScrollYRef.current = current;
     };
 
     const tick = () => {
       // Ease towards target speed for smoothness
-      const next = speedRef.current + (targetSpeedRef.current - speedRef.current) * 0.08;
+      const next = speedRef.current + (targetSpeedRef.current - speedRef.current) * 0.15;
       speedRef.current = next;
       // Only update state when change is meaningful to avoid re-render spam
       if (Math.abs(next - scrollSpeed) > 0.01) {
