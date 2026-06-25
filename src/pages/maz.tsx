@@ -95,6 +95,8 @@ export default function MazCase() {
         socialItems={socialItems}
         displaySocials
         displayItemNumbering={false}
+        menuButtonColor="#000"
+        openMenuButtonColor="#000"
       />
 
       {/* Main Content */}
