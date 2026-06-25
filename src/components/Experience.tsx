@@ -121,14 +121,15 @@ const Experience = () => {
     <section
       ref={sectionRef}
       id="experience"
-      className="min-h-screen px-4 py-20 bg-white/50 flex items-center"
+      className="min-h-screen px-4 py-20 bg-[#f1f1f1] flex items-center"
+      aria-labelledby="experience-heading"
     >
       <div className="max-w-7xl mx-auto w-full px-4 sm:px-8 md:px-16 lg:px-24">
         <div className="flex flex-col gap-6 sm:gap-4 mb-12">
           <p className="text-blue-500 text-sm sm:text-base font-medium uppercase tracking-[0.2em]">
             Work Experience
           </p>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-medium text-blue-600 leading-tight">
+          <h2 id="experience-heading" className="text-4xl sm:text-5xl lg:text-6xl font-medium text-blue-600 leading-tight">
             Building products, pipelines, and experiences
           </h2>
           <p className="text-lg sm:text-xl text-gray-700 max-w-3xl">

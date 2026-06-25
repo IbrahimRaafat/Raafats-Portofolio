@@ -1,0 +1,96 @@
+.section {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 5rem 0;
+  z-index: 10;
+}
+
+.container {
+  max-width: 80rem;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 1rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding: 0 2rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0 4rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 0 6rem;
+  }
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 500;
+  color: #3b82f6;
+  margin-bottom: 3rem;
+}
+
+@media (min-width: 640px) {
+  .title {
+    font-size: 3.5rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .title {
+    font-size: 4rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .title {
+    font-size: 4.5rem;
+  }
+}
+
+.projectsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  mix-blend-mode: difference;
+  z-index: 10;
+  color: white;
+  width: 100%;
+}
+
+.projectItem {
+  padding: 1.25rem 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+}
+
+.projectItem:last-child {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.projectItem:hover {
+  opacity: 0.6;
+}
+
+.projectTitle {
+  font-size: 4vw;
+  font-weight: 500;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+@media (max-width: 768px) {
+  .projectTitle {
+    font-size: 8vw;
+  }
+}
