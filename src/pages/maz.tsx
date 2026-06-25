@@ -74,41 +74,29 @@ export default function MazCase() {
         </div>
 
         {/* Services */}
-        <div className="grid md:grid-cols-3 gap-6 mb-20">
+        <div className="grid md:grid-cols-3 gap-8 mb-24">
           {/* Odoo Card */}
-          <div className="group bg-white rounded-2xl p-8 border border-gray-200 hover:border-blue-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
-            <div className="mb-6">
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl flex items-center justify-center mb-4 group-hover:from-blue-100 group-hover:to-blue-200 transition">
-                <img src="/images/odoo-logo.svg" alt="Odoo" className="w-10 h-10 object-contain" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900" style={{ fontFamily: 'var(--font-poppins)' }}>Odoo ERP</h3>
-            </div>
+          <div className="group bg-white rounded-2xl p-12 border border-gray-200 hover:border-blue-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
+            <img src="/images/odoo-logo.svg" alt="Odoo" className="w-20 h-20 object-contain mb-8" />
+            <h3 className="text-2xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-poppins)' }}>Odoo ERP</h3>
             <p className="text-gray-600 leading-relaxed">
               Enterprise resource planning system with inventory management, order processing, multi-warehouse support, and supplier management.
             </p>
           </div>
 
           {/* Shopify Card */}
-          <div className="group bg-white rounded-2xl p-8 border border-gray-200 hover:border-green-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
-            <div className="mb-6">
-              <div className="w-16 h-16 bg-gradient-to-br from-green-50 to-green-100 rounded-xl flex items-center justify-center mb-4 group-hover:from-green-100 group-hover:to-green-200 transition">
-                <img src="/images/shopify-logo.svg" alt="Shopify" className="w-10 h-10 object-contain" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900" style={{ fontFamily: 'var(--font-poppins)' }}>Shopify Store</h3>
-            </div>
+          <div className="group bg-white rounded-2xl p-12 border border-gray-200 hover:border-green-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
+            <img src="/images/shopify-logo.svg" alt="Shopify" className="w-20 h-20 object-contain mb-8" />
+            <h3 className="text-2xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-poppins)' }}>Shopify Store</h3>
             <p className="text-gray-600 leading-relaxed">
               Custom storefront design with seamless Odoo integration, payment gateway setup, and real-time inventory synchronization.
             </p>
           </div>
 
           {/* Analytics Card */}
-          <div className="group bg-white rounded-2xl p-8 border border-gray-200 hover:border-purple-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
-            <div className="mb-6">
-              <div className="w-16 h-16 bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl flex items-center justify-center mb-4 group-hover:from-purple-100 group-hover:to-purple-200 transition">
-                <img src="/images/superset-logo.svg" alt="Apache Superset" className="w-10 h-10 object-contain" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900" style={{ fontFamily: 'var(--font-poppins)' }}>Analytics Dashboard</h3>
-            </div>
+          <div className="group bg-white rounded-2xl p-12 border border-gray-200 hover:border-purple-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
+            <img src="/images/superset-logo.svg" alt="Apache Superset" className="w-20 h-20 object-contain mb-8" />
+            <h3 className="text-2xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-poppins)' }}>Analytics Dashboard</h3>
             <p className="text-gray-600 leading-relaxed">
               Custom dashboards built with Apache Superset for real-time sales tracking, inventory monitoring, KPI analytics, and interactive reports.
             </p>
