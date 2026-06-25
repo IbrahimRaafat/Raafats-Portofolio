@@ -180,7 +180,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
                 <span className="whitespace-nowrap uppercase font-normal text-[4vh] leading-[1] px-[1vw]">{text}</span>
               )}
               <div
-                className="w-[280px] h-[10vh] my-[2em] mx-[2vw] py-[1em] bg-contain bg-no-repeat bg-center"
+                className="w-[400px] h-[15vh] my-[2em] mx-[2vw] py-[1em] bg-contain bg-no-repeat bg-center"
                 style={{ backgroundImage: `url(${image})` }}
               />
             </div>
