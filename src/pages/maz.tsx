@@ -1,11 +1,17 @@
 import Head from "next/head";
-import { Inter } from "next/font/google";
+import { Inter, Poppins } from "next/font/google";
 import Link from "next/link";
 import { useState } from "react";
 
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
+});
+
+const poppins = Poppins({
+  weight: ['400', '500', '600', '700'],
+  subsets: ["latin"],
+  variable: "--font-poppins",
 });
 
 export default function MazCase() {
@@ -36,7 +42,7 @@ export default function MazCase() {
   };
 
   return (
-    <div className={`${inter.variable} font-sans bg-[#f1f1f1] min-h-screen`}>
+    <div className={`${inter.variable} ${poppins.variable} font-sans bg-[#f1f1f1] min-h-screen`}>
       <Head>
         <title>Maz Mrkt | Ibrahim Raafat</title>
         <meta name="description" content="Odoo ERP & Shopify e-commerce solution for Maz Mrkt" />
@@ -45,7 +51,7 @@ export default function MazCase() {
       {/* Header */}
       <header className="bg-white border-b border-gray-200">
         <div className="max-w-4xl mx-auto px-6 py-6 flex items-center justify-between">
-          <Link href="/" className="text-sm font-semibold text-blue-600 hover:text-blue-700">
+          <Link href="/" className="text-sm font-semibold text-blue-600 hover:text-blue-700 transition">
             ← Back
           </Link>
           <div className="w-24 h-10 bg-contain bg-no-repeat bg-center" style={{ backgroundImage: 'url(/images/maz-logo.svg)' }} />
@@ -53,47 +59,76 @@ export default function MazCase() {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-4xl mx-auto px-6 py-16">
-        <div className="mb-16">
-          <div className="inline-block px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-semibold mb-4">
-            E-Commerce & ERP
+      <main className="max-w-5xl mx-auto px-6 py-16">
+        <div className="mb-20">
+          <div className="inline-block px-4 py-1.5 bg-gradient-to-r from-blue-100 to-blue-50 text-blue-700 rounded-full text-xs font-semibold mb-6 border border-blue-200">
+            E-Commerce & ERP Solution
           </div>
-          <h1 className="text-5xl font-bold text-gray-900 mb-6">Maz Mrkt</h1>
-          <p className="text-lg text-gray-600 leading-relaxed">
+          <h1 className="text-6xl font-bold text-gray-900 mb-6" style={{ fontFamily: 'var(--font-poppins)' }}>
+            Maz Mrkt
+          </h1>
+          <p className="text-lg text-gray-600 leading-relaxed max-w-2xl">
             A comprehensive e-commerce and ERP solution combining Odoo inventory management with Shopify storefront,
             featuring real-time dashboards for tracking sales, inventory, and key business metrics.
           </p>
         </div>
 
         {/* Services */}
-        <div className="grid md:grid-cols-3 gap-8 mb-16">
-          <div className="bg-white rounded-lg p-6 border border-gray-200">
-            <h3 className="text-lg font-bold text-gray-900 mb-3">Odoo ERP</h3>
-            <p className="text-gray-600 text-sm">Inventory management, order processing, multi-warehouse support, and supplier management system.</p>
+        <div className="grid md:grid-cols-3 gap-6 mb-20">
+          {/* Odoo Card */}
+          <div className="group bg-white rounded-2xl p-8 border border-gray-200 hover:border-blue-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
+            <div className="mb-6">
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl flex items-center justify-center mb-4 group-hover:from-blue-100 group-hover:to-blue-200 transition">
+                <img src="/images/odoo-logo.svg" alt="Odoo" className="w-10 h-10 object-contain" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900" style={{ fontFamily: 'var(--font-poppins)' }}>Odoo ERP</h3>
+            </div>
+            <p className="text-gray-600 leading-relaxed">
+              Enterprise resource planning system with inventory management, order processing, multi-warehouse support, and supplier management.
+            </p>
           </div>
 
-          <div className="bg-white rounded-lg p-6 border border-gray-200">
-            <h3 className="text-lg font-bold text-gray-900 mb-3">Shopify Store</h3>
-            <p className="text-gray-600 text-sm">Custom storefront design with seamless Odoo integration, payment gateway setup, and real-time inventory sync.</p>
+          {/* Shopify Card */}
+          <div className="group bg-white rounded-2xl p-8 border border-gray-200 hover:border-green-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
+            <div className="mb-6">
+              <div className="w-16 h-16 bg-gradient-to-br from-green-50 to-green-100 rounded-xl flex items-center justify-center mb-4 group-hover:from-green-100 group-hover:to-green-200 transition">
+                <span className="text-2xl">🛍️</span>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900" style={{ fontFamily: 'var(--font-poppins)' }}>Shopify Store</h3>
+            </div>
+            <p className="text-gray-600 leading-relaxed">
+              Custom storefront design with seamless Odoo integration, payment gateway setup, and real-time inventory synchronization.
+            </p>
           </div>
 
-          <div className="bg-white rounded-lg p-6 border border-gray-200">
-            <h3 className="text-lg font-bold text-gray-900 mb-3">Analytics Dashboard</h3>
-            <p className="text-gray-600 text-sm">Real-time sales tracking, inventory monitoring, KPI dashboards, and custom reports for data-driven decisions.</p>
+          {/* Analytics Card */}
+          <div className="group bg-white rounded-2xl p-8 border border-gray-200 hover:border-purple-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
+            <div className="mb-6">
+              <div className="w-16 h-16 bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl flex items-center justify-center mb-4 group-hover:from-purple-100 group-hover:to-purple-200 transition">
+                <span className="text-2xl">📊</span>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900" style={{ fontFamily: 'var(--font-poppins)' }}>Analytics</h3>
+            </div>
+            <p className="text-gray-600 leading-relaxed">
+              Real-time dashboards for sales tracking, inventory monitoring, KPI analytics, and custom reports for data-driven decisions.
+            </p>
           </div>
         </div>
 
         {/* Contact Form */}
-        <div className="bg-white rounded-lg p-8 border border-gray-200">
-          <h2 className="text-2xl font-bold text-gray-900 mb-6">Get in Touch</h2>
+        <div className="bg-white rounded-2xl p-10 border border-gray-200 shadow-sm">
+          <h2 className="text-4xl font-bold text-gray-900 mb-2" style={{ fontFamily: 'var(--font-poppins)' }}>
+            Interested?
+          </h2>
+          <p className="text-gray-600 mb-8">Let's discuss your project. Fill out the form below and I'll get back to you shortly.</p>
 
           {submitted && (
-            <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg text-green-700">
-              Thanks for reaching out! I'll be in touch soon.
+            <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg text-green-700 font-medium">
+              ✓ Thanks for reaching out! I'll be in touch soon.
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-5">
             <div>
               <label className="block text-sm font-semibold text-gray-900 mb-2">Name</label>
               <input
@@ -102,7 +137,7 @@ export default function MazCase() {
                 value={formData.name}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition"
                 placeholder="Your name"
               />
             </div>
@@ -115,7 +150,7 @@ export default function MazCase() {
                 value={formData.email}
                 onChange={handleChange}
                 required
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition"
                 placeholder="your@email.com"
               />
             </div>
@@ -128,14 +163,14 @@ export default function MazCase() {
                 onChange={handleChange}
                 required
                 rows={5}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
+                className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent transition resize-none"
                 placeholder="Tell me about your project..."
               />
             </div>
 
             <button
               type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition"
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition duration-200 transform hover:scale-105"
             >
               Send Message
             </button>
