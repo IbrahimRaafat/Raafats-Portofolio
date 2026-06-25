@@ -15,9 +15,19 @@ const poppins = Poppins({
   variable: "--font-poppins",
 });
 
-export default function MazCase() {
+export default function CoinsClothCase() {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [submitted, setSubmitted] = useState(false);
+
+  const menuItems = [
+    { label: 'Home', ariaLabel: 'Go to home page', link: '/' },
+    { label: 'Back', ariaLabel: 'Go back', link: '/' },
+  ];
+
+  const socialItems = [
+    { label: 'GitHub', link: 'https://github.com/IbrahimRaafat' },
+    { label: 'LinkedIn', link: 'https://linkedin.com/in/ibrahimraafat2000/' },
+  ];
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
@@ -42,21 +52,11 @@ export default function MazCase() {
     }
   };
 
-  const menuItems = [
-    { label: 'Home', ariaLabel: 'Go to home page', link: '/' },
-    { label: 'Back', ariaLabel: 'Go back', link: '/' },
-  ];
-
-  const socialItems = [
-    { label: 'GitHub', link: 'https://github.com/IbrahimRaafat' },
-    { label: 'LinkedIn', link: 'https://linkedin.com/in/ibrahimraafat2000/' },
-  ];
-
   return (
     <div className={`${inter.variable} ${poppins.variable} font-sans min-h-screen relative overflow-hidden`}>
       <Head>
-        <title>Maz Mrkt | Ibrahim Raafat</title>
-        <meta name="description" content="Odoo ERP & Shopify e-commerce solution for Maz Mrkt" />
+        <title>Coins & Cloth | Ibrahim Raafat</title>
+        <meta name="description" content="E-commerce platform with custom dashboards and workflow automation" />
       </Head>
 
       {/* Grainient Background */}
@@ -104,19 +104,17 @@ export default function MazCase() {
         {/* Title & Description Section */}
         <section className="mb-20 pt-20 px-12 py-16 rounded-3xl backdrop-blur-md bg-white/10 border border-white/20">
           <div className="inline-block px-4 py-1.5 bg-gradient-to-r from-blue-100 to-blue-50 text-blue-700 rounded-full text-xs font-semibold mb-6 border border-blue-200">
-            E-Commerce & ERP Solution
+            E-Commerce & Automation
           </div>
 
           <div className="flex items-center justify-between gap-8 mb-8">
             <h1 className="text-6xl font-bold text-gray-900" style={{ fontFamily: 'var(--font-poppins)' }}>
-              Maz Mrkt
+              Coins & Cloth
             </h1>
-            <img src="/images/maz-logo.svg" alt="Maz Mrkt" className="w-32 h-32 object-contain flex-shrink-0" />
           </div>
 
           <p className="text-lg text-gray-700 leading-relaxed max-w-3xl">
-            A comprehensive e-commerce and ERP solution combining Odoo inventory management with Shopify storefront,
-            featuring real-time dashboards for tracking sales, inventory, and key business metrics.
+            A complete e-commerce platform with custom dashboards for real-time insights, automated workflows with n8n integration, and Slack notifications for seamless operations and business intelligence.
           </p>
         </section>
 
@@ -124,32 +122,32 @@ export default function MazCase() {
         <div className="px-12 py-16 rounded-3xl backdrop-blur-md bg-white/10 border border-white/20 mb-20">
           {/* Services Grid */}
           <div className="grid md:grid-cols-3 gap-8">
-          {/* Odoo Card */}
-          <div className="group bg-white rounded-2xl p-12 border border-gray-200 hover:border-blue-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
-            <img src="/images/odoo-logo.svg" alt="Odoo" className="w-full h-40 object-contain mb-8" />
-            <h3 className="text-2xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-poppins)' }}>Odoo ERP</h3>
-            <p className="text-gray-600 leading-relaxed">
-              Enterprise resource planning system with inventory management, order processing, multi-warehouse support, and supplier management.
-            </p>
-          </div>
+            {/* Dashboard Card */}
+            <div className="group bg-white rounded-2xl p-12 border border-gray-200 hover:border-blue-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <div className="w-full h-40 flex items-center justify-center mb-8 text-5xl">📊</div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-poppins)' }}>Custom Dashboards</h3>
+              <p className="text-gray-600 leading-relaxed">
+                Real-time dashboards with notifications, KPI tracking, sales analytics, and automated reports for data-driven business decisions.
+              </p>
+            </div>
 
-          {/* Custom Dashboards Card */}
-          <div className="group bg-white rounded-2xl p-12 border border-gray-200 hover:border-purple-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
-            <div className="w-full h-40 flex items-center justify-center mb-8 text-4xl">📊</div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-poppins)' }}>Custom Dashboards</h3>
-            <p className="text-gray-600 leading-relaxed">
-              Real-time dashboards with notifications and automated reports for sales tracking, inventory monitoring, KPI analytics, and business intelligence.
-            </p>
-          </div>
+            {/* Automation Card */}
+            <div className="group bg-white rounded-2xl p-12 border border-gray-200 hover:border-purple-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <div className="w-full h-40 flex items-center justify-center mb-8 text-5xl">⚙️</div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-poppins)' }}>n8n Workflows</h3>
+              <p className="text-gray-600 leading-relaxed">
+                Automated workflows connecting e-commerce systems with business processes, reducing manual tasks and improving efficiency.
+              </p>
+            </div>
 
-          {/* n8n & Slack Card */}
-          <div className="group bg-white rounded-2xl p-12 border border-gray-200 hover:border-orange-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
-            <div className="w-full h-40 flex items-center justify-center mb-8 text-4xl">⚙️</div>
-            <h3 className="text-2xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-poppins)' }}>n8n & Slack</h3>
-            <p className="text-gray-600 leading-relaxed">
-              Workflow automation and Slack integrations for streamlined operations, automated notifications, and real-time communication between systems.
-            </p>
-          </div>
+            {/* Slack Integration Card */}
+            <div className="group bg-white rounded-2xl p-12 border border-gray-200 hover:border-pink-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <div className="w-full h-40 flex items-center justify-center mb-8 text-5xl">💬</div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-poppins)' }}>Slack Notifications</h3>
+              <p className="text-gray-600 leading-relaxed">
+                Real-time Slack notifications for orders, inventory alerts, dashboard updates, and automated reports keeping the team informed.
+              </p>
+            </div>
           </div>
         </div>
 
