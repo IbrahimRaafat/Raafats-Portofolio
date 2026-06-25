@@ -106,10 +106,7 @@ const socialItems = [
 ];
 
 const projects = [
-  { link: 'https://www.mazmrkt.com', text: 'Maz Mrkt', image: '/images/project1.png' },
-  { link: '#', text: 'Project 2', image: '/images/project2.png' },
-  { link: '#', text: 'Project 3', image: '/images/project3.png' },
-  { link: '#', text: 'Project 4', image: '/images/project4.png' },
+  { link: 'https://www.mazmrkt.com', text: 'Maz Mrkt', image: '/images/maz-asset.png' },
 ];
 
 export default function Home() {
