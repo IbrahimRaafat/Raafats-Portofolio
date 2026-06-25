@@ -2,6 +2,7 @@ import Head from "next/head";
 import { Inter, Poppins } from "next/font/google";
 import { useState } from "react";
 import StaggeredMenu from "@/components/StaggeredMenu";
+import Grainient from "@/components/Grainient";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -68,23 +69,56 @@ export default function MazCase() {
         displayItemNumbering={false}
       />
 
-      {/* Main Content */}
-      <main className="max-w-5xl mx-auto px-6 py-16">
-        <div className="mb-20">
-          <div className="inline-block px-4 py-1.5 bg-gradient-to-r from-blue-100 to-blue-50 text-blue-700 rounded-full text-xs font-semibold mb-6 border border-blue-200">
-            E-Commerce & ERP Solution
+      {/* Hero Section with Grainient Background */}
+      <section className="min-h-screen flex items-center justify-center px-4 relative overflow-hidden">
+        <div className="absolute inset-0 w-full h-full">
+          <Grainient
+            color1="#a6a6a6"
+            color2="#ebebec"
+            color3="#555555"
+            timeSpeed={0.25}
+            colorBalance={0}
+            warpStrength={1}
+            warpFrequency={5}
+            warpSpeed={2}
+            warpAmplitude={50}
+            blendAngle={0}
+            blendSoftness={0.05}
+            rotationAmount={500}
+            noiseScale={2}
+            grainAmount={0.1}
+            grainScale={2}
+            grainAnimated={false}
+            contrast={1.5}
+            gamma={1}
+            saturation={1}
+            centerX={0}
+            centerY={0}
+            zoom={0.9}
+          />
+        </div>
+
+        <div className="max-w-5xl mx-auto px-6 relative z-10 text-center">
+          <div className="mb-8">
+            <div className="inline-block px-4 py-1.5 bg-gradient-to-r from-blue-100 to-blue-50 text-blue-700 rounded-full text-xs font-semibold mb-6 border border-blue-200">
+              E-Commerce & ERP Solution
+            </div>
           </div>
-          <div className="flex items-center justify-between gap-6">
-            <h1 className="text-6xl font-bold text-gray-900" style={{ fontFamily: 'var(--font-poppins)' }}>
+          <div className="flex flex-col items-center justify-center gap-6">
+            <h1 className="text-7xl font-bold text-white" style={{ fontFamily: 'var(--font-poppins)' }}>
               Maz Mrkt
             </h1>
-            <img src="/images/maz-logo.svg" alt="Maz Mrkt" className="w-32 h-32 object-contain flex-shrink-0" />
+            <img src="/images/maz-logo.svg" alt="Maz Mrkt" className="w-40 h-40 object-contain" />
           </div>
-          <p className="text-lg text-gray-600 leading-relaxed max-w-2xl">
+          <p className="text-lg text-gray-100 leading-relaxed max-w-2xl mx-auto mt-8">
             A comprehensive e-commerce and ERP solution combining Odoo inventory management with Shopify storefront,
             featuring real-time dashboards for tracking sales, inventory, and key business metrics.
           </p>
         </div>
+      </section>
+
+      {/* Main Content */}
+      <main className="max-w-5xl mx-auto px-6 py-16 bg-[#f1f1f1]">
 
         {/* Services */}
         <div className="grid md:grid-cols-3 gap-8 mb-24">
