@@ -1,27 +1,13 @@
-export const projects = [
+interface Project {
+  title: string;
+  src: string;
+  logo: string;
+}
+
+export const projects: Project[] = [
   {
     title: "Maz Mrkt",
-    src: "/images/project1.png",
+    src: "/images/maz-asset.png",
     logo: "Maz Mrkt",
-  },
-  {
-    title: "Project 2",
-    src: "/images/project2.png",
-    logo: "Project 2",
-  },
-  {
-    title: "Project 3",
-    src: "/images/project3.png",
-    logo: "Project 3",
-  },
-  {
-    title: "Project 4",
-    src: "/images/project4.png",
-    logo: "Project 4",
-  },
-  {
-    title: "Project 5",
-    src: "/images/project5.png",
-    logo: "Project 5",
   },
 ];
