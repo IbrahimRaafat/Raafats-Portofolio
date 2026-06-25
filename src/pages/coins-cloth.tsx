@@ -133,7 +133,8 @@ export default function CoinsClothCase() {
 
             {/* Automation Card */}
             <div className="group bg-white rounded-2xl p-12 border border-gray-200 hover:border-purple-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
-              <div className="w-full h-40 flex items-center justify-center mb-8 text-5xl">⚙️</div>
+              <img src="/images/coins-cloth-logo.png" alt="Coins & Cloth" className="w-full h-40 object-contain mb-8 group-hover:block hidden" />
+              <div className="w-full h-40 flex items-center justify-center mb-8 text-5xl group-hover:hidden">⚙️</div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-poppins)' }}>n8n Workflows</h3>
               <p className="text-gray-600 leading-relaxed">
                 Automated workflows connecting e-commerce systems with business processes, reducing manual tasks and improving efficiency.
