@@ -44,7 +44,10 @@ export default function MazCase() {
 
   const menuItems = [
     { label: 'Home', ariaLabel: 'Go to home page', link: '/' },
-    { label: 'Back', ariaLabel: 'Go back', link: '/' },
+    { label: 'Experience', ariaLabel: 'View experience', link: '/#experience' },
+    { label: 'Projects', ariaLabel: 'View projects', link: '/#projects' },
+    { label: 'Blog', ariaLabel: 'Read blog', link: 'https://blog.ibrahimraafat.com' },
+    { label: 'Contact', ariaLabel: 'Get in touch', link: '/#contact' },
   ];
 
   const socialItems = [
