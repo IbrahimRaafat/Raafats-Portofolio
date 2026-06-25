@@ -106,13 +106,13 @@ export default function MazCase() {
           </div>
 
           <div className="flex items-center justify-between gap-8 mb-8">
-            <h1 className="text-6xl font-bold text-white" style={{ fontFamily: 'var(--font-poppins)' }}>
+            <h1 className="text-6xl font-bold text-gray-900" style={{ fontFamily: 'var(--font-poppins)' }}>
               Maz Mrkt
             </h1>
             <img src="/images/maz-logo.svg" alt="Maz Mrkt" className="w-32 h-32 object-contain flex-shrink-0" />
           </div>
 
-          <p className="text-lg text-gray-100 leading-relaxed max-w-3xl">
+          <p className="text-lg text-gray-700 leading-relaxed max-w-3xl">
             A comprehensive e-commerce and ERP solution combining Odoo inventory management with Shopify storefront,
             featuring real-time dashboards for tracking sales, inventory, and key business metrics.
           </p>
