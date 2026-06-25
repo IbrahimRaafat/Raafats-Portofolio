@@ -1,7 +1,7 @@
 export const projects = [
   {
     title: "Maz Mrkt",
-    src: "/images/maz-asset.svg",
+    src: "/images/maz-asset.png",
     logo: "Maz Mrkt",
   },
   {
