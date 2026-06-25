@@ -143,7 +143,7 @@ export default function CoinsClothCase() {
             {/* Slack Integration Card */}
             <div className="group bg-white rounded-2xl p-12 border border-gray-200 hover:border-pink-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
               <img src="/images/slack-logo.svg" alt="Slack" className="w-full h-40 object-contain mb-8" />
-              <h3 className="text-2xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-poppins)' }}>Slack Notifications</h3>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-poppins)' }}>Slack Integrations</h3>
               <p className="text-black leading-relaxed">
                 Real-time Slack notifications for orders, inventory alerts, dashboard updates, and automated reports keeping the team informed.
               </p>
