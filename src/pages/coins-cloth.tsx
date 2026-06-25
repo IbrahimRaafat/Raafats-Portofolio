@@ -131,12 +131,12 @@ export default function CoinsClothCase() {
               </p>
             </div>
 
-            {/* Automation Card */}
-            <div className="group bg-white rounded-2xl p-12 border border-gray-200 hover:border-purple-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
-              <div className="w-full h-40 flex items-center justify-center mb-8 text-5xl">⚙️</div>
-              <h3 className="text-2xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-poppins)' }}>n8n Workflows</h3>
+            {/* Odoo ERP Card */}
+            <div className="group bg-white rounded-2xl p-12 border border-gray-200 hover:border-blue-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <img src="/images/odoo-logo.svg" alt="Odoo" className="w-full h-40 object-contain mb-8" />
+              <h3 className="text-2xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-poppins)' }}>Odoo ERP</h3>
               <p className="text-black leading-relaxed">
-                Automated workflows connecting e-commerce systems with business processes, reducing manual tasks and improving efficiency.
+                Enterprise resource planning system with inventory management, order processing, multi-warehouse support, and supplier management.
               </p>
             </div>
 
