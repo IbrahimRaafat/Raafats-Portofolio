@@ -77,7 +77,7 @@ export default function MazCase() {
         <div className="grid md:grid-cols-3 gap-8 mb-24">
           {/* Odoo Card */}
           <div className="group bg-white rounded-2xl p-12 border border-gray-200 hover:border-blue-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
-            <img src="/images/odoo-logo.svg" alt="Odoo" className="w-20 h-20 object-contain mb-8" />
+            <img src="/images/odoo-logo.svg" alt="Odoo" className="w-full h-40 object-contain mb-8" />
             <h3 className="text-2xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-poppins)' }}>Odoo ERP</h3>
             <p className="text-gray-600 leading-relaxed">
               Enterprise resource planning system with inventory management, order processing, multi-warehouse support, and supplier management.
