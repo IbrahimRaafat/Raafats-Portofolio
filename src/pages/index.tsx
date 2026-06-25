@@ -106,7 +106,7 @@ const socialItems = [
 ];
 
 const projects = [
-  { link: 'https://www.mazmrkt.com', text: 'Maz Mrkt', logo: '/images/maz-logo.svg', image: '/images/project1.png' },
+  { link: '/maz', text: 'Maz Mrkt', logo: '/images/maz-logo.svg', image: '/images/project1.png' },
   { link: '#', text: 'Project 2', image: '/images/project2.png' },
   { link: '#', text: 'Project 3', image: '/images/project3.png' },
   { link: '#', text: 'Project 4', image: '/images/project4.png' },
