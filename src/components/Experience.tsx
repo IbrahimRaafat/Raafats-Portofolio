@@ -138,9 +138,24 @@ const Experience = () => {
             <a
               href="/resume.pdf"
               download="Ibrahim_Raafat_Resume.pdf"
-              className="flex-shrink-0 px-4 py-2 sm:px-6 sm:py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg transition duration-200 transform hover:scale-105 whitespace-nowrap text-sm sm:text-base"
+              className="flex-shrink-0 flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold transition duration-200 whitespace-nowrap text-sm sm:text-base group"
             >
-              Download CV
+              Download Resume
+              <svg
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="group-hover:translate-y-1 transition-transform"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
             </a>
           </div>
           <p className="text-lg sm:text-xl text-gray-700 max-w-3xl">
