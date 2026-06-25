@@ -102,7 +102,7 @@ export default function CoinsClothCase() {
       {/* Main Content */}
       <main className="max-w-5xl mx-auto px-6 py-20 relative z-10">
         {/* Title & Description Section */}
-        <section className="mb-20 pt-20 px-12 py-16 rounded-3xl backdrop-blur-md bg-white/10 border border-white/20">
+        <section className="mb-20 pt-20 px-12 py-16 rounded-3xl backdrop-blur-lg bg-white/30 border border-white/40">
           <div className="inline-block px-4 py-1.5 backdrop-blur-md bg-white/20 text-black rounded-full text-xs font-semibold mb-6 border border-white/30">
             ERP & AI Automation
           </div>
@@ -118,12 +118,10 @@ export default function CoinsClothCase() {
           </p>
         </section>
 
-        {/* Services Container */}
-        <div className="px-12 py-16 rounded-3xl backdrop-blur-md bg-white/10 border border-white/20 mb-20">
-          {/* Services Grid */}
-          <div className="grid md:grid-cols-3 gap-8">
-            {/* Dashboard Card */}
-            <div className="group bg-white rounded-2xl p-12 border border-gray-200 hover:border-blue-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
+        {/* Services Grid */}
+        <div className="grid md:grid-cols-3 gap-8 mb-20">
+          {/* Dashboard Card */}
+          <div className="group rounded-2xl p-12 backdrop-blur-lg bg-white/30 border border-white/40 hover:border-white/50 hover:shadow-xl transition-all duration-300 hover:scale-105">
               <img src="/images/charts-icon.png" alt="Charts" className="w-full h-40 object-cover mb-8 rounded-3xl" />
               <h3 className="text-2xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-poppins)' }}>Custom Dashboards</h3>
               <p className="text-black leading-relaxed">
@@ -131,8 +129,8 @@ export default function CoinsClothCase() {
               </p>
             </div>
 
-            {/* Odoo ERP Card */}
-            <div className="group bg-white rounded-2xl p-12 border border-gray-200 hover:border-blue-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
+          {/* Odoo ERP Card */}
+          <div className="group rounded-2xl p-12 backdrop-blur-lg bg-white/30 border border-white/40 hover:border-white/50 hover:shadow-xl transition-all duration-300 hover:scale-105">
               <img src="/images/odoo-logo.svg" alt="Odoo" className="w-full h-40 object-contain mb-8" />
               <h3 className="text-2xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-poppins)' }}>Odoo ERP</h3>
               <p className="text-black leading-relaxed">
@@ -140,15 +138,14 @@ export default function CoinsClothCase() {
               </p>
             </div>
 
-            {/* Slack Integration Card */}
-            <div className="group bg-white rounded-2xl p-12 border border-gray-200 hover:border-pink-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
+          {/* Slack Integration Card */}
+          <div className="group rounded-2xl p-12 backdrop-blur-lg bg-white/30 border border-white/40 hover:border-white/50 hover:shadow-xl transition-all duration-300 hover:scale-105">
               <img src="/images/slack-logo.svg" alt="Slack" className="w-full h-40 object-contain mb-8" />
               <h3 className="text-2xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-poppins)' }}>Slack Integrations</h3>
               <p className="text-black leading-relaxed">
                 Real-time Slack notifications for orders, inventory alerts, dashboard updates, and automated reports keeping the team informed.
               </p>
             </div>
-          </div>
         </div>
 
         {/* Contact Form */}
