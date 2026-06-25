@@ -149,7 +149,7 @@ export default function CoinsClothCase() {
         </div>
 
         {/* Contact Form */}
-        <div className="bg-white rounded-2xl p-10 border border-gray-200 shadow-sm">
+        <div className="rounded-2xl p-10 backdrop-blur-lg bg-white/30 border border-white/40">
           <h2 className="text-4xl font-bold text-gray-900 mb-2" style={{ fontFamily: 'var(--font-poppins)' }}>
             Interested?
           </h2>
@@ -203,7 +203,10 @@ export default function CoinsClothCase() {
 
             <button
               type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-lg transition duration-200 transform hover:scale-105"
+              className="w-full text-white font-semibold py-3 rounded-lg transition duration-200 transform hover:scale-105"
+              style={{ backgroundColor: '#4d020e' }}
+              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#6a032e'}
+              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#4d020e'}
             >
               Send Message
             </button>
