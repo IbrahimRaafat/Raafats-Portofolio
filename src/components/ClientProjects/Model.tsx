@@ -9,6 +9,7 @@ import useDimension from "./useDimension";
 import { projects } from "./data";
 
 interface ShaderUniforms {
+  [uniform: string]: THREE.IUniform;
   uDelta: { value: { x: number; y: number } };
   uAmplitude: { value: number };
   uTexture: { value: THREE.Texture };
