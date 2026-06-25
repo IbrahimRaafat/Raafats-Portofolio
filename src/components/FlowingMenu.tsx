@@ -153,7 +153,7 @@ const MenuItem: React.FC<MenuItemProps> = ({
 
   return (
     <div
-      className="relative overflow-hidden text-center min-h-[140px] md:min-h-[160px] lg:min-h-[200px]"
+      className="relative overflow-hidden text-center min-h-[105px] md:min-h-[120px] lg:min-h-[150px]"
       ref={itemRef}
       style={{ borderTop: isFirst ? 'none' : `1px solid ${borderColor}` }}
     >
