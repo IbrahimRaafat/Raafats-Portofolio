@@ -105,12 +105,12 @@ export default function MazCase() {
           <div className="group bg-white rounded-2xl p-8 border border-gray-200 hover:border-purple-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
             <div className="mb-6">
               <div className="w-16 h-16 bg-gradient-to-br from-purple-50 to-purple-100 rounded-xl flex items-center justify-center mb-4 group-hover:from-purple-100 group-hover:to-purple-200 transition">
-                <span className="text-2xl">📊</span>
+                <img src="/images/superset-logo.svg" alt="Apache Superset" className="w-10 h-10 object-contain" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900" style={{ fontFamily: 'var(--font-poppins)' }}>Analytics</h3>
+              <h3 className="text-2xl font-bold text-gray-900" style={{ fontFamily: 'var(--font-poppins)' }}>Analytics Dashboard</h3>
             </div>
             <p className="text-gray-600 leading-relaxed">
-              Real-time dashboards for sales tracking, inventory monitoring, KPI analytics, and custom reports for data-driven decisions.
+              Custom dashboards built with Apache Superset for real-time sales tracking, inventory monitoring, KPI analytics, and interactive reports.
             </p>
           </div>
         </div>
