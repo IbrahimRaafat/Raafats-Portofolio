@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from "next"
-import nodemailer from "nodemailer"
+import { Resend } from "resend"
 
-// Basic schema for the expected payload
 interface ContactPayload {
   name?: string
   email?: string
@@ -13,12 +12,11 @@ interface ApiResponse {
   message: string
 }
 
-const requiredEnv = ["SMTP_HOST", "SMTP_PORT", "SMTP_USER", "SMTP_PASS", "FROM_EMAIL", "TO_EMAIL"]
+const resend = new Resend(process.env.RESEND_API_KEY)
 
 function validateEnv() {
-  const missing = requiredEnv.filter((key) => !process.env[key])
-  if (missing.length) {
-    throw new Error(`Missing SMTP env vars: ${missing.join(", ")}`)
+  if (!process.env.RESEND_API_KEY || !process.env.TO_EMAIL) {
+    throw new Error("Missing required env vars: RESEND_API_KEY, TO_EMAIL")
   }
 }
 
@@ -43,22 +41,18 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
     const { name, email, message } = req.body as ContactPayload
 
-    const transporter = nodemailer.createTransport({
-      host: process.env.SMTP_HOST,
-      port: Number(process.env.SMTP_PORT) || 587,
-      secure: process.env.SMTP_SECURE === "true",
-      auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-      },
-    })
-
-    await transporter.sendMail({
-      from: process.env.FROM_EMAIL,
-      to: process.env.TO_EMAIL,
+    await resend.emails.send({
+      from: "Contact Form <onboarding@resend.dev>",
+      to: process.env.TO_EMAIL!,
       replyTo: email,
       subject: `New contact from ${name}`,
-      text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
+      html: `
+        <h2>New Contact Form Submission</h2>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Message:</strong></p>
+        <p>${message.replace(/\n/g, "<br>")}</p>
+      `,
     })
 
     return res.status(200).json({ success: true, message: "Message sent successfully." })
