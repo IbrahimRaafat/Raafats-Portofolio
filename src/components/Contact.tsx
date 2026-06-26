@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Mail, Github, Linkedin } from 'lucide-react'
+import { Mail, Github, Linkedin, CheckCircle, AlertCircle } from 'lucide-react'
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -165,14 +165,40 @@ const Contact = () => {
               </button>
 
               {status.state !== 'idle' && (
-                <p
-                  className={`text-sm ${
-                    status.state === 'success' ? 'text-green-200' : 'text-red-200'
+                <div
+                  className={`flex items-start gap-3 p-4 rounded-lg text-sm font-medium transition-all duration-300 ${
+                    status.state === 'success'
+                      ? 'bg-green-50 border border-green-200 text-green-800'
+                      : status.state === 'error'
+                      ? 'bg-red-50 border border-red-200 text-red-800'
+                      : ''
                   }`}
+                  style={{
+                    animation: 'slideUp 0.3s ease-out',
+                    opacity: 1
+                  }}
                   aria-live="polite"
+                  role="alert"
                 >
-                  {status.message}
-                </p>
+                  <style>{`
+                    @keyframes slideUp {
+                      from {
+                        opacity: 0;
+                        transform: translateY(10px);
+                      }
+                      to {
+                        opacity: 1;
+                        transform: translateY(0);
+                      }
+                    }
+                  `}</style>
+                  {status.state === 'success' ? (
+                    <CheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5 text-green-600" />
+                  ) : status.state === 'error' ? (
+                    <AlertCircle className="w-5 h-5 flex-shrink-0 mt-0.5 text-red-600" />
+                  ) : null}
+                  <span>{status.message}</span>
+                </div>
               )}
             </form>
           </div>
