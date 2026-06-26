@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import { useEffect, useState } from "react";
 import Lenis from "lenis";
 import LoadingScreen from "@/components/LoadingScreen";
+import { Analytics } from "@vercel/analytics/next";
 
 export default function App({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState(true);
@@ -35,6 +36,7 @@ export default function App({ Component, pageProps }: AppProps) {
         Skip to main content
       </a>
       <Component {...pageProps} />
+      <Analytics />
     </>
   );
 }
