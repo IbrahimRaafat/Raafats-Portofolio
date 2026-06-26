@@ -129,12 +129,8 @@ export default function KolrPerfumes() {
           <div className="group bg-white rounded-2xl p-12 border border-gray-200 hover:border-indigo-300 hover:shadow-2xl transition-all duration-300 hover:scale-105">
             <div className="flex items-center gap-12">
               {/* Logo Section */}
-              <div className="flex-shrink-0 min-w-fit">
-                <div className="w-48 h-48 flex items-center justify-center bg-gradient-to-br from-indigo-50 to-blue-50 rounded-xl">
-                  <svg className="w-24 h-24 text-indigo-600" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M12 0C5.37 0 0 5.37 0 12s5.37 12 12 12 12-5.37 12-12S18.63 0 12 0zm0 22c-5.52 0-10-4.48-10-10S6.48 2 12 2s10 4.48 10 10-4.48 10-10 10zm3.71-10c0 2.04-1.67 3.71-3.71 3.71S8.29 14.04 8.29 12 9.96 8.29 12 8.29s3.71 1.67 3.71 3.71z"/>
-                  </svg>
-                </div>
+              <div className="flex-shrink-0">
+                <img src="/images/shopify-logo.svg" alt="Shopify" className="w-48 h-48 object-contain" />
               </div>
 
               {/* Content Section */}
@@ -148,7 +144,7 @@ export default function KolrPerfumes() {
                   Multi-currency support and mobile optimization ensure accessibility for global customers.
                 </p>
                 <a
-                  href="https://kolr-perfumes.shopify.com"
+                  href="https://kolr.store"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-block px-8 py-3 bg-gradient-to-r from-indigo-600 to-blue-600 text-white font-semibold rounded-lg hover:shadow-lg transition-all duration-300 transform hover:scale-105"
