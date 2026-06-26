@@ -44,14 +44,14 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     await resend.emails.send({
       from: "Contact Form <onboarding@resend.dev>",
       to: process.env.TO_EMAIL!,
-      replyTo: email,
+      replyTo: email!,
       subject: `New contact from ${name}`,
       html: `
         <h2>New Contact Form Submission</h2>
         <p><strong>Name:</strong> ${name}</p>
         <p><strong>Email:</strong> ${email}</p>
         <p><strong>Message:</strong></p>
-        <p>${message.replace(/\n/g, "<br>")}</p>
+        <p>${message!.replace(/\n/g, "<br>")}</p>
       `,
     })
 
