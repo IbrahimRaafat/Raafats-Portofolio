@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { Inter, Poppins } from "next/font/google";
 import { useState } from "react";
+import { ShoppingCart } from "lucide-react";
 import StaggeredMenu from "@/components/StaggeredMenu";
 import Grainient from "@/components/Grainient";
 
@@ -105,16 +106,16 @@ export default function KolrPerfumes() {
       {/* Main Content */}
       <main className="max-w-6xl mx-auto px-6 py-20 relative z-10">
         {/* Title & Description Section */}
-        <section className="mb-20 pt-20 px-12 py-16 rounded-3xl backdrop-blur-md bg-white/10 border border-white/20">
+        <section className="mb-20 pt-20 px-12 py-16 rounded-3xl backdrop-blur-md bg-white/30 border border-white/20">
           <div className="inline-block px-4 py-1.5 bg-gradient-to-r from-indigo-100 to-blue-50 text-indigo-700 rounded-full text-xs font-semibold mb-6 border border-indigo-200">
             Premium Fragrance Retail
           </div>
 
-          <div className="flex items-center justify-between gap-8 mb-8">
-            <h1 className="text-6xl font-bold text-gray-900" style={{ fontFamily: 'var(--font-poppins)' }}>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-8 mb-8">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900" style={{ fontFamily: 'var(--font-poppins)' }}>
               Kolr Perfumes
             </h1>
-            <img src="/images/kolr-logo.webp" alt="Kolr Perfumes" className="w-32 h-32 object-contain flex-shrink-0" />
+            <img src="/images/kolr-logo.webp" alt="Kolr Perfumes" className="w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 object-contain flex-shrink-0" />
           </div>
 
           <p className="text-lg text-gray-700 leading-relaxed max-w-3xl">
@@ -124,13 +125,13 @@ export default function KolrPerfumes() {
         </section>
 
         {/* Horizontal Card Section */}
-        <div className="px-12 py-16 rounded-3xl backdrop-blur-md bg-white/10 border border-white/20 mb-20">
+        <div className="px-12 py-16 rounded-3xl backdrop-blur-md bg-white/30 border border-white/20 mb-20">
           {/* Shopify Card - Horizontal Layout */}
           <div className="group bg-white rounded-2xl p-12 border border-gray-200 hover:border-indigo-300 hover:shadow-2xl transition-all duration-300 hover:scale-105">
             <div className="flex items-center gap-12">
               {/* Logo Section */}
-              <div className="flex-shrink-0">
-                <img src="/images/shopify-logo.svg" alt="Shopify" className="w-48 h-48 object-contain" />
+              <div className="flex-shrink-0 flex items-center justify-center w-48 h-48">
+                <ShoppingCart size={120} className="text-black" />
               </div>
 
               {/* Content Section */}

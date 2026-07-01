@@ -64,8 +64,8 @@ const jsonLd = {
         "@type": "BreadcrumbList",
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
-          { "@type": "ListItem", position: 2, name: "Experience", item: `${SITE_URL}/#experience` },
-          { "@type": "ListItem", position: 3, name: "Projects", item: `${SITE_URL}/#projects` },
+          { "@type": "ListItem", position: 2, name: "Clients", item: `${SITE_URL}/#clients` },
+          { "@type": "ListItem", position: 3, name: "Experience", item: `${SITE_URL}/#experience` },
           { "@type": "ListItem", position: 4, name: "Blog", item: "https://blog.ibrahimraafat.com" },
           { "@type": "ListItem", position: 5, name: "Contact", item: `${SITE_URL}/#contact` },
         ],
@@ -77,8 +77,8 @@ const jsonLd = {
       name: "Main Navigation",
       hasPart: [
         { "@type": "WebPage", name: "Home", url: `${SITE_URL}/` },
+        { "@type": "WebPage", name: "Clients", url: `${SITE_URL}/#clients` },
         { "@type": "WebPage", name: "Experience", url: `${SITE_URL}/#experience` },
-        { "@type": "WebPage", name: "Projects", url: `${SITE_URL}/#projects` },
         { "@type": "WebPage", name: "Blog", url: "https://blog.ibrahimraafat.com" },
         { "@type": "WebPage", name: "Contact", url: `${SITE_URL}/#contact` },
       ],
@@ -94,9 +94,9 @@ const inter = Inter({
 
 const menuItems = [
   { label: 'Home', ariaLabel: 'Go to home page', link: '#hero' },
+  { label: 'Clients', ariaLabel: 'View clients', link: '#clients' },
   { label: 'Experience', ariaLabel: 'View experience', link: '#experience' },
-  { label: 'Projects', ariaLabel: 'View projects', link: '#projects' },
-  { label: 'Blog', ariaLabel: 'Read blog', link: 'https://blog.ibrahimraafat.com' },
+  // { label: 'Blog', ariaLabel: 'Read blog', link: 'https://blog.ibrahimraafat.com' },
   { label: 'Contact', ariaLabel: 'Get in touch', link: '#contact' },
 ];
 
@@ -168,21 +168,28 @@ export default function Home() {
       {/* Hero Section */}
       <Hero />
 
+      {/* Clients Section */}
+      <section id="clients" className="relative bg-[#f1f1f1] py-8 md:py-12 lg:py-16" style={{ zIndex: 20 }}>
+        <div className="px-4 sm:px-8 md:px-16 lg:px-24 mb-6">
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-medium text-[#120F17] leading-tight">
+            Clients
+          </h2>
+        </div>
+        <div style={{ height: 'auto', position: 'relative' }}>
+          <FlowingMenu
+            items={projects}
+            speed={15}
+            textColor="#120F17"
+            bgColor="#f1f1f1"
+            marqueeBgColor="#ffffff"
+            marqueeTextColor="#120F17"
+            borderColor="#120F17"
+          />
+        </div>
+      </section>
+
       {/* Experience Section */}
       <Experience />
-
-      {/* Projects Section */}
-      <div id="projects" style={{ height: '100vh', position: 'relative', zIndex: 20 }}>
-        <FlowingMenu
-          items={projects}
-          speed={15}
-          textColor="#120F17"
-          bgColor="#f1f1f1"
-          marqueeBgColor="#ffffff"
-          marqueeTextColor="#120F17"
-          borderColor="#120F17"
-        />
-      </div>
 
       {/* Contact Section */}
       <Contact />

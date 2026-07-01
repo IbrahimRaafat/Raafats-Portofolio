@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { Inter, Poppins } from "next/font/google";
 import { useState } from "react";
+import { LayoutDashboard, Zap, Database } from "lucide-react";
 import StaggeredMenu from "@/components/StaggeredMenu";
 import Grainient from "@/components/Grainient";
 
@@ -105,16 +106,16 @@ export default function MazCase() {
       {/* Main Content */}
       <main className="max-w-5xl mx-auto px-6 py-20 relative z-10">
         {/* Title & Description Section */}
-        <section className="mb-20 pt-20 px-12 py-16 rounded-3xl backdrop-blur-md bg-white/10 border border-white/20">
+        <section className="mb-20 pt-20 px-12 py-16 rounded-3xl backdrop-blur-md bg-white/30 border border-white/20">
           <div className="inline-block px-4 py-1.5 bg-gradient-to-r from-blue-100 to-blue-50 text-blue-700 rounded-full text-xs font-semibold mb-6 border border-blue-200">
             E-Commerce & ERP Solution
           </div>
 
-          <div className="flex items-center justify-between gap-8 mb-8">
-            <h1 className="text-6xl font-bold text-gray-900" style={{ fontFamily: 'var(--font-poppins)' }}>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-8 mb-8">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900" style={{ fontFamily: 'var(--font-poppins)' }}>
               Maz Mrkt
             </h1>
-            <img src="/images/maz-logo.svg" alt="Maz Mrkt" className="w-32 h-32 object-contain flex-shrink-0" />
+            <img src="/images/maz-logo.svg" alt="Maz Mrkt" className="w-24 h-24 sm:w-28 sm:h-28 lg:w-32 lg:h-32 object-contain flex-shrink-0" />
           </div>
 
           <p className="text-lg text-gray-700 leading-relaxed max-w-3xl">
@@ -124,12 +125,12 @@ export default function MazCase() {
         </section>
 
         {/* Services Container */}
-        <div className="px-12 py-16 rounded-3xl backdrop-blur-md bg-white/10 border border-white/20 mb-20">
+        <div className="px-12 py-16 rounded-3xl backdrop-blur-md bg-white/30 border border-white/20 mb-20">
           {/* Services Grid */}
           <div className="grid md:grid-cols-3 gap-8">
           {/* Odoo Card */}
           <div className="group bg-white rounded-2xl p-12 border border-gray-200 hover:border-blue-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
-            <img src="/images/odoo-logo.svg" alt="Odoo" className="w-full h-40 object-contain mb-8" />
+            <div className="w-full h-40 flex items-center justify-center mb-8"><Database size={80} className="text-black" /></div>
             <h3 className="text-2xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-poppins)' }}>Odoo ERP</h3>
             <p className="text-gray-600 leading-relaxed">
               Enterprise resource planning system with inventory management, order processing, multi-warehouse support, and supplier management.
@@ -138,7 +139,7 @@ export default function MazCase() {
 
           {/* Custom Dashboards Card */}
           <div className="group bg-white rounded-2xl p-12 border border-gray-200 hover:border-purple-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
-            <div className="w-full h-40 flex items-center justify-center mb-8 text-4xl">📊</div>
+            <div className="w-full h-40 flex items-center justify-center mb-8"><LayoutDashboard size={80} className="text-black" /></div>
             <h3 className="text-2xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-poppins)' }}>Custom Dashboards</h3>
             <p className="text-gray-600 leading-relaxed">
               Real-time dashboards with notifications and automated reports for sales tracking, inventory monitoring, KPI analytics, and business intelligence.
@@ -147,7 +148,7 @@ export default function MazCase() {
 
           {/* n8n & Slack Card */}
           <div className="group bg-white rounded-2xl p-12 border border-gray-200 hover:border-orange-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
-            <div className="w-full h-40 flex items-center justify-center mb-8 text-4xl">⚙️</div>
+            <div className="w-full h-40 flex items-center justify-center mb-8"><Zap size={80} className="text-black" /></div>
             <h3 className="text-2xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-poppins)' }}>n8n & Slack</h3>
             <p className="text-gray-600 leading-relaxed">
               Workflow automation and Slack integrations for streamlined operations, automated notifications, and real-time communication between systems.

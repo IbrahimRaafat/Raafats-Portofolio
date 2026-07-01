@@ -1,6 +1,7 @@
 import Head from "next/head";
 import { Inter, Poppins } from "next/font/google";
 import { useState } from "react";
+import { LayoutDashboard, Package, MessageSquare } from "lucide-react";
 import StaggeredMenu from "@/components/StaggeredMenu";
 import Grainient from "@/components/Grainient";
 
@@ -105,13 +106,13 @@ export default function CoinsClothCase() {
       {/* Main Content */}
       <main className="max-w-5xl mx-auto px-6 py-20 relative z-10">
         {/* Title & Description Section */}
-        <section className="mb-20 pt-20 px-12 py-16 rounded-3xl backdrop-blur-lg bg-white/30 border border-white/40">
+        <section className="mb-20 pt-20 px-12 py-16 rounded-3xl backdrop-blur-lg bg-white/50 border border-white/40">
           <div className="inline-block px-4 py-1.5 backdrop-blur-md bg-white/20 text-black rounded-full text-xs font-semibold mb-6 border border-white/30">
             ERP & AI Automation
           </div>
 
-          <div className="flex items-center justify-between gap-8 mb-8">
-            <h1 className="text-6xl font-bold text-gray-900" style={{ fontFamily: 'var(--font-poppins)' }}>
+          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 sm:gap-8 mb-8">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900" style={{ fontFamily: 'var(--font-poppins)' }}>
               Coins & Cloth
             </h1>
           </div>
@@ -122,10 +123,10 @@ export default function CoinsClothCase() {
         </section>
 
         {/* Services Grid */}
-        <div className="grid md:grid-cols-3 gap-8 mb-20">
+        <div className="grid md:grid-cols-3 gap-8 mb-20 px-12 py-16 rounded-3xl backdrop-blur-lg bg-white/50 border border-white/40">
           {/* Dashboard Card */}
-          <div className="group rounded-2xl p-12 backdrop-blur-lg bg-white/30 border border-white/40 hover:border-white/50 hover:shadow-xl transition-all duration-300 hover:scale-105">
-              <img src="/images/charts-icon.png" alt="Charts" className="w-full h-40 object-cover mb-8 rounded-3xl" />
+          <div className="group rounded-2xl p-12 backdrop-blur-lg bg-white/40 border border-white/40 hover:border-white/50 hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <div className="w-full h-40 flex items-center justify-center mb-8"><LayoutDashboard size={80} className="text-black" /></div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-poppins)' }}>Custom Dashboards</h3>
               <p className="text-black leading-relaxed">
                 Real-time dashboards with notifications, KPI tracking, sales analytics, and automated reports for data-driven business decisions.
@@ -133,8 +134,8 @@ export default function CoinsClothCase() {
             </div>
 
           {/* Odoo ERP Card */}
-          <div className="group rounded-2xl p-12 backdrop-blur-lg bg-white/30 border border-white/40 hover:border-white/50 hover:shadow-xl transition-all duration-300 hover:scale-105">
-              <img src="/images/odoo-logo.svg" alt="Odoo" className="w-full h-40 object-contain mb-8" />
+          <div className="group rounded-2xl p-12 backdrop-blur-lg bg-white/40 border border-white/40 hover:border-white/50 hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <div className="w-full h-40 flex items-center justify-center mb-8"><Package size={80} className="text-black" /></div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-poppins)' }}>Odoo ERP</h3>
               <p className="text-black leading-relaxed">
                 Enterprise resource planning system with inventory management, order processing, multi-warehouse support, and supplier management.
@@ -142,8 +143,8 @@ export default function CoinsClothCase() {
             </div>
 
           {/* Slack Integration Card */}
-          <div className="group rounded-2xl p-12 backdrop-blur-lg bg-white/30 border border-white/40 hover:border-white/50 hover:shadow-xl transition-all duration-300 hover:scale-105">
-              <img src="/images/slack-logo.svg" alt="Slack" className="w-full h-40 object-contain mb-8" />
+          <div className="group rounded-2xl p-12 backdrop-blur-lg bg-white/40 border border-white/40 hover:border-white/50 hover:shadow-xl transition-all duration-300 hover:scale-105">
+              <div className="w-full h-40 flex items-center justify-center mb-8"><MessageSquare size={80} className="text-black" /></div>
               <h3 className="text-2xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-poppins)' }}>Slack Integrations</h3>
               <p className="text-black leading-relaxed">
                 Real-time Slack notifications for orders, inventory alerts, dashboard updates, and automated reports keeping the team informed.
@@ -152,7 +153,7 @@ export default function CoinsClothCase() {
         </div>
 
         {/* Contact Form */}
-        <div className="rounded-2xl p-10 backdrop-blur-lg bg-white/30 border border-white/40">
+        <div className="rounded-2xl p-10 backdrop-blur-lg bg-white/40 border border-white/40">
           <h2 className="text-4xl font-bold text-gray-900 mb-2" style={{ fontFamily: 'var(--font-poppins)' }}>
             Interested?
           </h2>

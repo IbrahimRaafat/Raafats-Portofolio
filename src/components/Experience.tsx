@@ -121,24 +121,24 @@ const Experience = () => {
     <section
       ref={sectionRef}
       id="experience"
-      className="min-h-screen px-4 py-20 bg-[#f1f1f1] flex items-center"
+      className="min-h-screen px-4 py-12 md:py-16 lg:py-20 bg-[#f1f1f1] flex items-center"
       aria-labelledby="experience-heading"
     >
-      <div className="max-w-7xl mx-auto w-full px-4 sm:px-8 md:px-16 lg:px-24">
-        <div className="flex flex-col gap-6 sm:gap-4 mb-12">
-          <div className="flex items-start justify-between gap-4">
-            <div className="flex-1">
-              <p className="text-blue-500 text-sm sm:text-base font-medium uppercase tracking-[0.2em]">
+      <div className="max-w-7xl mx-auto w-full px-0 sm:px-4 md:px-8 lg:px-12">
+        <div className="flex flex-col gap-4 sm:gap-4 mb-8 sm:mb-12">
+          <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 sm:gap-4">
+            <div className="flex-1 min-w-0">
+              <p className="text-blue-500 text-xs sm:text-sm font-medium uppercase tracking-[0.15em]">
                 Work Experience
               </p>
-              <h2 id="experience-heading" className="text-4xl sm:text-5xl lg:text-6xl font-medium text-blue-600 leading-tight">
+              <h2 id="experience-heading" className="text-2xl sm:text-4xl lg:text-6xl font-medium text-blue-600 leading-tight break-words">
                 Building products, pipelines, and experiences
               </h2>
             </div>
             <a
               href="/resume.pdf"
               download="Ibrahim_Raafat_Resume.pdf"
-              className="flex-shrink-0 flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold transition duration-200 whitespace-nowrap text-sm sm:text-base group"
+              className="flex-shrink-0 flex items-center gap-2 text-blue-600 hover:text-blue-700 font-semibold transition duration-200 whitespace-nowrap text-xs sm:text-sm lg:text-base group"
             >
               Download Resume
               <svg
@@ -181,20 +181,20 @@ const Experience = () => {
                 style={{ transitionDelay: `${index * 120}ms` }}
               >
                 <span className="absolute left-0 top-2 h-4 w-4 rounded-full border-2 border-blue-500 bg-white" aria-hidden />
-                <div className="rounded-3xl border-2 border-blue-500 bg-white/70 p-6 sm:p-8 shadow-sm">
+                <div className="rounded-3xl border-2 border-blue-500 bg-white/70 p-4 sm:p-6 lg:p-8 shadow-sm overflow-hidden">
                   <div className="flex flex-col gap-3 sm:gap-2">
-                    <div className="flex flex-wrap items-center gap-3">
-                      <h3 className="text-2xl sm:text-3xl font-semibold text-blue-600">{item.role}</h3>
-                      <span className="px-3 py-1 text-sm border border-blue-200 text-blue-600 rounded-full bg-blue-50">
+                    <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-2 sm:gap-3">
+                      <h3 className="text-lg sm:text-xl lg:text-3xl font-semibold text-blue-600 break-words">{item.role}</h3>
+                      <span className="px-3 py-1 text-xs sm:text-sm border border-blue-200 text-blue-600 rounded-full bg-blue-50 w-fit flex-shrink-0">
                         {item.period}
                       </span>
                     </div>
-                    <div className="flex flex-wrap items-center gap-3 text-gray-700 text-sm sm:text-base">
+                    <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-1 sm:gap-3 text-gray-700 text-xs sm:text-sm lg:text-base">
                       <span className="font-semibold text-gray-900">{item.company}</span>
                       <span className="hidden sm:inline text-gray-400">•</span>
-                      <span>{item.location}</span>
+                      <span className="break-words">{item.location}</span>
                     </div>
-                    <ul className="list-disc pl-5 text-gray-800 text-base sm:text-lg space-y-2 mt-2">
+                    <ul className="list-disc pl-4 sm:pl-5 text-gray-800 text-xs sm:text-sm lg:text-lg space-y-2 mt-2">
                       {item.bullets.map((bullet, bulletIndex) => (
                         <li key={bulletIndex}>{bullet}</li>
                       ))}

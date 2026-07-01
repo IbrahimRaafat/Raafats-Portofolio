@@ -175,12 +175,12 @@ const MenuItem: React.FC<MenuItemProps> = ({
           {[...Array(repetitions)].map((_, idx) => (
             <div className="marquee-part flex items-center flex-shrink-0" key={idx} style={{ color: marqueeTextColor }}>
               {logo ? (
-                <img src={logo} alt={text} className="max-h-[120px] max-w-[200px] object-contain mx-[2vw]" />
+                <img src={logo} alt={text} className="max-h-[60px] max-w-[100px] md:max-h-[120px] md:max-w-[200px] object-contain mx-[1vw] md:mx-[2vw]" />
               ) : (
-                <span className="whitespace-nowrap uppercase font-normal text-[4vh] leading-[1] px-[1vw]">{text}</span>
+                <span className="whitespace-nowrap uppercase font-normal text-[3vh] md:text-[4vh] leading-[1] px-[1vw]">{text}</span>
               )}
               <div
-                className="w-[350px] h-[14vh] my-[2em] mx-[2vw] bg-contain bg-no-repeat bg-center"
+                className="w-[150px] h-[8vh] md:w-[350px] md:h-[14vh] my-[1em] md:my-[2em] mx-[1vw] md:mx-[2vw] bg-contain bg-no-repeat bg-center"
                 style={{ backgroundImage: `url(${image})` }}
               />
             </div>
