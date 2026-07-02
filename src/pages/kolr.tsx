@@ -106,7 +106,7 @@ export default function KolrPerfumes() {
       {/* Main Content */}
       <main className="max-w-6xl mx-auto px-6 py-20 relative z-10">
         {/* Title & Description Section */}
-        <section className="mb-20 pt-20 px-12 py-16 rounded-3xl backdrop-blur-md bg-white/30 border border-white/20">
+        <section className="mb-20 pt-20 px-6 sm:px-8 md:px-12 py-10 sm:py-16 rounded-3xl backdrop-blur-md bg-white/30 border border-white/20">
           <div className="inline-block px-4 py-1.5 bg-gradient-to-r from-indigo-100 to-blue-50 text-indigo-700 rounded-full text-xs font-semibold mb-6 border border-indigo-200">
             Premium Fragrance Retail
           </div>
@@ -125,21 +125,22 @@ export default function KolrPerfumes() {
         </section>
 
         {/* Horizontal Card Section */}
-        <div className="px-12 py-16 rounded-3xl backdrop-blur-md bg-white/30 border border-white/20 mb-20">
+        <div className="px-6 sm:px-8 md:px-12 py-10 sm:py-16 rounded-3xl backdrop-blur-md bg-white/30 border border-white/20 mb-20">
           {/* Shopify Card - Horizontal Layout */}
-          <div className="group bg-white rounded-2xl p-12 border border-gray-200 hover:border-indigo-300 hover:shadow-2xl transition-all duration-300 hover:scale-105">
-            <div className="flex items-center gap-12">
+          <div className="group bg-white rounded-2xl p-6 sm:p-8 md:p-12 border border-gray-200 hover:border-indigo-300 hover:shadow-2xl transition-all duration-300 hover:scale-105">
+            <div className="flex flex-col sm:flex-row items-center gap-6 sm:gap-12">
               {/* Logo Section */}
-              <div className="flex-shrink-0 flex items-center justify-center w-48 h-48">
-                <ShoppingCart size={120} className="text-black" />
+              <div className="flex-shrink-0 flex items-center justify-center w-32 h-32 sm:w-48 sm:h-48">
+                <ShoppingCart size={80} className="text-black sm:hidden" />
+                <ShoppingCart size={120} className="text-black hidden sm:block" />
               </div>
 
               {/* Content Section */}
-              <div className="flex-1">
-                <h3 className="text-3xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-poppins)' }}>
+              <div className="flex-1 text-center sm:text-left">
+                <h3 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-poppins)' }}>
                   Shopify Store
                 </h3>
-                <p className="text-lg text-gray-700 leading-relaxed mb-6">
+                <p className="text-base sm:text-lg text-gray-700 leading-relaxed mb-6">
                   A fully integrated Shopify storefront providing customers with a premium shopping experience.
                   Features include product filtering, customer reviews, secure checkout, and real-time order tracking.
                   Multi-currency support and mobile optimization ensure accessibility for global customers.

@@ -106,7 +106,7 @@ export default function MazCase() {
       {/* Main Content */}
       <main className="max-w-5xl mx-auto px-6 py-20 relative z-10">
         {/* Title & Description Section */}
-        <section className="mb-20 pt-20 px-12 py-16 rounded-3xl backdrop-blur-md bg-white/30 border border-white/20">
+        <section className="mb-20 pt-20 px-6 sm:px-8 md:px-12 py-10 sm:py-16 rounded-3xl backdrop-blur-md bg-white/30 border border-white/20">
           <div className="inline-block px-4 py-1.5 bg-gradient-to-r from-blue-100 to-blue-50 text-blue-700 rounded-full text-xs font-semibold mb-6 border border-blue-200">
             E-Commerce & ERP Solution
           </div>
@@ -125,11 +125,11 @@ export default function MazCase() {
         </section>
 
         {/* Services Container */}
-        <div className="px-12 py-16 rounded-3xl backdrop-blur-md bg-white/30 border border-white/20 mb-20">
+        <div className="px-6 sm:px-8 md:px-12 py-10 sm:py-16 rounded-3xl backdrop-blur-md bg-white/30 border border-white/20 mb-20">
           {/* Services Grid */}
           <div className="grid md:grid-cols-3 gap-8">
           {/* Odoo Card */}
-          <div className="group bg-white rounded-2xl p-12 border border-gray-200 hover:border-blue-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
+          <div className="group bg-white rounded-2xl p-6 sm:p-8 md:p-12 border border-gray-200 hover:border-blue-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
             <div className="w-full h-40 flex items-center justify-center mb-8"><Database size={80} className="text-black" /></div>
             <h3 className="text-2xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-poppins)' }}>Odoo ERP</h3>
             <p className="text-gray-600 leading-relaxed">
@@ -138,7 +138,7 @@ export default function MazCase() {
           </div>
 
           {/* Custom Dashboards Card */}
-          <div className="group bg-white rounded-2xl p-12 border border-gray-200 hover:border-purple-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
+          <div className="group bg-white rounded-2xl p-6 sm:p-8 md:p-12 border border-gray-200 hover:border-purple-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
             <div className="w-full h-40 flex items-center justify-center mb-8"><LayoutDashboard size={80} className="text-black" /></div>
             <h3 className="text-2xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-poppins)' }}>Custom Dashboards</h3>
             <p className="text-gray-600 leading-relaxed">
@@ -147,7 +147,7 @@ export default function MazCase() {
           </div>
 
           {/* n8n & Slack Card */}
-          <div className="group bg-white rounded-2xl p-12 border border-gray-200 hover:border-orange-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
+          <div className="group bg-white rounded-2xl p-6 sm:p-8 md:p-12 border border-gray-200 hover:border-orange-300 hover:shadow-xl transition-all duration-300 hover:scale-105">
             <div className="w-full h-40 flex items-center justify-center mb-8"><Zap size={80} className="text-black" /></div>
             <h3 className="text-2xl font-bold text-gray-900 mb-4" style={{ fontFamily: 'var(--font-poppins)' }}>n8n & Slack</h3>
             <p className="text-gray-600 leading-relaxed">
