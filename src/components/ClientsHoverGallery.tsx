@@ -117,7 +117,7 @@ const ClientsHoverGallery: React.FC = () => {
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-16 lg:px-24">
         {/* Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-12">
+        <div className="mb-12">
           <div>
             <div className="inline-flex items-center gap-2 text-blue-600 text-xs sm:text-sm font-semibold uppercase tracking-wider mb-2">
               <Sparkles className="w-4 h-4" />
@@ -130,9 +130,6 @@ const ClientsHoverGallery: React.FC = () => {
               Clients &amp; Projects
             </h2>
           </div>
-          <p className="text-gray-500 text-xs sm:text-sm hidden md:block italic">
-            Hover over any project to inspect live homepage preview →
-          </p>
         </div>
 
         {/* Desktop Interactive Hover Project Rows */}
