@@ -1,0 +1,31 @@
+---
+title: "Scraping with respect: Puppeteer, BeautifulSoup, and not getting blocked"
+date: "2025-09-12"
+excerpt: "Throughput +60% without burning IPs. A checklist for polite, resilient scraping."
+tags: ["Scraping", "Puppeteer", "Python"]
+cover: "/images/blog/scraping.jpg"
+---
+
+If your scraper needs `puppeteer-extra-plugin-stealth` to survive, your strategy is already wrong.
+
+Throughput at InfoMedia is up 60% this year while our block rate went *down*. The trick is boring:
+
+1. **Respect the contract** — obey `Retry-After`, back off exponentially, cache ETags.
+2. **Use the lightest tool** — `BeautifulSoup` + `httpx` first, Puppeteer only when JS rendering is mandatory.
+3. **Fingerprint diversity** — rotate UA + viewport, but keep it plausible (no 4K phone).
+4. **Human timing** — `500ms–2s` jitter between requests beats `50ms` blasts every time.
+5. **Observe** — per-source success rate, p95 parse time, and queue depth on a dashboard.
+
+Fast scraping that gets you blocked is slow scraping.
+
+Code snippet we reuse everywhere:
+
+```python
+async with limiter:
+    await asyncio.sleep(random.uniform(0.5, 1.8))
+    resp = await client.get(url, headers=headers)
+    resp.raise_for_status()
+```
+
+Boring. Effective.
+

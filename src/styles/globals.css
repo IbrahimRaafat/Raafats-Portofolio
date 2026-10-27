@@ -86,7 +86,9 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
 }
 
 .dark {
@@ -131,3 +133,51 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+/* Blog post body - clean sans-serif */
+.post-body { font-size: 1.0625rem; line-height: 1.75; color: #1f2937; }
+.post-body > * + * { margin-top: 1.25em; }
+.post-body h2, .post-body h3 { color: #111827; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; margin-top: 2em; }
+.post-body h2 { font-size: 1.75rem; }
+.post-body h3 { font-size: 1.35rem; }
+.post-body ul, .post-body ol { padding-left: 1.25em; }
+.post-body ul { list-style: disc; }
+.post-body ol { list-style: decimal; }
+.post-body li + li { margin-top: 0.4em; }
+.post-body li::marker { color: #9ca3af; }
+.post-body strong { color: #111827; font-weight: 600; }
+.post-body a { color: #2563eb; text-decoration: underline; text-underline-offset: 3px; }
+.post-body code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 0.875em; background: rgba(0, 0, 0, 0.06); padding: 0.15em 0.4em; border-radius: 4px; }
+.post-body pre { background: #0f172a; color: #f8fafc; padding: 1.25rem 1.5rem; border-radius: 12px; overflow-x: auto; font-size: 0.875rem; line-height: 1.6; }
+.post-body pre code { background: none; padding: 0; font-size: inherit; color: inherit; }
+.post-body blockquote { border-left: 3px solid #3b82f6; padding-left: 1.25em; font-style: italic; font-size: 1.15rem; color: #374151; }
+
+/* Ambient Film Noise Texture */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 99;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Smooth Tech Marquee */
+@keyframes techMarquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.animate-tech-marquee {
+  display: flex;
+  width: max-content;
+  animation: techMarquee 50s linear infinite;
+  will-change: transform;
+}
+
+.animate-tech-marquee:hover {
+  animation-play-state: paused;
+}
+

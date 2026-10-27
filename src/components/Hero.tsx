@@ -49,9 +49,21 @@ const Hero = () => {
         />
       </div>
 
+      {/* Atmospheric Bottom Dissolve to #f1f1f1 */}
+      <div className="absolute bottom-0 inset-x-0 h-32 md:h-44 bg-gradient-to-b from-transparent via-[#f1f1f1]/60 to-[#f1f1f1] pointer-events-none z-10" />
+
       {/* Content */}
-      <div className="max-w-7xl mx-auto w-full px-4 sm:px-8 md:px-16 lg:px-24 relative z-10">
-        <div className="flex flex-col items-center justify-center gap-8 lg:gap-8">
+      <div className="max-w-7xl mx-auto w-full px-4 sm:px-8 md:px-16 lg:px-24 relative z-20">
+        <div className="flex flex-col items-center justify-center gap-6 sm:gap-8">
+          {/* Subtle Identity Pill */}
+          <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-white/70 backdrop-blur-md border border-white/80 shadow-xs text-xs sm:text-sm font-medium text-gray-800 animate-fadeIn">
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+            </span>
+            <span>Ibrahim Raafat — Full Stack Engineer</span>
+          </div>
+
           <div className="text-center">
             <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-8xl font-normal text-blue-600 leading-tight">
               Welcome
@@ -70,7 +82,7 @@ const Hero = () => {
           </div>
           
           {/* Circular Text */}
-          <div className="flex text-blue-600 shrink-0 items-center justify-center">
+          <div className="flex text-blue-600 shrink-0 items-center justify-center pt-2">
             <CircularText text="SCROLL DOWN • SCROLL DOWN • " radius={80} fontSize={12} />
           </div>
         </div>  

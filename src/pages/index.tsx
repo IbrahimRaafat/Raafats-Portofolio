@@ -1,9 +1,12 @@
 import Head from "next/head";
 import StaggeredMenu from "@/components/StaggeredMenu";
 import Hero from "@/components/Hero";
+import ClientsHoverGallery from "@/components/ClientsHoverGallery";
+import TechStack from "@/components/TechStack";
 import Experience from "@/components/Experience";
-import FlowingMenu from "@/components/FlowingMenu";
 import Contact from "@/components/Contact";
+import BlogSection from "@/components/BlogSection";
+import { getAllPosts } from "@/lib/blog";
 import { Inter } from "next/font/google";
 
 const SITE_URL = "https://ibrahimraafat.com";
@@ -36,6 +39,7 @@ const jsonLd = {
         "PostgreSQL",
         "Web Scraping",
         "Data Pipelines",
+        "Odoo ERP",
       ],
       address: {
         "@type": "PostalAddress",
@@ -65,9 +69,10 @@ const jsonLd = {
         itemListElement: [
           { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_URL}/` },
           { "@type": "ListItem", position: 2, name: "Clients", item: `${SITE_URL}/#clients` },
-          { "@type": "ListItem", position: 3, name: "Experience", item: `${SITE_URL}/#experience` },
-          { "@type": "ListItem", position: 4, name: "Blog", item: "https://blog.ibrahimraafat.com" },
-          { "@type": "ListItem", position: 5, name: "Contact", item: `${SITE_URL}/#contact` },
+          { "@type": "ListItem", position: 3, name: "Stack", item: `${SITE_URL}/#stack` },
+          { "@type": "ListItem", position: 4, name: "Experience", item: `${SITE_URL}/#experience` },
+          { "@type": "ListItem", position: 5, name: "Blog", item: `${SITE_URL}/#blog` },
+          { "@type": "ListItem", position: 6, name: "Contact", item: `${SITE_URL}/#contact` },
         ],
       },
     },
@@ -78,8 +83,9 @@ const jsonLd = {
       hasPart: [
         { "@type": "WebPage", name: "Home", url: `${SITE_URL}/` },
         { "@type": "WebPage", name: "Clients", url: `${SITE_URL}/#clients` },
+        { "@type": "WebPage", name: "Stack", url: `${SITE_URL}/#stack` },
         { "@type": "WebPage", name: "Experience", url: `${SITE_URL}/#experience` },
-        { "@type": "WebPage", name: "Blog", url: "https://blog.ibrahimraafat.com" },
+        { "@type": "WebPage", name: "Blog", url: `${SITE_URL}/#blog` },
         { "@type": "WebPage", name: "Contact", url: `${SITE_URL}/#contact` },
       ],
     },
@@ -88,15 +94,17 @@ const jsonLd = {
 
 const inter = Inter({
   subsets: ["latin"],
-  weight: ["400", "500"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-inter",
+  display: "swap",
 });
 
 const menuItems = [
   { label: 'Home', ariaLabel: 'Go to home page', link: '#hero' },
   { label: 'Clients', ariaLabel: 'View clients', link: '#clients' },
+  { label: 'Stack', ariaLabel: 'View tech stack', link: '#stack' },
   { label: 'Experience', ariaLabel: 'View experience', link: '#experience' },
-  // { label: 'Blog', ariaLabel: 'Read blog', link: 'https://blog.ibrahimraafat.com' },
+  { label: 'Writing', ariaLabel: 'Read writing', link: '#blog' },
   { label: 'Contact', ariaLabel: 'Get in touch', link: '#contact' },
 ];
 
@@ -110,13 +118,19 @@ const projects = [
   { link: '/coins-cloth', text: 'Coins & Cloth', image: '/images/coins-cloth-logo.png' },
   { link: '/kolr', text: 'Kolr Perfumes', image: '/images/kolr-logo.webp' },
   { link: '/spira', text: 'Spira', image: '/images/spirahouse-logo.png' },
-  // { link: '#', text: 'Project 3', image: '/images/project3.png' },
-  // { link: '#', text: 'Project 4', image: '/images/project4.png' },
 ];
 
-export default function Home() {
+export async function getStaticProps() {
+  const posts = getAllPosts();
+  return { props: { posts } };
+}
+
+export default function Home({ posts }: { posts: import("@/lib/blog").PostMeta[] }) {
   return (
-    <div className={`${inter.variable} font-sans bg-[#f1f1f1]`}>
+    <div className={`${inter.variable} font-sans bg-[#f1f1f1] text-[#120F17] relative`}>
+      {/* Ambient Film Grain Overlay */}
+      <div className="noise-overlay" aria-hidden="true" />
+
       <Head>
         <title>{TITLE}</title>
         <meta name="description" content={DESCRIPTION} />
@@ -169,28 +183,17 @@ export default function Home() {
       {/* Hero Section */}
       <Hero />
 
-      {/* Clients Section */}
-      <section id="clients" className="relative bg-[#f1f1f1] py-8 md:py-12 lg:py-16" style={{ zIndex: 20 }}>
-        <div className="px-4 sm:px-8 md:px-16 lg:px-24 mb-6">
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-medium text-[#120F17] leading-tight">
-            Clients
-          </h2>
-        </div>
-        <div style={{ height: 'auto', position: 'relative' }}>
-          <FlowingMenu
-            items={projects}
-            speed={15}
-            textColor="#120F17"
-            bgColor="#f1f1f1"
-            marqueeBgColor="#ffffff"
-            marqueeTextColor="#120F17"
-            borderColor="#120F17"
-          />
-        </div>
-      </section>
+      {/* Clients & Projects Hover Screenshot Gallery */}
+      <ClientsHoverGallery />
+
+      {/* Tech Stack Section */}
+      <TechStack />
 
       {/* Experience Section */}
       <Experience />
+
+      {/* Writing Section */}
+      <BlogSection posts={posts} />
 
       {/* Contact Section */}
       <Contact />
