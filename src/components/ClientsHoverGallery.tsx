@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import Link from 'next/link'
 import { motion, useSpring, useMotionValue } from 'framer-motion'
-import { ArrowUpRight, Sparkles, Layers } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 
 export type ClientProject = {
   id: string
@@ -118,18 +118,12 @@ const ClientsHoverGallery: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-16 lg:px-24">
         {/* Section Header */}
         <div className="mb-12">
-          <div>
-            <div className="inline-flex items-center gap-2 text-blue-600 text-xs sm:text-sm font-semibold uppercase tracking-wider mb-2">
-              <Sparkles className="w-4 h-4" />
-              <span>Selected Works &amp; Commercial Systems</span>
-            </div>
-            <h2
-              id="clients-heading"
-              className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 tracking-tight leading-tight"
-            >
-              Clients &amp; Projects
-            </h2>
-          </div>
+          <h2
+            id="clients-heading"
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 tracking-tight leading-tight"
+          >
+            Clients &amp; Projects
+          </h2>
         </div>
 
         {/* Desktop Interactive Hover Project Rows */}

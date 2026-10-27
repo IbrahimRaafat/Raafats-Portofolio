@@ -377,12 +377,9 @@ const TechStack = () => {
           onMouseLeave={handleMouseLeaveMarquee}
           className="relative"
         >
-          <div className="flex items-center justify-between mb-6">
+          <div className="mb-6">
             <span className="text-xs font-bold tracking-widest uppercase text-gray-400">
               Full Technology Ecosystem
-            </span>
-            <span className="text-xs text-gray-400 font-medium hidden sm:inline italic">
-              Hover over any icon to inspect production role →
             </span>
           </div>
 
