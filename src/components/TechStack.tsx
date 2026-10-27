@@ -1,19 +1,7 @@
 import React, { useState, useRef } from 'react'
-import Link from 'next/link'
 import { motion, useSpring, useMotionValue } from 'framer-motion'
-import {
-  ExternalLink,
-  Layers,
-  Sparkles,
-  Zap,
-  TrendingUp,
-  Cpu,
-  CheckCircle2,
-  ArrowRight,
-  ArrowUpRight,
-} from 'lucide-react'
+import { TrendingUp, ArrowUpRight } from 'lucide-react'
 
-type CategoryId = 'all' | 'frontend' | 'backend' | 'cloud' | 'erp' | 'database'
 
 export type Technology = {
   id: string
@@ -340,15 +328,6 @@ const technologies: Technology[] = [
   },
 ]
 
-const categories: { id: CategoryId; label: string; count: number }[] = [
-  { id: 'all', label: 'All Technologies', count: technologies.length },
-  { id: 'frontend', label: 'Frontend & UI', count: technologies.filter((t) => t.category === 'frontend').length },
-  { id: 'backend', label: 'Backend & APIs', count: technologies.filter((t) => t.category === 'backend').length },
-  { id: 'cloud', label: 'Cloud & DevOps', count: technologies.filter((t) => t.category === 'cloud').length },
-  { id: 'erp', label: 'ERP & E-Commerce', count: technologies.filter((t) => t.category === 'erp').length },
-  { id: 'database', label: 'Databases & Media', count: technologies.filter((t) => t.category === 'database').length },
-]
-
 const marqueeModalVariants = {
   initial: { scale: 0, opacity: 0 },
   open: {
@@ -364,9 +343,6 @@ const marqueeModalVariants = {
 }
 
 const TechStack = () => {
-  const [activeCategory, setActiveCategory] = useState<CategoryId>('all')
-  const [selectedTechId, setSelectedTechId] = useState<string>('odoo')
-
   // State for the floating hover card on the sliding marquee
   const [hoveredMarqueeTech, setHoveredMarqueeTech] = useState<Technology | null>(null)
   const [isMarqueeHovered, setIsMarqueeHovered] = useState(false)
@@ -391,248 +367,15 @@ const TechStack = () => {
     setIsMarqueeHovered(false)
   }
 
-  const filteredTech =
-    activeCategory === 'all'
-      ? technologies
-      : technologies.filter((t) => t.category === activeCategory)
-
-  const activeTech =
-    technologies.find((t) => t.id === selectedTechId) || technologies[0]
-
-  const handleSelectTech = (id: string) => {
-    setSelectedTechId(id)
-  }
-
-  const handleCategoryChange = (catId: CategoryId) => {
-    setActiveCategory(catId)
-    if (catId !== 'all') {
-      const firstInCat = technologies.find((t) => t.category === catId)
-      if (firstInCat && activeTech.category !== catId) {
-        setSelectedTechId(firstInCat.id)
-      }
-    }
-  }
-
   return (
-    <section id="stack" className="bg-[#f1f1f1] py-16 md:py-24 border-t border-gray-200" aria-labelledby="stack-heading">
+    <section id="stack" className="bg-[#f1f1f1] py-14 md:py-20 border-t border-gray-200" aria-label="Technology Stack">
       <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-16 lg:px-24">
-        {/* Section Header */}
-        <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6 mb-12">
-          <div>
-            <div className="inline-flex items-center gap-2 text-blue-600 text-xs sm:text-sm font-semibold uppercase tracking-wider mb-2">
-              <Sparkles className="w-4 h-4" />
-              <span>Skills &amp; Engineering Stack</span>
-            </div>
-            <h2
-              id="stack-heading"
-              className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 tracking-tight leading-tight"
-            >
-              Technologies in Production
-            </h2>
-          </div>
-          <p className="max-w-md text-gray-600 text-sm sm:text-base leading-relaxed">
-            Official tools, runtimes, and cloud platforms I use to build scalable ERP workflows, high-throughput scraping pipelines, and fast storefronts.
-          </p>
-        </div>
-
-        {/* Category Filter Pills */}
-        <div className="flex flex-wrap gap-2 mb-10 pb-2">
-          {categories.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => handleCategoryChange(cat.id)}
-              className={`inline-flex items-center gap-2 px-4 py-2 rounded-full text-xs sm:text-sm font-semibold transition-all duration-200 ${
-                activeCategory === cat.id
-                  ? 'bg-blue-600 text-white shadow-sm shadow-blue-500/25 scale-[1.02]'
-                  : 'bg-white text-gray-700 hover:bg-gray-100 hover:text-gray-900 border border-gray-200 shadow-2xs'
-              }`}
-            >
-              <span>{cat.label}</span>
-              <span
-                className={`text-[11px] px-1.5 py-0.5 rounded-full font-medium ${
-                  activeCategory === cat.id
-                    ? 'bg-white/20 text-white'
-                    : 'bg-gray-100 text-gray-500'
-                }`}
-              >
-                {cat.count}
-              </span>
-            </button>
-          ))}
-        </div>
-
-        {/* Main Interactive Grid + Spotlight Workbench */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          {/* Left: Technology Tiles Matrix (7 cols) */}
-          <div className="lg:col-span-7">
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3.5 sm:gap-4">
-              {filteredTech.map((tech) => {
-                const isSelected = activeTech.id === tech.id
-                return (
-                  <button
-                    key={tech.id}
-                    onClick={() => handleSelectTech(tech.id)}
-                    onMouseEnter={() => handleSelectTech(tech.id)}
-                    className={`group relative text-left rounded-2xl p-4 sm:p-5 transition-all duration-200 border flex flex-col justify-between ${
-                      isSelected
-                        ? 'bg-white border-blue-600 shadow-md ring-2 ring-blue-500/20 translate-y-[-2px]'
-                        : 'bg-white/90 hover:bg-white border-gray-200 hover:border-gray-300 shadow-xs hover:shadow-sm hover:translate-y-[-1px]'
-                    }`}
-                  >
-                    {/* Brand Logo */}
-                    <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-xl bg-gray-50 p-2 flex items-center justify-center border border-gray-100 group-hover:scale-105 transition-transform shrink-0 mb-3">
-                      <img
-                        src={tech.logo}
-                        alt={`${tech.name} logo`}
-                        className="w-full h-full object-contain"
-                        loading="lazy"
-                      />
-                    </div>
-
-                    <div>
-                      <h3 className="font-bold text-gray-900 text-base sm:text-lg group-hover:text-blue-600 transition-colors flex items-center gap-1.5">
-                        {tech.name}
-                      </h3>
-                      <p className="text-xs text-gray-500 line-clamp-1 mt-0.5">
-                        {tech.summary}
-                      </p>
-                    </div>
-
-                    {/* Subtle selection bar */}
-                    <div
-                      className={`h-1 w-full rounded-full mt-3 transition-colors ${
-                        isSelected ? 'bg-blue-600' : 'bg-transparent group-hover:bg-gray-200'
-                      }`}
-                    />
-                  </button>
-                )
-              })}
-            </div>
-
-            <p className="text-xs text-gray-500 mt-4 flex items-center gap-1.5 italic">
-              <Zap className="w-3.5 h-3.5 text-blue-500" />
-              <span>Click or hover any technology to inspect its production use and impact.</span>
-            </p>
-          </div>
-
-          {/* Right: Live Spotlight Inspector (5 cols) */}
-          <div className="lg:col-span-5 lg:sticky lg:top-24">
-            <div className="rounded-3xl border border-gray-200/90 bg-white p-6 sm:p-8 shadow-sm relative overflow-hidden transition-all duration-300">
-              {/* Dynamic Brand Accent Header Glow */}
-              <div
-                className="absolute top-0 left-0 right-0 h-2 transition-colors duration-300"
-                style={{ backgroundColor: activeTech.brandColor }}
-              />
-
-              {/* Header with Large Logo & Title */}
-              <div className="flex items-start justify-between gap-4 pb-6 border-b border-gray-100">
-                <div className="flex items-center gap-4">
-                  <div className="h-16 w-16 sm:h-20 sm:w-20 rounded-2xl bg-gray-50 border border-gray-100 p-3 flex items-center justify-center shrink-0 shadow-inner">
-                    <img
-                      src={activeTech.logo}
-                      alt={`${activeTech.name} official logo`}
-                      className="w-full h-full object-contain"
-                    />
-                  </div>
-                  <div>
-                    <span className="inline-block text-[11px] font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-2.5 py-0.5 rounded-md mb-1">
-                      {activeTech.categoryLabel}
-                    </span>
-                    <h3 className="text-2xl sm:text-3xl font-extrabold text-gray-900 leading-tight">
-                      {activeTech.name}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-gray-500 mt-0.5 font-medium">
-                      {activeTech.summary}
-                    </p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Real World Production Application */}
-              <div className="mt-6">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-2">
-                  Production Implementation
-                </h4>
-                <p className="text-sm sm:text-base leading-relaxed text-gray-700">
-                  {activeTech.productionUse}
-                </p>
-              </div>
-
-              {/* Measurable Business Impact Card */}
-              <div className="mt-6 rounded-2xl bg-gradient-to-br from-blue-50/80 to-indigo-50/40 border border-blue-100 p-4">
-                <div className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-blue-800 mb-1">
-                  <TrendingUp className="w-4 h-4 text-blue-600" />
-                  <span>Measured Impact</span>
-                </div>
-                <div className="text-sm font-semibold text-gray-900">
-                  {activeTech.impact}
-                </div>
-              </div>
-
-              {/* Key Capabilities */}
-              <div className="mt-6">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-2.5">
-                  Core Capabilities
-                </h4>
-                <ul className="space-y-2">
-                  {activeTech.keyFeatures.map((feature, i) => (
-                    <li key={i} className="flex items-center gap-2.5 text-xs sm:text-sm text-gray-700">
-                      <CheckCircle2 className="w-4 h-4 text-blue-600 shrink-0" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Companion Tools / Integrated Ecosystem */}
-              {activeTech.companions.length > 0 && (
-                <div className="mt-6 pt-5 border-t border-gray-100">
-                  <h4 className="text-xs font-bold uppercase tracking-wider text-gray-400 mb-2.5">
-                    Frequently Paired With
-                  </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {activeTech.companions.map((compKey) => {
-                      const comp = technologies.find((t) => t.id === compKey)
-                      if (!comp) return null
-                      return (
-                        <button
-                          key={comp.id}
-                          onClick={() => handleSelectTech(comp.id)}
-                          className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium bg-gray-50 hover:bg-blue-50 border border-gray-200 hover:border-blue-200 text-gray-700 hover:text-blue-700 transition-colors"
-                        >
-                          <img src={comp.logo} alt="" className="w-3.5 h-3.5 object-contain" />
-                          <span>{comp.name}</span>
-                        </button>
-                      )
-                    })}
-                  </div>
-                </div>
-              )}
-
-              {/* Client Case Study Connection Link (if applicable) */}
-              {activeTech.caseStudy && (
-                <div className="mt-6 pt-5 border-t border-gray-100">
-                  <Link
-                    href={activeTech.caseStudy.url}
-                    className="inline-flex items-center justify-between w-full group/link bg-gray-900 hover:bg-blue-600 text-white p-3.5 rounded-xl text-xs sm:text-sm font-semibold transition-colors shadow-sm"
-                  >
-                    <span>Explore in {activeTech.caseStudy.name}</span>
-                    <ArrowRight className="w-4 h-4 group-hover/link:translate-x-1 transition-transform" />
-                  </Link>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* ============================================================== */}
-        {/* BIG-ICON SLIDING MARQUEE WITH HOVER PREVIEW (LIKE CLIENTS)     */}
-        {/* ============================================================== */}
+        {/* BIG-ICON SLIDING MARQUEE WITH HOVER PREVIEW (LIKE CLIENTS) */}
         <div
           ref={marqueeContainerRef}
           onMouseMove={handleMarqueeMouseMove}
           onMouseLeave={handleMouseLeaveMarquee}
-          className="mt-16 pt-12 border-t border-gray-200 relative"
+          className="relative"
         >
           <div className="flex items-center justify-between mb-6">
             <span className="text-xs font-bold tracking-widest uppercase text-gray-400">
@@ -653,9 +396,8 @@ const TechStack = () => {
               {[...technologies, ...technologies].map((t, idx) => {
                 const isHovered = hoveredMarqueeTech?.id === t.id && isMarqueeHovered
                 return (
-                  <button
+                  <div
                     key={`${t.id}-big-${idx}`}
-                    onClick={() => handleSelectTech(t.id)}
                     onMouseEnter={() => handleMouseEnterMarqueeTile(t)}
                     className={`group relative flex flex-col items-center justify-center p-5 rounded-2xl transition-all duration-300 shrink-0 w-32 sm:w-36 md:w-40 border cursor-pointer ${
                       isHovered
@@ -676,7 +418,7 @@ const TechStack = () => {
                     <span className="text-xs sm:text-sm font-bold text-gray-900 group-hover:text-blue-600 transition-colors truncate max-w-full text-center">
                       {t.name}
                     </span>
-                  </button>
+                  </div>
                 )
               })}
             </div>

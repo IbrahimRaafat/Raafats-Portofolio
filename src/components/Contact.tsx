@@ -80,15 +80,6 @@ const Contact = () => {
           {/* Left Column: Availability & Direct Channels (6 cols) */}
           <div className="lg:col-span-6 space-y-8">
             <div>
-              {/* Availability Beacon */}
-              <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs sm:text-sm font-semibold mb-6 shadow-2xs">
-                <span className="relative flex h-2.5 w-2.5">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500"></span>
-                </span>
-                <span>Available for New Projects &amp; Roles</span>
-              </div>
-
               <p className="text-blue-600 text-xs sm:text-sm font-semibold uppercase tracking-wider mb-2">
                 Get In Touch
               </p>
