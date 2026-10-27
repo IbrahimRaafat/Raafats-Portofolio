@@ -12,9 +12,8 @@ export default function BlogSection({ posts }: { posts: PostMeta[] }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-16 lg:px-24">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12">
           <div>
-            <p className="text-blue-600 text-xs sm:text-sm font-semibold uppercase tracking-wider mb-2">Writing &amp; Notes</p>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 tracking-tight leading-tight">
-              Pipelines, Odoo &amp; Scraping at Scale
+              Ibra&apos;s Blog
             </h2>
           </div>
           <Link
