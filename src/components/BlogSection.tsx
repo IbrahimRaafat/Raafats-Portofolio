@@ -42,6 +42,19 @@ export default function BlogSection({ posts }: { posts: PostMeta[] }) {
                   isAr ? "font-arabic text-right" : "text-left"
                 }`}
               >
+                {post.cover && (
+                  <div className="mb-4 overflow-hidden rounded-xl bg-gradient-to-b from-[#f7f6f2] to-[#eeece4] border border-gray-200/80 p-4 flex items-center justify-center group-hover:scale-[1.01] transition-transform">
+                    <div className="w-16 h-16 rounded-2xl overflow-hidden bg-white p-1.5 shadow-2xs border border-black/5">
+                      <img
+                        src={post.cover}
+                        alt={post.title}
+                        className="w-full h-full object-contain rounded-xl"
+                        loading="lazy"
+                      />
+                    </div>
+                  </div>
+                )}
+
                 <div className={`flex items-center gap-2 text-xs font-medium text-gray-400 mb-3 ${isAr ? "flex-row-reverse justify-end" : ""}`}>
                   <span>{formatDate(post.date, isAr)}</span>
                   <span aria-hidden>·</span>

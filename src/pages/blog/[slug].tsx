@@ -49,6 +49,8 @@ export default function Post({ meta, html }: { meta: Omit<PostMeta, "cover"> & {
       <Head>
         <title>{`${meta.title} — Ibrahim Raafat`}</title>
         <meta name="description" content={meta.excerpt} />
+        {meta.cover && <meta property="og:image" content={meta.cover} />}
+        {meta.cover && <meta name="twitter:image" content={meta.cover} />}
       </Head>
       <StaggeredMenu
         position="right"
@@ -89,6 +91,18 @@ export default function Post({ meta, html }: { meta: Omit<PostMeta, "cover"> & {
             isRtl ? "font-arabic text-right" : "text-left"
           }`}
         >
+          {meta.cover && (
+            <div className="mb-8 rounded-2xl bg-gradient-to-b from-[#f5f5f0] to-[#eae9e2] border border-gray-200/80 p-6 sm:p-8 flex items-center justify-center">
+              <div className="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl overflow-hidden shadow-md border border-black/5 bg-white p-2">
+                <img
+                  src={meta.cover}
+                  alt={meta.title}
+                  className="w-full h-full object-contain rounded-2xl"
+                />
+              </div>
+            </div>
+          )}
+
           <div className="flex flex-wrap items-center gap-2 text-xs sm:text-sm font-semibold uppercase tracking-wider text-blue-600">
             <span>{formattedDate}</span>
             <span aria-hidden>·</span>
