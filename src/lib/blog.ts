@@ -8,7 +8,7 @@ export type PostMeta = {
   date: string;
   excerpt: string;
   tags: string[];
-  cover?: string;
+  cover?: string | null;
   readingTime: string;
 };
 
@@ -33,7 +33,7 @@ export function getAllPosts(): PostMeta[] {
       date: String(data.date ?? "2025-01-01"),
       excerpt: String(data.excerpt ?? ""),
       tags: (data.tags as string[]) ?? [],
-      cover: data.cover ? String(data.cover) : undefined,
+      cover: data.cover ? String(data.cover) : null,
       readingTime: readingTime(content),
     } as PostMeta;
   });
@@ -53,7 +53,7 @@ export function getPostBySlug(slug: string): { meta: PostMeta; content: string }
     date: String(data.date ?? "2025-01-01"),
     excerpt: String(data.excerpt ?? ""),
     tags: (data.tags as string[]) ?? [],
-    cover: data.cover ? String(data.cover) : undefined,
+    cover: data.cover ? String(data.cover) : null,
     readingTime: readingTime(content),
   };
   return { meta, content };
