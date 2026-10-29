@@ -134,23 +134,108 @@ body {
   }
 }
 
-/* Blog post body - clean sans-serif */
-.post-body { font-size: 1.0625rem; line-height: 1.75; color: #1f2937; }
-.post-body > * + * { margin-top: 1.25em; }
-.post-body h2, .post-body h3 { color: #111827; font-weight: 700; letter-spacing: -0.02em; line-height: 1.2; margin-top: 2em; }
+/* RTL & Arabic Typography */
+[dir="rtl"], .font-arabic {
+  font-family: var(--font-cairo), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Tahoma, Arial, sans-serif;
+}
+
+/* Blog post body - clean modern typography with first-class RTL support */
+.post-body {
+  font-size: 1.0625rem;
+  line-height: 1.75;
+  color: #1f2937;
+}
+
+.post-body > * + * {
+  margin-top: 1.25em;
+}
+
+.post-body h2, .post-body h3 {
+  color: #111827;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  margin-top: 2em;
+}
+
 .post-body h2 { font-size: 1.75rem; }
 .post-body h3 { font-size: 1.35rem; }
-.post-body ul, .post-body ol { padding-left: 1.25em; }
+
+/* Logical list padding for seamless LTR & RTL */
+.post-body ul, .post-body ol {
+  padding-inline-start: 1.5em;
+  padding-inline-end: 0;
+}
 .post-body ul { list-style: disc; }
 .post-body ol { list-style: decimal; }
 .post-body li + li { margin-top: 0.4em; }
 .post-body li::marker { color: #9ca3af; }
 .post-body strong { color: #111827; font-weight: 600; }
 .post-body a { color: #2563eb; text-decoration: underline; text-underline-offset: 3px; }
-.post-body code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; font-size: 0.875em; background: rgba(0, 0, 0, 0.06); padding: 0.15em 0.4em; border-radius: 4px; }
-.post-body pre { background: #0f172a; color: #f8fafc; padding: 1.25rem 1.5rem; border-radius: 12px; overflow-x: auto; font-size: 0.875rem; line-height: 1.6; }
-.post-body pre code { background: none; padding: 0; font-size: inherit; color: inherit; }
-.post-body blockquote { border-left: 3px solid #3b82f6; padding-left: 1.25em; font-style: italic; font-size: 1.15rem; color: #374151; }
+
+/* Inline code must isolate bidirectionality */
+.post-body code {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+  font-size: 0.875em;
+  background: rgba(0, 0, 0, 0.06);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  direction: ltr !important;
+  unicode-bidi: isolate;
+}
+
+/* Code blocks ALWAYS stay LTR & Left-aligned */
+.post-body pre {
+  background: #0f172a;
+  color: #f8fafc;
+  padding: 1.25rem 1.5rem;
+  border-radius: 12px;
+  overflow-x: auto;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  direction: ltr !important;
+  text-align: left !important;
+  unicode-bidi: isolate;
+}
+
+.post-body pre code {
+  background: none;
+  padding: 0;
+  font-size: inherit;
+  color: inherit;
+  display: block;
+}
+
+/* Blockquote with logical borders */
+.post-body blockquote {
+  border-inline-start: 4px solid #3b82f6;
+  border-inline-end: 0;
+  padding-inline-start: 1.25em;
+  padding-inline-end: 0;
+  font-style: italic;
+  font-size: 1.15rem;
+  color: #374151;
+}
+
+/* Specific RTL enhancements for Arabic reading comfort */
+[dir="rtl"] .post-body,
+.post-body[dir="rtl"] {
+  text-align: right;
+  line-height: 1.9;
+}
+
+[dir="rtl"] .post-body h2,
+[dir="rtl"] .post-body h3,
+.post-body[dir="rtl"] h2,
+.post-body[dir="rtl"] h3 {
+  letter-spacing: normal;
+  line-height: 1.5;
+}
+
+[dir="rtl"] .post-body blockquote,
+.post-body[dir="rtl"] blockquote {
+  font-style: normal;
+}
 
 /* Ambient Film Noise Texture */
 .noise-overlay {
