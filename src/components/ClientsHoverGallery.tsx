@@ -1,5 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react'
-import Link from 'next/link'
+import React, { useState, useRef } from 'react'
 import { motion, useSpring, useMotionValue } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 
@@ -33,7 +32,7 @@ const clientProjects: ClientProject[] = [
     subtitle: 'Narrative Womenswear Digital Experience & Storefront',
     tech: ['Next.js', 'Vercel', 'Tailwind CSS', 'Editorial'],
     year: '2026',
-    link: '/spira',
+    link: 'https://spirahouse.com',
     previewImage: '/images/spira-home.png',
     previewType: 'screenshot',
     accentColor: '#5c6f3a',
@@ -44,7 +43,7 @@ const clientProjects: ClientProject[] = [
     subtitle: 'Luxury Fragrance E-Commerce & Curated Catalog',
     tech: ['Shopify Liquid', 'Realtime Inventory', 'Tailwind'],
     year: '2024',
-    link: '/kolr',
+    link: 'https://kolr.store',
     previewImage: '/images/kolr-home.png',
     previewType: 'screenshot',
     accentColor: '#1f2acc',
@@ -55,7 +54,7 @@ const clientProjects: ClientProject[] = [
     subtitle: 'Streetwear Apparel Storefront, n8n & Slack Integrations',
     tech: ['Shopify', 'n8n Automations', 'Slack Alerts'],
     year: '2024',
-    link: '/coins-cloth',
+    link: 'https://coinandcloth.com',
     previewImage: '/images/coins-cloth-logo.png',
     previewType: 'logo',
     accentColor: '#121212',
@@ -118,6 +117,9 @@ const ClientsHoverGallery: React.FC = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-16 lg:px-24">
         {/* Section Header */}
         <div className="mb-12">
+          <p className="text-gray-500 text-[11px] font-mono tracking-[0.18em] uppercase mb-3 flex items-center gap-3">
+            <span className="h-px w-6 bg-gray-300" aria-hidden /> 01 — Selected Work
+          </p>
           <h2
             id="clients-heading"
             className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 tracking-tight leading-tight"
@@ -133,10 +135,13 @@ const ClientsHoverGallery: React.FC = () => {
         >
           {clientProjects.map((project, idx) => {
             const isHovered = modalActive && activeIndex === idx
+            const isExternal = project.link.startsWith('http')
             return (
-              <Link
+              <a
                 key={project.id}
                 href={project.link}
+                target={isExternal ? '_blank' : undefined}
+                rel={isExternal ? 'noopener noreferrer' : undefined}
                 onMouseEnter={() => handleMouseEnterRow(idx)}
                 className="group relative flex flex-col md:flex-row md:items-center justify-between py-8 sm:py-10 md:py-12 px-2 sm:px-4 transition-all duration-300 hover:px-6 cursor-pointer"
               >
@@ -179,7 +184,7 @@ const ClientsHoverGallery: React.FC = () => {
                     <ArrowUpRight className="w-5 h-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                   </div>
                 </div>
-              </Link>
+              </a>
             )
           })}
         </div>
@@ -187,9 +192,11 @@ const ClientsHoverGallery: React.FC = () => {
         {/* Mobile Inline Screenshots Cards (Shown on mobile when hover isn't available) */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8 md:hidden">
           {clientProjects.map((p) => (
-            <Link
+            <a
               key={`mobile-${p.id}`}
               href={p.link}
+              target={p.link.startsWith('http') ? '_blank' : undefined}
+              rel={p.link.startsWith('http') ? 'noopener noreferrer' : undefined}
               className="rounded-2xl border border-gray-200/90 bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow group flex flex-col"
             >
               <div
@@ -233,7 +240,7 @@ const ClientsHoverGallery: React.FC = () => {
                   ))}
                 </div>
               </div>
-            </Link>
+            </a>
           ))}
         </div>
       </div>

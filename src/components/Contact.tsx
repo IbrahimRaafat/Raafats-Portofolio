@@ -80,8 +80,8 @@ const Contact = () => {
           {/* Left Column: Availability & Direct Channels (6 cols) */}
           <div className="lg:col-span-6 space-y-8">
             <div>
-              <p className="text-blue-600 text-xs sm:text-sm font-semibold uppercase tracking-wider mb-2">
-                Get In Touch
+              <p className="text-gray-500 text-[11px] font-mono tracking-[0.18em] uppercase mb-2 flex items-center gap-3">
+                <span className="h-px w-6 bg-gray-300" aria-hidden /> 04 — Get in touch
               </p>
               <h2
                 id="contact-heading"
@@ -115,7 +115,6 @@ const Contact = () => {
                     <Mail className="w-5 h-5" />
                   </div>
                   <div className="min-w-0">
-                    <p className="text-xs text-gray-400 font-medium uppercase tracking-wider">Email Address</p>
                     <a
                       href="mailto:ibrahimraafatt@gmail.com"
                       className="text-sm sm:text-base font-bold text-gray-900 hover:text-blue-600 transition-colors truncate block"
@@ -157,7 +156,6 @@ const Contact = () => {
                     <Github className="w-5 h-5" />
                   </div>
                   <div>
-                    <p className="text-xs text-gray-400 font-medium uppercase tracking-wider">Open Source &amp; Code</p>
                     <p className="text-sm sm:text-base font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
                       github.com/IbrahimRaafat
                     </p>
@@ -178,7 +176,6 @@ const Contact = () => {
                     <Linkedin className="w-5 h-5" />
                   </div>
                   <div>
-                    <p className="text-xs text-gray-400 font-medium uppercase tracking-wider">Professional Profile</p>
                     <p className="text-sm sm:text-base font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
                       linkedin.com/in/ibrahimraafat2000
                     </p>

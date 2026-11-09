@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react'
-import CircularText from './CircularText'
 import Grainient from './Grainient'
 
 const Hero = () => {
@@ -65,7 +64,7 @@ const Hero = () => {
           </div>
 
           <div className="text-center">
-            <h1 className="text-5xl sm:text-7xl md:text-8xl lg:text-8xl font-normal text-blue-600 leading-tight">
+            <h1 className="hero-title text-5xl sm:text-7xl md:text-8xl lg:text-8xl font-normal text-blue-600 leading-tight">
               Welcome
               <br />
               to my{' '}
@@ -81,10 +80,7 @@ const Hero = () => {
             </h1>
           </div>
           
-          {/* Circular Text */}
-          <div className="flex text-blue-600 shrink-0 items-center justify-center pt-2">
-            <CircularText text="SCROLL DOWN • SCROLL DOWN • " radius={80} fontSize={12} />
-          </div>
+
         </div>  
       </div>
     </section>

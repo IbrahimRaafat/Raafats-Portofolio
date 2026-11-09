@@ -377,9 +377,10 @@ const TechStack = () => {
           onMouseLeave={handleMouseLeaveMarquee}
           className="relative"
         >
-          <div className="mb-6">
-            <span className="text-xs font-bold tracking-widest uppercase text-gray-400">
-              Full Technology Ecosystem
+          <div className="mb-6 flex items-center gap-3">
+            <span className="h-px w-6 bg-gray-300" aria-hidden />
+            <span className="text-[11px] font-mono tracking-[0.18em] uppercase text-gray-400">
+              02 — Stack &amp; Tools
             </span>
           </div>
 

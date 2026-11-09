@@ -7,7 +7,7 @@ import Experience from "@/components/Experience";
 import Contact from "@/components/Contact";
 import BlogSection from "@/components/BlogSection";
 import { getAllPosts } from "@/lib/blog";
-import { Inter } from "next/font/google";
+import { Inter, Newsreader } from "next/font/google";
 
 const SITE_URL = "https://ibrahimraafat.com";
 const TITLE = "Ibrahim Raafat | Full Stack Engineer";
@@ -99,6 +99,14 @@ const inter = Inter({
   display: "swap",
 });
 
+const newsreader = Newsreader({
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+  variable: "--font-display",
+  display: "swap",
+});
+
 const menuItems = [
   { label: 'Home', ariaLabel: 'Go to home page', link: '#hero' },
   { label: 'Clients', ariaLabel: 'View clients', link: '#clients' },
@@ -115,9 +123,9 @@ const socialItems = [
 
 const projects = [
   { link: '/maz', text: 'Maz Mrkt', image: '/images/maz-logo.svg' },
-  { link: '/coins-cloth', text: 'Coins & Cloth', image: '/images/coins-cloth-logo.png' },
-  { link: '/kolr', text: 'Kolr Perfumes', image: '/images/kolr-logo.webp' },
-  { link: '/spira', text: 'Spira', image: '/images/spirahouse-logo.png' },
+  { link: 'https://coinandcloth.com', text: 'Coins & Cloth', image: '/images/coins-cloth-logo.png' },
+  { link: 'https://kolr.store', text: 'Kolr Perfumes', image: '/images/kolr-logo.webp' },
+  { link: 'https://spirahouse.com', text: 'Spira', image: '/images/spirahouse-logo.png' },
 ];
 
 export async function getStaticProps() {
@@ -127,7 +135,7 @@ export async function getStaticProps() {
 
 export default function Home({ posts }: { posts: import("@/lib/blog").PostMeta[] }) {
   return (
-    <div className={`${inter.variable} font-sans bg-[#f1f1f1] text-[#120F17] relative`}>
+    <div className={`${inter.variable} ${newsreader.variable} font-sans bg-[#f1f1f1] text-[#120F17] relative`}>
       {/* Ambient Film Grain Overlay */}
       <div className="noise-overlay" aria-hidden="true" />
 
