@@ -1,37 +1,36 @@
 ---
 title: "Herdr: tmux Rebuilt for AI Coding Agents"
 date: "2026-10-29"
-excerpt: "Running five parallel coding agents in traditional tmux is a recipe for silent deadlocks. Here is how Herdr brings agent-native state tracking, persistent daemons, and socket orchestration to the terminal."
+excerpt: "I left three Codex agents running in tmux overnight. One burned $12 asking for migration approval nobody saw. Herdr would have told me in one glance."
 tags: ["AI Agents", "Rust", "Dev Tools", "CLI"]
 cover: "/images/blog/herdr.png"
 ---
 
-If you have tried orchestrating multiple CLI coding agents—whether it is Claude Code, Codex, OpenCode, or Aider—you have almost certainly hit the **terminal babysitting problem**.
+Last month I had three Codex agents grinding through microservices in separate tmux panes. I went to make coffee. When I came back, pane 3 had been sitting for 47 minutes waiting on a `— confirm migration?` prompt I never saw. The other two had finished, but I had no idea — I was still cycling `Ctrl+B n` like a night watchman.
 
-Traditional terminal multiplexers like `tmux` and `zellij` are masterpieces of Unix engineering. But they were designed decades ago under a single fundamental assumption: *a human is behind the keyboard, typing commands one at a time.*
-
-When you switch from writing all code by hand to running three, four, or six autonomous agents across different microservices, that assumption completely shatters.
+That night cost me real money and a deadline. It also made me realize: tmux was never built for this.
 
 ---
 
-### The Problem with Running Agents in tmux
+### Why tmux breaks with agents
 
-In a standard `tmux` session, every pane is an opaque stream of raw ANSI escape codes and text bytes. The multiplexer has zero semantic awareness of what is actually happening inside.
+`tmux` and `zellij` are Unix classics. They multiplex bytes beautifully. But they see every pane as the same thing — an opaque stream of ANSI codes. They have no idea whether an agent is shipping code, stuck on a confirmation, or done and waiting for review.
 
-This leads to constant friction:
-* **Silent Stalls:** An agent in tab 3 paused because it requires confirmation to run a database migration. You didn't notice, so it sat idle for 45 minutes.
-* **Context Overload:** You spend half your time hitting `Ctrl+B n` cycling through panes just to check if background test runners finished or if an agent got stuck in a recursive loop.
-* **Disjointed Fleets:** Managing a fleet that spans your local workstation and a remote GPU instance requires multiple disconnected SSH sessions and zero unified visibility.
+So you end up doing the agent's job for it:
 
-We didn't need another generic terminal wrapper. We needed an **agent-native runtime**.
+* **Silent stalls** — an agent pauses for human approval and you do not notice until your wall clock says otherwise.
+* **Pane roulette** — you burn half your focus just checking if things finished or looped.
+* **Split fleets** — local work plus a remote GPU box means two SSH sessions, zero unified view.
+
+I did not want a prettier wrapper. I wanted a runtime that understands agents.
 
 ---
 
-### What is Herdr?
+### Meet Herdr
 
-[Herdr](https://herdr.dev) (`herdrdev/herdr`) is an open-source, Rust-powered terminal multiplexer built from the ground up for the agentic engineering era.
+[Herdr](https://herdr.dev) (`herdrdev/herdr`) is an open-source terminal multiplexer written in Rust, built specifically for agentic work. The shorthand I keep hearing — *"what tmux is to shells, Herdr is to coding agents"* — is the most honest pitch for it.
 
-Often summarized as *"what tmux is to shells, Herdr is to coding agents,"* it preserves everything developers love about classic multiplexers (lightning-fast Rust binary, zero Electron bloat, vi/tmux keybindings) while introducing deep intelligence around AI agent workflows.
+It keeps what you already like (tiny Rust binary, no Electron, vi and tmux keys) and adds the layer we were missing: agent awareness.
 
 ```bash
 # macOS & Linux
@@ -46,57 +45,49 @@ irm https://herdr.dev/install.ps1 | iex
 
 ---
 
-### 1. Agent-Aware State Tracking
+### Seeing state at a glance
 
-Herdr's defining innovation is that it inspects PTY activity and surfaces the operational state of the agent directly in the window chrome and tab headers:
+Herdr reads PTY activity and surfaces real agent state in the chrome itself:
 
-- **🟢 Working:** Agent is actively writing code, generating patches, or executing tests.
-- **🟡 Blocked / Waiting:** Agent needs human input, approval for a sensitive command, or clarification.
-- **🔵 Done:** The delegated task is complete and awaiting review.
-- **⚪ Idle:** Standby mode with no active process.
+- **🟢 Working** — actively coding, patching, or testing
+- **🟡 Blocked** — needs your input or an approval
+- **🔵 Done** — task complete, awaiting review
+- **⚪ Idle** — standby
 
-Instead of hunting through terminal buffers, a single glance at your status bar tells you exactly which agent needs your attention and which ones are happily making progress.
-
----
-
-### 2. A Persistent Daemon Architecture
-
-Like tmux, Herdr runs on a decoupled client-server daemon model:
-* Your sessions, processes, and agent threads live on the background daemon.
-* You can close your terminal window, detach, disconnect from Wi-Fi, or put your laptop to sleep without killing your running agents.
-* Reattaching is instantaneous with `herdr attach`.
+One look at the status bar replaces all that pane-hopping. The yellow dot alone would have saved my 47 minutes.
 
 ---
 
-### 3. Multi-Machine Fleet Management
+### It survives your laptop dying
 
-Modern software engineering rarely happens on one machine alone. You might be running lightweight frontend scaffolds locally while heavy inference, scraping clusters, or integration suites run on remote Linux boxes.
-
-Herdr allows you to connect local workspaces and remote SSH targets into a **single unified dashboard**. Reconnects happen independently per machine, meaning a dropped SSH connection won't freeze your local development panes.
+Like tmux, Herdr runs a daemon. Your sessions and agent threads live on that daemon, not your terminal window. Close the laptop, kill Wi-Fi, detach — agents keep running. `herdr attach` brings you back instantly. I now kick off long runs before I leave the cafe and reattach from home without losing a line.
 
 ---
 
-### 4. Agent-to-Agent Socket Orchestration
+### One dashboard for every machine
 
-Perhaps the most exciting paradigm Herdr introduces is programmable pane interaction. Herdr exposes a socket API and CLI commands directly to the sub-shells.
+Most real work is not on one box. I run light frontend scaffolds locally and heavy scrapers on a remote instance. Herdr lets you stitch local and remote SSH targets into a single dashboard. If one SSH link drops, only that machine's panes go stale — nothing else freezes.
 
-This means agents can talk to Herdr:
+---
+
+### Agents can drive it themselves
+
+This is the part that changed how I think about orchestration. Herdr exposes a socket API to its own panes, so agents can call it:
+
 ```bash
-# An orchestrator agent can spawn a worker pane for tests
+# An orchestrator spins up a worker
 herdr spawn --title "unit-tests" -- npm test
 
-# Or inspect the output of an adjacent worker
+# Then reads that worker's output
 herdr capture --pane 2
 ```
 
-This unlocks hierarchical agent systems: a high-level "architect" agent can break down an issue, spin up dedicated worker panes in isolated worktrees, monitor their states, and merge results once all panes signal `Done`.
+Suddenly a hierarchy is possible: an architect agent breaks down a ticket, spawns workers in isolated worktrees, watches their states, and merges once every pane turns blue. I have not fully automated that loop yet — but the primitive is there, and it is the first multiplexer primitive that feels agent-native rather than human-native.
 
 ---
 
-### The Verdict
+### Should you switch?
 
-As AI coding assistants transition from interactive autocomplete chat widgets into long-running background workers, our developer tooling must evolve accordingly.
+If you regularly run two or more coding agents at once, Herdr earns its keep on day one. The state dots and daemon alone are worth it; the socket API is upside.
 
-Multiplexing generic text is no longer sufficient—our multiplexers need to understand agent lifecycle states, persist across environments, and provide programmatic APIs.
-
-Herdr is one of the clearest glimpses yet into what developer environments will look like over the next decade. If you are regularly running multiple CLI agents, it is well worth adding to your stack.
+If you use a single agent in one pane, stay on tmux. Herdr shines when you have a fleet to watch — and a lot to lose when one pane silently stalls.

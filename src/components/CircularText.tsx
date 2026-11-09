@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef } from 'react';
 
 interface CircularTextProps {
   text: string;
@@ -6,68 +6,64 @@ interface CircularTextProps {
   fontSize?: number;
 }
 
-export default function CircularText({ 
-  text = " Scroll Down • Scroll Down •Scroll Down • --------- ", 
+export default function CircularText({
+  text = ' Scroll Down • Scroll Down •Scroll Down • --------- ',
   radius = 80,
-  fontSize = 12 
+  fontSize = 12,
 }: CircularTextProps) {
-  const [scrollSpeed, setScrollSpeed] = useState(1);
-  const targetSpeedRef = useRef(1);
-  const speedRef = useRef(1);
-  const lastScrollYRef = useRef(0);
+  const ringRef = useRef<HTMLDivElement>(null);
+  const rotRef = useRef(0);
+  const velRef = useRef(0);
+  const lastYRef = useRef(0);
   const rafRef = useRef(0);
 
   const chars = text.split('');
   const angleStep = 360 / chars.length;
 
   useEffect(() => {
-    lastScrollYRef.current = window.scrollY;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
 
-    const handleScroll = () => {
-      const current = window.scrollY;
-      const delta = Math.abs(current - lastScrollYRef.current);
-      // Faster multiplier for quicker response
-      const target = 1 + Math.min(delta * 0.012, 3);
-      targetSpeedRef.current = target;
-      lastScrollYRef.current = current;
-    };
+    lastYRef.current = window.scrollY;
+
+    const BASE = 0.30; // deg per frame at 60fps — slow idle spin
+    const MAX_EXTRA = 0.6; // cap scroll boost
+    const SMOOTH = 0.07; // velocity easing — lower = smoother
 
     const tick = () => {
-      // Ease towards target speed for smoothness
-      const next = speedRef.current + (targetSpeedRef.current - speedRef.current) * 0.15;
-      speedRef.current = next;
-      // Only update state when change is meaningful to avoid re-render spam
-      if (Math.abs(next - scrollSpeed) > 0.01) {
-        setScrollSpeed(next);
+      const cur = window.scrollY;
+      const rawDelta = cur - lastYRef.current;
+      lastYRef.current = cur;
+
+      // Exponential smoothing of scroll velocity
+      const target = Math.max(-60, Math.min(60, rawDelta)) / 60; // -1..1
+      velRef.current += (target - velRef.current) * SMOOTH;
+
+      const boost = Math.abs(velRef.current) * MAX_EXTRA;
+      const dir = velRef.current >= 0 ? 1 : -1;
+      // Always spin forward, just faster when scrolling
+      rotRef.current = (rotRef.current + BASE + boost) % 360;
+
+      // Slight squash in scroll direction for feel, without jank
+      // Only apply when velocity is meaningful
+      if (ringRef.current) {
+        ringRef.current.style.transform = `rotate(${rotRef.current}deg)`;
       }
-      // Gradually relax target back to base
-      targetSpeedRef.current = 1 + (targetSpeedRef.current - 1) * 0.92;
+
       rafRef.current = requestAnimationFrame(tick);
     };
 
-    window.addEventListener('scroll', handleScroll, { passive: true });
     rafRef.current = requestAnimationFrame(tick);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-      cancelAnimationFrame(rafRef.current);
-    };
-  }, [scrollSpeed]);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, []);
 
   return (
     <div className="relative inline-flex items-center justify-center w-40 h-40">
-      <div 
-        className="absolute inset-0"
-        style={{
-          animation: `spin ${10 / scrollSpeed}s linear infinite`,
-        }}
-      >
+      <div ref={ringRef} className="absolute inset-0 will-change-transform" style={{ transform: 'rotate(0deg)' }}>
         {chars.map((char, index) => {
-          const angle = (index * angleStep) - 90; // Start from top
-          const radian = (angle * Math.PI) / 180;
-          const x = radius * Math.cos(radian);
-          const y = radius * Math.sin(radian);
-          
+          const angle = index * angleStep - 90;
+          const rad = (angle * Math.PI) / 180;
+          const x = radius * Math.cos(rad);
+          const y = radius * Math.sin(rad);
           return (
             <span
               key={index}
@@ -84,34 +80,12 @@ export default function CircularText({
           );
         })}
       </div>
-      
-      {/* Center arrow icon */}
+
       <div className="relative z-10 flex items-center justify-center">
-        <svg
-          width="28"
-          height="28"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="text-blue-600"
-        >
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="text-blue-600">
           <path d="M12 5v14M19 12l-7 7-7-7" />
         </svg>
       </div>
-      
-      <style jsx>{`
-        @keyframes spin {
-          from {
-            transform: rotate(0deg);
-          }
-          to {
-            transform: rotate(360deg);
-          }
-        }
-      `}</style>
     </div>
   );
 }

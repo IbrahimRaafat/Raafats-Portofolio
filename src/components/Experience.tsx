@@ -98,8 +98,8 @@ const Experience = () => {
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 border-b border-gray-300 pb-8 mb-12">
           <div>
-            <p className="text-blue-600 text-xs sm:text-sm font-semibold uppercase tracking-wider mb-2">
-              Work Experience
+            <p className="text-gray-500 text-[11px] font-mono tracking-[0.18em] uppercase mb-2 flex items-center gap-3">
+              <span className="h-px w-6 bg-gray-300" aria-hidden /> 03 — Experience
             </p>
             <h2
               id="experience-heading"
@@ -129,7 +129,7 @@ const Experience = () => {
           />
 
           <div className="space-y-8 sm:space-y-10">
-            {experiences.map((item) => (
+            {experiences.map((item, idx) => (
               <article key={`${item.company}-${item.period}`} className="relative pl-8 sm:pl-10">
                 {/* Timeline node */}
                 <span
@@ -140,19 +140,19 @@ const Experience = () => {
                 </span>
 
                 {/* Card */}
-                <div className="grid grid-cols-12 gap-5 sm:gap-6 rounded-2xl border border-gray-200/90 bg-white p-6 sm:p-8 shadow-sm hover:shadow-md transition-shadow">
+                <div className={`grid grid-cols-12 gap-5 sm:gap-6 rounded-2xl border p-6 sm:p-8 shadow-sm hover:shadow-md transition-shadow ${idx === 0 ? "bg-gray-900 border-gray-800 text-white" : "bg-white border-gray-200/90"}`}>
                   <div className="col-span-12 md:col-span-4 border-b md:border-b-0 md:border-r border-gray-100 pb-4 md:pb-0 md:pr-6">
-                    <span className="inline-block text-xs font-semibold uppercase tracking-wider text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md mb-2">
+                    <span className={`inline-block text-xs font-semibold uppercase tracking-wider px-2.5 py-1 rounded-md mb-2 ${idx === 0 ? "text-white bg-white/15" : "text-blue-600 bg-blue-50"}`}>
                       {item.period}
                     </span>
-                    <h3 className="text-xl font-bold text-gray-900 leading-snug">
+                    <h3 className={`text-xl font-bold leading-snug ${idx === 0 ? "text-white" : "text-gray-900"}`}>
                       {item.role}
                     </h3>
-                    <p className="text-sm font-medium text-gray-600 mt-1">
-                      {item.company} <span className="text-gray-300">·</span> {item.location}
+                    <p className={`text-sm font-medium mt-1 ${idx === 0 ? "text-white/60" : "text-gray-600"}`}>
+                      {item.company} <span className={idx === 0 ? "text-white/30" : "text-gray-300"}>·</span> {item.location}
                     </p>
                   </div>
-                  <ul className="col-span-12 md:col-span-8 list-disc pl-5 text-sm sm:text-base leading-relaxed text-gray-700 space-y-2.5 marker:text-blue-500">
+                  <ul className={`col-span-12 md:col-span-8 list-disc pl-5 text-sm sm:text-base leading-relaxed space-y-2.5 ${idx === 0 ? "text-white/80 marker:text-white/40" : "text-gray-700 marker:text-blue-500"}`}>
                     {item.bullets.map((b, i) => (
                       <li key={i}>{b}</li>
                     ))}

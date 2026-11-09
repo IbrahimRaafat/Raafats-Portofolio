@@ -6,25 +6,17 @@ tags: ["Networking", "Wireshark", "TCP/IP", "Performance"]
 cover: "/images/blog/wireshark.png"
 ---
 
-As full-stack developers and backend engineers, we spend 95% of our working lives operating at the top of the OSI model: `fetch()`, Axios, FastAPI routes, Express middleware, GraphQL resolvers, and gRPC endpoints.
+I spent a week blaming Postgres for an API that took 280ms. Query plans, indexes, `EXPLAIN ANALYZE` — nothing explained it. Then I opened Wireshark and saw three round-trips of DNS + TCP + TLS burning before my backend ran a single line of code.
 
-Most of the time, that abstraction works brilliantly. Everything feels like clean JSON objects, asynchronous promises, and status codes.
+Most days we live at the top of the OSI model: `fetch()`, Axios, FastAPI routes, `console.log`. It feels like clean JSON and status codes — until a pipeline throws `ECONNRESET` at 3 AM or a webhook silently drops during peak load.
 
-Until it doesn't.
-
-Suddenly, an API endpoint that should take 30ms is clocking 280ms. An automated pipeline randomly throws `ECONNRESET`. Or a third-party webhook fails silently during peak load.
-
-High-level application logs (Datadog, CloudWatch, `console.log`) tell you *that* a request took 300ms or failed. But they are completely blind to **why** at the transport layer.
-
-To see reality without layers of abstraction, you need to look at the wire. That is where **Wireshark** becomes a software engineer's ultimate truth teller.
+Datadog tells you *that* a request failed. It never tells you *why* at the transport layer. For that, you look at the wire.
 
 ---
 
-### Why Wireshark for Software Engineers?
+### Why the wire, not the logs?
 
-Wireshark is the world's most widely used network protocol analyzer. It captures raw packets flowing across your Network Interface Card (NIC) and decodes them into human-readable protocol trees.
-
-You don't need a degree in telecommunications to get immense value from it. As a developer, knowing how to capture and inspect a few core exchanges gives you an unfair advantage when debugging distributed systems.
+Wireshark captures raw packets off your NIC and decodes them into readable protocol trees. You do not need a telecom degree to get value from it — knowing four filters and three handshakes already puts you ahead when debugging distributed systems.
 
 ---
 
