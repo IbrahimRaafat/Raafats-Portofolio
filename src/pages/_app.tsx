@@ -9,21 +9,23 @@ export default function App({ Component, pageProps }: AppProps) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    // snappier, less laggy — disable on touch devices where native is faster
+    const isCoarse = window.matchMedia("(pointer: coarse)").matches;
     const lenis = new Lenis({
-      duration: 1.1,
-      smoothWheel: true,
-    });
+      duration: isCoarse ? 0.6 : 0.85,
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: !isCoarse,
+      touchMultiplier: 1.4,
+      gestureOrientation: "vertical",
+    } as any);
 
     const raf = (time: number) => {
       lenis.raf(time);
       requestAnimationFrame(raf);
     };
-
     requestAnimationFrame(raf);
-
-    return () => {
-      lenis.destroy();
-    };
+    return () => lenis.destroy();
   }, []);
 
   return (

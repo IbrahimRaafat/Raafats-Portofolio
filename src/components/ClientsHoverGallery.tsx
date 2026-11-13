@@ -154,12 +154,10 @@ const ClientsHoverGallery: React.FC = () => {
                 className="group relative flex-none w-[420px] snap-start rounded-[20px] border border-black/10 bg-white overflow-hidden shadow-[0_12px_30px_rgba(0,0,0,0.07)] hover:shadow-[0_18px_40px_rgba(0,0,0,0.12)] transition-all duration-300 flex flex-col"
                 data-cursor="hover"
               >
-                <ClipReveal>
-                  <div className={`h-[220px] relative overflow-hidden border-b border-black/5 flex items-center justify-center ${project.previewType === 'logo' ? 'bg-white p-8' : 'bg-[#121212]'}`}>
-                    <img src={project.previewImage} alt={`${project.title} preview`} className={project.previewType === 'logo' ? 'max-h-full max-w-[80%] object-contain group-hover:scale-[1.02] transition-transform duration-500' : 'w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-500'} />
+                  <div className={`h-[220px] relative overflow-hidden border-b border-black/5 flex items-center justify-center ${project.id === 'coins-cloth' ? 'bg-[#121212] p-8' : project.previewType === 'logo' ? 'bg-[#f7f5f1] p-8' : 'bg-[#121212]'}`}>
+                    <img src={project.previewImage} alt={`${project.title} preview`} loading="lazy" className={project.previewType === 'logo' ? 'max-h-[140px] max-w-[78%] object-contain group-hover:scale-[1.02] transition-transform duration-500' : 'w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-500'} style={project.id === 'coins-cloth' ? { filter: 'brightness(0) invert(1)' } : undefined} />
                     <span className="absolute top-3 left-3 bg-blue-600 text-white font-black text-[11px] px-2 py-1 rounded-full">0{idx + 1}</span>
                   </div>
-                </ClipReveal>
                 <div className="p-5 flex flex-col flex-1">
                   <h3 className="text-xl font-black tracking-tight text-gray-900 group-hover:text-blue-600 transition-colors">{project.title}</h3>
                   <p className="text-xs text-gray-500 mt-1 line-clamp-1">{project.subtitle}</p>
@@ -242,12 +240,13 @@ const ClientsHoverGallery: React.FC = () => {
             >
               <div
                 className={`h-48 relative overflow-hidden border-b border-gray-100 flex items-center justify-center ${
-                  p.previewType === 'logo' ? 'bg-white p-8' : 'bg-gray-100'
+                  p.id === 'coins-cloth' ? 'bg-[#121212] p-8' : p.previewType === 'logo' ? 'bg-[#f7f5f1] p-8' : 'bg-gray-100'
                 }`}
               >
                 <img
                   src={p.previewImage}
                   alt={`${p.title} preview`}
+                  style={p.id === 'coins-cloth' ? { filter: 'brightness(0) invert(1)' } : undefined}
                   className={
                     p.previewType === 'logo'
                       ? 'max-h-full max-w-[80%] object-contain group-hover:scale-105 transition-transform duration-500'
