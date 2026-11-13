@@ -9,9 +9,9 @@ import {
   Check,
   ArrowUpRight,
   Send,
-  MapPin,
-  Clock,
 } from 'lucide-react'
+import { MaskReveal } from './Reveal'
+import MagneticButton from './MagneticButton'
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -72,39 +72,36 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="py-16 md:py-24 px-4 relative bg-[#f1f1f1] border-t border-gray-200"
+      className="py-16 md:py-24 px-4 relative bg-[var(--paper)] border-t border-black/10 overflow-hidden"
       aria-labelledby="contact-heading"
     >
+      <div className="pointer-events-none absolute inset-0 opacity-[0.03]" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")` }} />
       <div className="max-w-7xl px-4 sm:px-8 md:px-16 lg:px-24 w-full mx-auto relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           {/* Left Column: Availability & Direct Channels (6 cols) */}
           <div className="lg:col-span-6 space-y-8">
             <div>
-              <p className="text-gray-500 text-[11px] font-mono tracking-[0.18em] uppercase mb-2 flex items-center gap-3">
-                <span className="h-px w-6 bg-gray-300" aria-hidden /> 04 — Get in touch
-              </p>
-              <h2
-                id="contact-heading"
-                className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 tracking-tight leading-tight mb-4"
-              >
-                Let&apos;s Build Something Together
-              </h2>
-              <p className="text-gray-600 text-base sm:text-lg leading-relaxed max-w-lg">
-                Have a project in mind, an ERP that needs taming, or a pipeline to scale? Let&apos;s schedule a quick call or drop me a line below.
-              </p>
+              <MaskReveal>
+                <p className="text-gray-500 text-[11px] font-mono tracking-[0.18em] uppercase mb-2 flex items-center gap-3">
+                  <span className="h-px w-6 bg-gray-300" aria-hidden /> 05 — Get in touch
+                </p>
+              </MaskReveal>
+              <MaskReveal delay={80}>
+                <h2
+                  id="contact-heading"
+                  className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 tracking-tight leading-tight mb-4"
+                >
+                  Let&apos;s Build Something Together
+                </h2>
+              </MaskReveal>
+              <MaskReveal delay={140}>
+                <p className="text-gray-600 text-base sm:text-lg leading-relaxed max-w-lg">
+                  Have a project in mind, an ERP that needs taming, or a pipeline to scale? Let&apos;s schedule a quick call or drop me a line below.
+                </p>
+              </MaskReveal>
             </div>
 
-            {/* Location & Time Info */}
-            <div className="flex flex-wrap gap-4 text-xs sm:text-sm text-gray-500 font-medium">
-              <div className="flex items-center gap-2 bg-white px-3.5 py-2 rounded-xl border border-gray-200/80 shadow-2xs">
-                <MapPin className="w-4 h-4 text-blue-600 shrink-0" />
-                <span>Cairo, EG · Remote Worldwide</span>
-              </div>
-              <div className="flex items-center gap-2 bg-white px-3.5 py-2 rounded-xl border border-gray-200/80 shadow-2xs">
-                <Clock className="w-4 h-4 text-blue-600 shrink-0" />
-                <span>Reply time: within 24 hours</span>
-              </div>
-            </div>
+            {/* Location & Time Info — removed per request */}
 
             {/* Direct Channels Cards */}
             <div className="space-y-3.5 pt-2">
@@ -193,7 +190,7 @@ const Contact = () => {
                 Send a Message
               </h3>
               <p className="text-sm text-gray-500 mb-6">
-                Fill out the details below and I&apos;ll get back to you within 24 hours.
+                Fill out the details below — I&apos;ll get back to you shortly.
               </p>
 
               <form onSubmit={handleSubmit} className="space-y-4">
@@ -255,20 +252,23 @@ const Contact = () => {
                 </div>
 
                 {/* Submit Button */}
-                <button
-                  type="submit"
-                  disabled={status.state === 'loading'}
-                  className="w-full inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm py-3.5 px-6 rounded-xl transition-all shadow-sm hover:shadow hover:scale-[1.005] active:scale-[0.99] disabled:opacity-70 disabled:cursor-not-allowed disabled:hover:scale-100"
-                >
-                  {status.state === 'loading' ? (
-                    <span>Sending message...</span>
-                  ) : (
-                    <>
-                      <span>Send Message</span>
-                      <Send className="w-4 h-4" />
-                    </>
-                  )}
-                </button>
+                <MagneticButton className="w-full">
+                  <button
+                    type="submit"
+                    disabled={status.state === 'loading'}
+                    className="w-full inline-flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-sm py-3.5 px-6 rounded-xl transition-all shadow-sm hover:shadow disabled:opacity-70 disabled:cursor-not-allowed"
+                    data-cursor="hover"
+                  >
+                    {status.state === 'loading' ? (
+                      <span>Sending message...</span>
+                    ) : (
+                      <>
+                        <span>Send Message</span>
+                        <Send className="w-4 h-4" />
+                      </>
+                    )}
+                  </button>
+                </MagneticButton>
 
                 {/* Status Feedback Banners */}
                 {status.state !== 'idle' && (

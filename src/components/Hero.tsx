@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import Grainient from './Grainient'
+import { MaskReveal } from './Reveal'
+import MagneticButton from './MagneticButton'
 
 const Hero = () => {
   const words = ['Portfolio', 'Blog', 'World']
@@ -63,22 +65,31 @@ const Hero = () => {
             <span>Ibrahim Raafat — Full Stack Engineer</span>
           </div>
 
-          <div className="text-center">
-            <h1 className="hero-title text-5xl sm:text-7xl md:text-8xl lg:text-8xl font-normal text-blue-600 leading-tight">
-              Welcome
-              <br />
-              to my{' '}
-              <span className="inline-block">
-                <span
-                  className={`inline-block transition-all duration-500 ${
-                    isAnimating ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'
-                  }`}
-                >
-                  {words[currentWordIndex]}
+          <MaskReveal>
+            <div className="text-center">
+              <h1 className="hero-title text-5xl sm:text-7xl md:text-8xl lg:text-8xl font-normal text-blue-600 leading-tight">
+                Welcome
+                <br />
+                to my{' '}
+                <span className="inline-block">
+                  <span
+                    className={`inline-block transition-all duration-500 ${
+                      isAnimating ? 'opacity-0 translate-y-4' : 'opacity-100 translate-y-0'
+                    }`}
+                  >
+                    {words[currentWordIndex]}
+                  </span>
                 </span>
-              </span>
-            </h1>
-          </div>
+              </h1>
+            </div>
+          </MaskReveal>
+          <MaskReveal delay={120}>
+            <MagneticButton>
+              <a href="#clients" className="inline-flex items-center gap-2 bg-gray-900 text-white px-6 py-3 rounded-full text-sm font-semibold hover:bg-black transition-colors" data-cursor="hover">
+                Explore work →
+              </a>
+            </MagneticButton>
+          </MaskReveal>
           
 
         </div>  

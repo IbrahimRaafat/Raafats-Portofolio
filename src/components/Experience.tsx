@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { MaskReveal, ClipReveal } from './Reveal'
 
 type ExperienceItem = {
   company: string
@@ -91,22 +92,27 @@ const Experience = () => {
     <section
       ref={sectionRef}
       id="experience"
-      className="bg-[#f1f1f1] py-16 md:py-24"
+      className="bg-[var(--paper)] py-16 md:py-24 relative overflow-hidden"
       aria-labelledby="experience-heading"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-16 lg:px-24">
+      <div className="pointer-events-none absolute inset-0 opacity-[0.03]" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")` }} />
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-16 lg:px-24 relative">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 border-b border-gray-300 pb-8 mb-12">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 border-b border-black/10 pb-8 mb-12">
           <div>
-            <p className="text-gray-500 text-[11px] font-mono tracking-[0.18em] uppercase mb-2 flex items-center gap-3">
-              <span className="h-px w-6 bg-gray-300" aria-hidden /> 03 — Experience
-            </p>
-            <h2
-              id="experience-heading"
-              className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 tracking-tight leading-tight"
-            >
-              Building Products, Pipelines &amp; Systems
-            </h2>
+            <MaskReveal>
+              <p className="text-gray-500 text-[11px] font-mono tracking-[0.18em] uppercase mb-2 flex items-center gap-3">
+                <span className="h-px w-6 bg-gray-300" aria-hidden /> 03 — Experience
+              </p>
+            </MaskReveal>
+            <MaskReveal delay={80}>
+              <h2
+                id="experience-heading"
+                className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 tracking-tight leading-tight"
+              >
+                Building Products, Pipelines &amp; Systems
+              </h2>
+            </MaskReveal>
           </div>
           <a
             href="/resume.pdf"

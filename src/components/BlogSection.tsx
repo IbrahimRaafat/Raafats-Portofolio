@@ -1,5 +1,7 @@
 import Link from "next/link";
 import type { PostMeta } from "@/lib/blog";
+import { MaskReveal, ClipReveal } from "./Reveal";
+import MagneticButton from "./MagneticButton";
 
 function formatDate(d: string, isAr: boolean) {
   return new Date(d).toLocaleDateString(
@@ -21,28 +23,37 @@ export default function BlogSection({ posts }: { posts: PostMeta[] }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-16 lg:px-24 relative">
         {/* Header — extrafazant-like large editorial intro */}
         <div className="mb-10 md:mb-14">
-          <p className="text-[11px] font-mono tracking-[0.18em] uppercase text-gray-500 flex items-center gap-3 mb-4">
-            <span className="h-px w-6 bg-gray-400" aria-hidden /> 04 — Writing / Notes
-          </p>
+          <MaskReveal>
+            <p className="text-[11px] font-mono tracking-[0.18em] uppercase text-gray-500 flex items-center gap-3 mb-4">
+              <span className="h-px w-6 bg-gray-400" aria-hidden /> 04 — Writing / Notes
+            </p>
+          </MaskReveal>
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-6">
             <div className="relative">
-              <h2 className="text-[2.6rem] sm:text-5xl lg:text-[3.6rem] font-black leading-[0.9] tracking-[-0.04em] text-gray-900">
-                Ibra<span className="font-normal italic" style={{ fontFamily: "var(--font-display)" }}>&apos;s</span> Blog
-              </h2>
+              <MaskReveal delay={80}>
+                <h2 className="text-[2.6rem] sm:text-5xl lg:text-[3.6rem] font-black leading-[0.9] tracking-[-0.04em] text-gray-900">
+                  Ibra<span className="font-normal italic" style={{ fontFamily: "var(--font-display)" }}>&apos;s</span> Blog
+                </h2>
+              </MaskReveal>
               {/* hand-drawn underline squiggle */}
               <svg className="absolute -bottom-2 left-0 w-[180px] h-3 text-blue-600" viewBox="0 0 180 10" fill="none" aria-hidden>
                 <path d="M2 7 Q 45 2, 90 6 T 178 4" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" fill="none" />
               </svg>
-              <p className="mt-6 text-sm md:text-[15px] leading-relaxed text-gray-600 max-w-[36ch]">
-                Notes on shipping, debugging the wire, and building with agents — small pieces, written to be useful.
-              </p>
+              <MaskReveal delay={140}>
+                <p className="mt-6 text-sm md:text-[15px] leading-relaxed text-gray-600 max-w-[36ch]">
+                  Notes on shipping, debugging the wire, and building with agents — small pieces, written to be useful.
+                </p>
+              </MaskReveal>
             </div>
-            <Link
-              href="/blog"
-              className="inline-flex items-center gap-2 bg-gray-900 hover:bg-black text-white px-6 py-3 rounded-full text-sm font-semibold transition-colors shrink-0 self-start lg:self-auto"
-            >
-              View all posts <span aria-hidden>→</span>
-            </Link>
+            <MagneticButton>
+              <Link
+                href="/blog"
+                className="inline-flex items-center gap-2 bg-gray-900 hover:bg-black text-white px-6 py-3 rounded-full text-sm font-semibold transition-colors shrink-0 self-start lg:self-auto"
+                data-cursor="hover"
+              >
+                View all posts <span aria-hidden>→</span>
+              </Link>
+            </MagneticButton>
           </div>
         </div>
 

@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react'
 import { motion, useSpring, useMotionValue } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
+import { MaskReveal, ClipReveal } from './Reveal'
 
 export type ClientProject = {
   id: string
@@ -111,27 +112,74 @@ const ClientsHoverGallery: React.FC = () => {
       id="clients"
       ref={containerRef}
       onMouseMove={handleMouseMove}
-      className="relative bg-[#f1f1f1] py-16 md:py-24 border-y border-gray-200"
+      className="relative bg-[var(--paper)] py-16 md:py-24 border-y border-black/10 overflow-hidden"
       aria-labelledby="clients-heading"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-16 lg:px-24">
+      <div className="pointer-events-none absolute inset-0 opacity-[0.03]" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")` }} />
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-16 lg:px-24 relative">
         {/* Section Header */}
         <div className="mb-12">
-          <p className="text-gray-500 text-[11px] font-mono tracking-[0.18em] uppercase mb-3 flex items-center gap-3">
-            <span className="h-px w-6 bg-gray-300" aria-hidden /> 01 — Selected Work
-          </p>
-          <h2
-            id="clients-heading"
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 tracking-tight leading-tight"
-          >
-            Clients &amp; Projects
-          </h2>
+          <MaskReveal>
+            <p className="text-gray-500 text-[11px] font-mono tracking-[0.18em] uppercase mb-3 flex items-center gap-3">
+              <span className="h-px w-6 bg-gray-300" aria-hidden /> 01 — Selected Work
+            </p>
+          </MaskReveal>
+          <MaskReveal delay={80}>
+            <h2
+              id="clients-heading"
+              className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 tracking-tight leading-tight"
+            >
+              Clients &amp; Projects
+            </h2>
+          </MaskReveal>
+          <p className="mt-3 text-sm text-gray-500 hidden lg:block">Drag horizontally → or hover for preview</p>
         </div>
 
-        {/* Desktop Interactive Hover Project Rows */}
+        {/* Desktop: Horizontal Shelf (lg+) */}
         <div
           onMouseLeave={handleMouseLeaveList}
-          className="divide-y divide-gray-300 border-y border-gray-300"
+          className="hidden lg:flex gap-5 overflow-x-auto pb-4 -mx-4 px-4 scrollbar-none snap-x snap-mandatory"
+          style={{ scrollbarWidth: "none" }}
+          data-lenis-prevent
+        >
+          {clientProjects.map((project, idx) => {
+            const isExternal = project.link.startsWith('http')
+            return (
+              <a
+                key={`shelf-${project.id}`}
+                href={project.link}
+                target={isExternal ? '_blank' : undefined}
+                rel={isExternal ? 'noopener noreferrer' : undefined}
+                onMouseEnter={() => handleMouseEnterRow(idx)}
+                className="group relative flex-none w-[420px] snap-start rounded-[20px] border border-black/10 bg-white overflow-hidden shadow-[0_12px_30px_rgba(0,0,0,0.07)] hover:shadow-[0_18px_40px_rgba(0,0,0,0.12)] transition-all duration-300 flex flex-col"
+                data-cursor="hover"
+              >
+                <ClipReveal>
+                  <div className={`h-[220px] relative overflow-hidden border-b border-black/5 flex items-center justify-center ${project.previewType === 'logo' ? 'bg-white p-8' : 'bg-[#121212]'}`}>
+                    <img src={project.previewImage} alt={`${project.title} preview`} className={project.previewType === 'logo' ? 'max-h-full max-w-[80%] object-contain group-hover:scale-[1.02] transition-transform duration-500' : 'w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-500'} />
+                    <span className="absolute top-3 left-3 bg-blue-600 text-white font-black text-[11px] px-2 py-1 rounded-full">0{idx + 1}</span>
+                  </div>
+                </ClipReveal>
+                <div className="p-5 flex flex-col flex-1">
+                  <h3 className="text-xl font-black tracking-tight text-gray-900 group-hover:text-blue-600 transition-colors">{project.title}</h3>
+                  <p className="text-xs text-gray-500 mt-1 line-clamp-1">{project.subtitle}</p>
+                  <div className="flex flex-wrap gap-1.5 mt-3">
+                    {project.tech.slice(0,3).map((t) => <span key={t} className="text-[10px] font-semibold uppercase tracking-wider px-2 py-1 rounded bg-gray-100 text-gray-600">{t}</span>)}
+                  </div>
+                  <div className="mt-4 flex items-center justify-between">
+                    <span className="text-xs font-semibold text-gray-400">{project.year}</span>
+                    <span className="h-8 w-8 rounded-full border border-black/10 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-colors"><ArrowUpRight className="w-4 h-4" /></span>
+                  </div>
+                </div>
+              </a>
+            )
+          })}
+        </div>
+
+        {/* Desktop/Medium: Vertical Rows (below lg) */}
+        <div
+          onMouseLeave={handleMouseLeaveList}
+          className="divide-y divide-black/10 border-y border-black/10 lg:hidden"
         >
           {clientProjects.map((project, idx) => {
             const isHovered = modalActive && activeIndex === idx
@@ -145,10 +193,7 @@ const ClientsHoverGallery: React.FC = () => {
                 onMouseEnter={() => handleMouseEnterRow(idx)}
                 className="group relative flex flex-col md:flex-row md:items-center justify-between py-8 sm:py-10 md:py-12 px-2 sm:px-4 transition-all duration-300 hover:px-6 cursor-pointer"
               >
-                {/* Background hover highlight slide */}
                 <div className="absolute inset-0 bg-white/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl pointer-events-none -z-10" />
-
-                {/* Left: Index & Title */}
                 <div className="flex items-baseline gap-4 sm:gap-6 min-w-0">
                   <span className="font-mono text-xs sm:text-sm text-gray-400 font-semibold group-hover:text-blue-600 transition-colors shrink-0">
                     0{idx + 1}
@@ -162,8 +207,6 @@ const ClientsHoverGallery: React.FC = () => {
                     </p>
                   </div>
                 </div>
-
-                {/* Right: Tech Stack Pills & Arrow */}
                 <div className="flex items-center gap-4 sm:gap-6 mt-4 md:mt-0 self-start md:self-auto">
                   <div className="hidden lg:flex items-center gap-2">
                     {project.tech.map((t) => (
@@ -175,11 +218,9 @@ const ClientsHoverGallery: React.FC = () => {
                       </span>
                     ))}
                   </div>
-
                   <span className="text-xs sm:text-sm font-semibold text-gray-400 group-hover:text-gray-900 transition-colors whitespace-nowrap">
                     {project.year}
                   </span>
-
                   <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-full border border-gray-300 group-hover:border-blue-600 group-hover:bg-blue-600 group-hover:text-white flex items-center justify-center transition-all duration-300 text-gray-700 shrink-0">
                     <ArrowUpRight className="w-5 h-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
                   </div>

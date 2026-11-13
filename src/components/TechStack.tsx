@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react'
 import { motion, useSpring, useMotionValue } from 'framer-motion'
 import { TrendingUp, ArrowUpRight } from 'lucide-react'
+import { MaskReveal } from './Reveal'
 
 
 export type Technology = {
@@ -368,8 +369,9 @@ const TechStack = () => {
   }
 
   return (
-    <section id="stack" className="bg-[#f1f1f1] py-14 md:py-20 border-t border-gray-200" aria-label="Technology Stack">
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-16 lg:px-24">
+    <section id="stack" className="bg-[var(--paper)] py-14 md:py-20 border-t border-black/10 relative overflow-hidden" aria-label="Technology Stack">
+      <div className="pointer-events-none absolute inset-0 opacity-[0.03]" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")` }} />
+      <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-16 lg:px-24 relative">
         {/* BIG-ICON SLIDING MARQUEE WITH HOVER PREVIEW (LIKE CLIENTS) */}
         <div
           ref={marqueeContainerRef}
@@ -377,12 +379,14 @@ const TechStack = () => {
           onMouseLeave={handleMouseLeaveMarquee}
           className="relative"
         >
-          <div className="mb-6 flex items-center gap-3">
-            <span className="h-px w-6 bg-gray-300" aria-hidden />
-            <span className="text-[11px] font-mono tracking-[0.18em] uppercase text-gray-400">
-              02 — Stack &amp; Tools
-            </span>
-          </div>
+          <MaskReveal>
+            <div className="mb-6 flex items-center gap-3">
+              <span className="h-px w-6 bg-gray-300" aria-hidden />
+              <span className="text-[11px] font-mono tracking-[0.18em] uppercase text-gray-400">
+                02 — Stack &amp; Tools
+              </span>
+            </div>
+          </MaskReveal>
 
           <div className="relative w-full overflow-hidden rounded-3xl bg-white/70 border border-gray-200/90 py-6 px-4 shadow-sm backdrop-blur-xs">
             {/* Gradient fade masks */}

@@ -6,6 +6,8 @@ import TechStack from "@/components/TechStack";
 import Experience from "@/components/Experience";
 import Contact from "@/components/Contact";
 import BlogSection from "@/components/BlogSection";
+import ScrollProgress from "@/components/ScrollProgress";
+import CursorDot from "@/components/CursorDot";
 import { getAllPosts } from "@/lib/blog";
 import { Inter, Newsreader } from "next/font/google";
 
@@ -135,9 +137,17 @@ export async function getStaticProps() {
 
 export default function Home({ posts }: { posts: import("@/lib/blog").PostMeta[] }) {
   return (
-    <div className={`${inter.variable} ${newsreader.variable} font-sans bg-[#f1f1f1] text-[#120F17] relative`}>
+    <div className={`${inter.variable} ${newsreader.variable} font-sans bg-[var(--paper)] text-[#120F17] relative`}>
+      <ScrollProgress />
+      <CursorDot />
       {/* Ambient Film Grain Overlay */}
       <div className="noise-overlay" aria-hidden="true" />
+      {/* Marginal numerals */}
+      <div aria-hidden className="hidden xl:block fixed left-6 top-1/2 -translate-y-1/2 z-20 pointer-events-none select-none">
+        <div className="flex flex-col gap-3 font-mono text-[10px] tracking-[0.18em] text-black/25">
+          <span>01</span><span className="h-8 w-px bg-black/15 mx-auto" /><span>02</span><span className="h-8 w-px bg-black/15 mx-auto" /><span>03</span><span className="h-8 w-px bg-black/15 mx-auto" /><span>04</span><span className="h-8 w-px bg-black/15 mx-auto" /><span>05</span>
+        </div>
+      </div>
 
       <Head>
         <title>{TITLE}</title>

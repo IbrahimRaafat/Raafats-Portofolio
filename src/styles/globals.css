@@ -1,5 +1,17 @@
 @import "tailwindcss";
 
+/* Awwwards paper system */
+:root {
+  --paper: #ede9e3;
+  --paper-2: #f7f5f1;
+  --tilt-a: -0.4deg;
+  --tilt-b: 0.6deg;
+  --tilt-c: -0.5deg;
+}
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-smooth [data-lenis-prevent] { overscroll-behavior: contain; }
+
 @custom-variant dark (&:is(.dark *));
 
 :root {
