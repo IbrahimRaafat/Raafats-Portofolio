@@ -55,8 +55,8 @@ const clientProjects: ClientProject[] = [
     tech: ['Shopify', 'n8n Automations', 'Slack Alerts'],
     year: '2024',
     link: 'https://coinandcloth.com',
-    previewImage: '/images/coins-cloth-logo.png',
-    previewType: 'logo',
+    previewImage: '/images/coins-cloth-home.png',
+    previewType: 'screenshot',
     accentColor: '#121212',
   },
 ]
@@ -210,7 +210,7 @@ const ClientsHoverGallery: React.FC = () => {
                 >
                   <div
                     className={`h-[300px] xl:h-[340px] relative overflow-hidden border-b border-black/5 flex items-center justify-center ${
-                      project.id === 'coins-cloth' ? 'bg-[#121212] p-10' : project.previewType === 'logo' ? 'bg-[#f7f5f1] p-10' : 'bg-[#121212]'
+                      project.previewType === 'logo' ? 'bg-[#f7f5f1] p-10' : 'bg-[#121212]'
                     }`}
                   >
                     <img
@@ -222,7 +222,6 @@ const ClientsHoverGallery: React.FC = () => {
                           ? 'max-h-[180px] max-w-[78%] object-contain group-hover:scale-[1.02] transition-transform duration-500'
                           : 'w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-500'
                       }
-                      style={project.id === 'coins-cloth' ? { filter: 'brightness(0) invert(1)' } : undefined}
                     />
                     <span className="absolute top-4 left-4 bg-blue-600 text-white font-mono text-[11px] font-bold px-2.5 py-1 rounded-full">
                       0{idx + 1}
@@ -286,13 +285,12 @@ const ClientsHoverGallery: React.FC = () => {
                 rel={isExternal ? 'noopener noreferrer' : undefined}
                 className="group relative flex-none w-[420px] snap-start rounded-[20px] border border-black/10 bg-white overflow-hidden shadow-[0_12px_30px_rgba(0,0,0,0.07)] flex flex-col"
               >
-                <div className={`h-[220px] relative overflow-hidden border-b border-black/5 flex items-center justify-center ${project.id === 'coins-cloth' ? 'bg-[#121212] p-8' : project.previewType === 'logo' ? 'bg-[#f7f5f1] p-8' : 'bg-[#121212]'}`}>
+                <div className={`h-[220px] relative overflow-hidden border-b border-black/5 flex items-center justify-center ${project.previewType === 'logo' ? 'bg-[#f7f5f1] p-8' : 'bg-[#121212]'}`}>
                   <img
                     src={project.previewImage}
                     alt={`${project.title} preview`}
                     loading="lazy"
                     className={project.previewType === 'logo' ? 'max-h-[140px] max-w-[78%] object-contain' : 'w-full h-full object-cover object-top'}
-                    style={project.id === 'coins-cloth' ? { filter: 'brightness(0) invert(1)' } : undefined}
                   />
                   <span className="absolute top-3 left-3 bg-blue-600 text-white font-black text-[11px] px-2 py-1 rounded-full">0{idx + 1}</span>
                 </div>
@@ -350,11 +348,10 @@ const ClientsHoverGallery: React.FC = () => {
               rel={p.link.startsWith('http') ? 'noopener noreferrer' : undefined}
               className="rounded-2xl border border-gray-200/90 bg-white overflow-hidden shadow-sm group flex flex-col"
             >
-              <div className={`h-48 relative overflow-hidden border-b border-gray-100 flex items-center justify-center ${p.id === 'coins-cloth' ? 'bg-[#121212] p-8' : p.previewType === 'logo' ? 'bg-[#f7f5f1] p-8' : 'bg-gray-100'}`}>
+              <div className={`h-48 relative overflow-hidden border-b border-gray-100 flex items-center justify-center ${p.previewType === 'logo' ? 'bg-[#f7f5f1] p-8' : 'bg-[#121212]'}`}>
                 <img
                   src={p.previewImage}
                   alt={`${p.title} preview`}
-                  style={p.id === 'coins-cloth' ? { filter: 'brightness(0) invert(1)' } : undefined}
                   className={p.previewType === 'logo' ? 'max-h-full max-w-[80%] object-contain' : 'w-full h-full object-cover object-top'}
                 />
               </div>
