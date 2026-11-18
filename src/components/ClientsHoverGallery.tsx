@@ -1,7 +1,6 @@
-import React, { useState, useRef } from 'react'
-import { motion, useSpring, useMotionValue } from 'framer-motion'
+import React, { useRef, useEffect, useState } from 'react'
 import { ArrowUpRight } from 'lucide-react'
-import { MaskReveal, ClipReveal } from './Reveal'
+import { MaskReveal } from './Reveal'
 
 export type ClientProject = {
   id: string
@@ -62,111 +61,249 @@ const clientProjects: ClientProject[] = [
   },
 ]
 
-const modalVariants = {
-  initial: { scale: 0, opacity: 0 },
-  open: {
-    scale: 1,
-    opacity: 1,
-    transition: { duration: 0.35, ease: [0.76, 0, 0.24, 1] as const },
-  },
-  closed: {
-    scale: 0,
-    opacity: 0,
-    transition: { duration: 0.25, ease: [0.32, 0, 0.67, 0] as const },
-  },
-}
-
 const ClientsHoverGallery: React.FC = () => {
-  const [modalActive, setModalActive] = useState(false)
-  const [activeIndex, setActiveIndex] = useState(0)
-  const containerRef = useRef<HTMLDivElement>(null)
+  const pinRef = useRef<HTMLElement>(null)
+  const trackRef = useRef<HTMLDivElement>(null)
+  const [progress, setProgress] = useState(0)
+  const [activeIdx, setActiveIdx] = useState(0)
 
-  // Spring physics for the floating preview window
-  const springConfig = { stiffness: 320, damping: 28, mass: 0.5 }
-  const x = useSpring(useMotionValue(0), springConfig)
-  const y = useSpring(useMotionValue(0), springConfig)
+  useEffect(() => {
+    const pin = pinRef.current
+    const track = trackRef.current
+    if (!pin || !track) return
 
-  // Trailing spring for the "View" cursor circle
-  const badgeSpringConfig = { stiffness: 220, damping: 22, mass: 0.7 }
-  const badgeX = useSpring(useMotionValue(0), badgeSpringConfig)
-  const badgeY = useSpring(useMotionValue(0), badgeSpringConfig)
+    const mqlReduced = window.matchMedia('(prefers-reduced-motion: reduce)')
+    const mqlDesktop = window.matchMedia('(min-width: 1024px)')
+    if (mqlReduced.matches || !mqlDesktop.matches) return
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    x.set(e.clientX)
-    y.set(e.clientY)
-    badgeX.set(e.clientX)
-    badgeY.set(e.clientY)
-  }
+    let ctx: { revert: () => void } | null = null
 
-  const handleMouseEnterRow = (index: number) => {
-    setActiveIndex(index)
-    setModalActive(true)
-  }
+    const init = async () => {
+      const gsap = (await import('gsap')).default
+      const { ScrollTrigger } = await import('gsap/ScrollTrigger')
+      gsap.registerPlugin(ScrollTrigger)
 
-  const handleMouseLeaveList = () => {
-    setModalActive(false)
-  }
+      ctx = gsap.context(() => {
+        const getScrollAmount = () => track.scrollWidth - window.innerWidth
+
+        const tween = gsap.to(track, {
+          x: () => -getScrollAmount(),
+          ease: 'none',
+          scrollTrigger: {
+            trigger: pin,
+            start: 'top top',
+            end: () => `+=${getScrollAmount()}`,
+            pin: true,
+            scrub: 1,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+            onUpdate: (self) => {
+              setProgress(self.progress)
+              const idx = Math.min(
+                clientProjects.length - 1,
+                Math.floor(self.progress * clientProjects.length + 0.0001)
+              )
+              setActiveIdx(idx)
+            },
+          },
+        })
+        // ensure correct measurement after images load
+        const imgs = track.querySelectorAll('img')
+        let loaded = 0
+        const onLoad = () => {
+          loaded++
+          if (loaded === imgs.length) ScrollTrigger.refresh()
+        }
+        imgs.forEach((img) => {
+          if ((img as HTMLImageElement).complete) onLoad()
+          else img.addEventListener('load', onLoad, { once: true })
+        })
+      }, pin)
+    }
+
+    init()
+
+    const onResize = () => {
+      // re-evaluate desktop vs mobile — if switched to mobile, kill pin
+      if (!window.matchMedia('(min-width: 1024px)').matches) {
+        ctx?.revert()
+        setProgress(0)
+      }
+    }
+    window.addEventListener('resize', onResize)
+
+    return () => {
+      window.removeEventListener('resize', onResize)
+      ctx?.revert()
+    }
+  }, [])
 
   return (
     <section
       id="clients"
-      ref={containerRef}
-      onMouseMove={handleMouseMove}
-      className="relative bg-[var(--paper)] py-16 md:py-24 border-y border-black/10 overflow-hidden"
+      ref={pinRef}
+      className="relative bg-[var(--paper)] border-y border-black/10 overflow-hidden"
       aria-labelledby="clients-heading"
     >
-      <div className="pointer-events-none absolute inset-0 opacity-[0.03]" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")` }} />
-      <div className="max-w-7xl mx-auto px-4 sm:px-8 md:px-16 lg:px-24 relative">
-        {/* Section Header */}
-        <div className="mb-12">
-          <MaskReveal>
-            <p className="text-gray-500 text-[11px] font-mono tracking-[0.18em] uppercase mb-3 flex items-center gap-3">
-              <span className="h-px w-6 bg-gray-300" aria-hidden /> 01 — Selected Work
+      <div
+        className="pointer-events-none absolute inset-0 opacity-[0.03]"
+        style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+        }}
+      />
+
+      {/* ===== DESKTOP PINNED HORIZONTAL ===== */}
+      <div className="hidden lg:flex flex-col h-[100vh] justify-center relative">
+        {/* Header row — stays visible while pinned */}
+        <div className="max-w-7xl mx-auto w-full px-8 lg:px-16 xl:px-24 pt-10 pb-6 flex items-end justify-between gap-8 shrink-0">
+          <div>
+            <MaskReveal>
+              <p className="text-gray-500 text-[11px] font-mono tracking-[0.18em] uppercase mb-3 flex items-center gap-3">
+                <span className="h-px w-6 bg-gray-300" aria-hidden /> 01 — Selected Work
+              </p>
+            </MaskReveal>
+            <MaskReveal delay={80}>
+              <h2
+                id="clients-heading"
+                className="text-4xl xl:text-5xl font-bold text-gray-900 tracking-tight leading-none"
+              >
+                Clients &amp; Projects
+              </h2>
+            </MaskReveal>
+            <p className="mt-3 text-sm text-gray-500 flex items-center gap-2">
+              <span className="hidden xl:inline">Scroll down ↓</span>
+              <span className="xl:hidden">Scroll ↓</span>
+              <span className="text-gray-400">— vertical scroll drives horizontal</span>
             </p>
-          </MaskReveal>
-          <MaskReveal delay={80}>
-            <h2
-              id="clients-heading"
-              className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 tracking-tight leading-tight"
-            >
-              Clients &amp; Projects
-            </h2>
-          </MaskReveal>
-          <p className="mt-3 text-sm text-gray-500 hidden lg:block">Drag horizontally → or hover for preview</p>
+          </div>
+          <div className="hidden xl:flex flex-col items-end gap-2 shrink-0">
+            <span className="font-mono text-xs text-gray-400">
+              {String(activeIdx + 1).padStart(2, '0')} / {String(clientProjects.length).padStart(2, '0')}
+            </span>
+            <div className="flex gap-1.5">
+              {clientProjects.map((_, i) => (
+                <span
+                  key={i}
+                  className={`h-1 rounded-full transition-all duration-300 ${i === activeIdx ? 'w-8 bg-blue-600' : i < activeIdx ? 'w-4 bg-blue-300' : 'w-4 bg-black/15'}`}
+                />
+              ))}
+            </div>
+          </div>
         </div>
 
-        {/* Desktop: Horizontal Shelf (lg+) */}
-        <div
-          onMouseLeave={handleMouseLeaveList}
-          className="hidden lg:flex gap-5 overflow-x-auto pb-4 -mx-4 px-4 scrollbar-none snap-x snap-mandatory"
-          style={{ scrollbarWidth: "none" }}
-          data-lenis-prevent
-        >
+        {/* Horizontal track */}
+        <div className="overflow-hidden">
+          <div
+            ref={trackRef}
+            className="flex gap-6 will-change-transform pl-8 lg:pl-16 xl:pl-24 pr-8"
+            style={{ width: 'max-content' }}
+          >
+            {clientProjects.map((project, idx) => {
+              const isExternal = project.link.startsWith('http')
+              return (
+                <a
+                  key={`pin-${project.id}`}
+                  href={project.link}
+                  target={isExternal ? '_blank' : undefined}
+                  rel={isExternal ? 'noopener noreferrer' : undefined}
+                  className="group relative flex-none w-[460px] xl:w-[520px] rounded-[22px] border border-black/10 bg-white overflow-hidden shadow-[0_12px_30px_rgba(0,0,0,0.07)] hover:shadow-[0_18px_40px_rgba(0,0,0,0.12)] transition-shadow duration-300 flex flex-col"
+                >
+                  <div
+                    className={`h-[300px] xl:h-[340px] relative overflow-hidden border-b border-black/5 flex items-center justify-center ${
+                      project.id === 'coins-cloth' ? 'bg-[#121212] p-10' : project.previewType === 'logo' ? 'bg-[#f7f5f1] p-10' : 'bg-[#121212]'
+                    }`}
+                  >
+                    <img
+                      src={project.previewImage}
+                      alt={`${project.title} preview`}
+                      loading="lazy"
+                      className={
+                        project.previewType === 'logo'
+                          ? 'max-h-[180px] max-w-[78%] object-contain group-hover:scale-[1.02] transition-transform duration-500'
+                          : 'w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-500'
+                      }
+                      style={project.id === 'coins-cloth' ? { filter: 'brightness(0) invert(1)' } : undefined}
+                    />
+                    <span className="absolute top-4 left-4 bg-blue-600 text-white font-mono text-[11px] font-bold px-2.5 py-1 rounded-full">
+                      0{idx + 1}
+                    </span>
+                  </div>
+                  <div className="p-6 flex flex-col flex-1">
+                    <h3 className="text-2xl font-black tracking-tight text-gray-900 group-hover:text-blue-600 transition-colors">
+                      {project.title}
+                    </h3>
+                    <p className="text-sm text-gray-500 mt-1.5 line-clamp-1">{project.subtitle}</p>
+                    <div className="mt-5 flex items-center justify-between">
+                      <span className="text-xs font-semibold text-gray-400">View project</span>
+                      <span className="h-9 w-9 rounded-full border border-black/10 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-colors">
+                        <ArrowUpRight className="w-4 h-4" />
+                      </span>
+                    </div>
+                  </div>
+                </a>
+              )
+            })}
+            {/* End spacer card */}
+            <div className="flex-none w-[320px] flex flex-col justify-center px-8">
+              <p className="font-mono text-xs tracking-widest text-black/30 uppercase">End of selection</p>
+              <p className="text-2xl font-bold tracking-tight text-gray-900 mt-2 leading-tight">More work on request →</p>
+              <p className="text-sm text-gray-500 mt-2">Keep scrolling to continue</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom progress bar */}
+        <div className="max-w-7xl mx-auto w-full px-8 lg:px-16 xl:px-24 mt-6 shrink-0">
+          <div className="h-px w-full bg-black/10 rounded-full overflow-hidden">
+            <div className="h-full bg-blue-600 transition-none" style={{ width: `${progress * 100}%` }} />
+          </div>
+          <div className="flex justify-between mt-2 font-mono text-[10px] tracking-widest text-black/30 uppercase">
+            <span>Scroll to explore</span>
+            <span className="lg:hidden">Swipe →</span>
+            <span className="hidden lg:inline">Keep scrolling ↓ for next section</span>
+          </div>
+        </div>
+      </div>
+
+      {/* ===== TABLET / MOBILE FALLBACK (vertical, no pin) ===== */}
+      <div className="lg:hidden max-w-7xl mx-auto px-4 sm:px-8 md:px-16 py-16 md:py-20">
+        <div className="mb-10">
+          <p className="text-gray-500 text-[11px] font-mono tracking-[0.18em] uppercase mb-3 flex items-center gap-3">
+            <span className="h-px w-6 bg-gray-300" aria-hidden /> 01 — Selected Work
+          </p>
+          <h2 className="text-3xl sm:text-4xl font-bold text-gray-900 tracking-tight leading-tight">Clients &amp; Projects</h2>
+        </div>
+
+        {/* Horizontal snap scroll on tablet */}
+        <div className="hidden md:flex gap-4 overflow-x-auto pb-4 -mx-4 px-4 scrollbar-none snap-x snap-mandatory" style={{ scrollbarWidth: 'none' }}>
           {clientProjects.map((project, idx) => {
             const isExternal = project.link.startsWith('http')
             return (
               <a
-                key={`shelf-${project.id}`}
+                key={`tab-${project.id}`}
                 href={project.link}
                 target={isExternal ? '_blank' : undefined}
                 rel={isExternal ? 'noopener noreferrer' : undefined}
-                onMouseEnter={() => handleMouseEnterRow(idx)}
-                className="group relative flex-none w-[420px] snap-start rounded-[20px] border border-black/10 bg-white overflow-hidden shadow-[0_12px_30px_rgba(0,0,0,0.07)] hover:shadow-[0_18px_40px_rgba(0,0,0,0.12)] transition-all duration-300 flex flex-col"
-                data-cursor="hover"
+                className="group relative flex-none w-[420px] snap-start rounded-[20px] border border-black/10 bg-white overflow-hidden shadow-[0_12px_30px_rgba(0,0,0,0.07)] flex flex-col"
               >
-                  <div className={`h-[220px] relative overflow-hidden border-b border-black/5 flex items-center justify-center ${project.id === 'coins-cloth' ? 'bg-[#121212] p-8' : project.previewType === 'logo' ? 'bg-[#f7f5f1] p-8' : 'bg-[#121212]'}`}>
-                    <img src={project.previewImage} alt={`${project.title} preview`} loading="lazy" className={project.previewType === 'logo' ? 'max-h-[140px] max-w-[78%] object-contain group-hover:scale-[1.02] transition-transform duration-500' : 'w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-500'} style={project.id === 'coins-cloth' ? { filter: 'brightness(0) invert(1)' } : undefined} />
-                    <span className="absolute top-3 left-3 bg-blue-600 text-white font-black text-[11px] px-2 py-1 rounded-full">0{idx + 1}</span>
-                  </div>
+                <div className={`h-[220px] relative overflow-hidden border-b border-black/5 flex items-center justify-center ${project.id === 'coins-cloth' ? 'bg-[#121212] p-8' : project.previewType === 'logo' ? 'bg-[#f7f5f1] p-8' : 'bg-[#121212]'}`}>
+                  <img
+                    src={project.previewImage}
+                    alt={`${project.title} preview`}
+                    loading="lazy"
+                    className={project.previewType === 'logo' ? 'max-h-[140px] max-w-[78%] object-contain' : 'w-full h-full object-cover object-top'}
+                    style={project.id === 'coins-cloth' ? { filter: 'brightness(0) invert(1)' } : undefined}
+                  />
+                  <span className="absolute top-3 left-3 bg-blue-600 text-white font-black text-[11px] px-2 py-1 rounded-full">0{idx + 1}</span>
+                </div>
                 <div className="p-5 flex flex-col flex-1">
-                  <h3 className="text-xl font-black tracking-tight text-gray-900 group-hover:text-blue-600 transition-colors">{project.title}</h3>
+                  <h3 className="text-xl font-black tracking-tight text-gray-900">{project.title}</h3>
                   <p className="text-xs text-gray-500 mt-1 line-clamp-1">{project.subtitle}</p>
-                  <div className="flex flex-wrap gap-1.5 mt-3">
-                    {project.tech.slice(0,3).map((t) => <span key={t} className="text-[10px] font-semibold uppercase tracking-wider px-2 py-1 rounded bg-gray-100 text-gray-600">{t}</span>)}
-                  </div>
                   <div className="mt-4 flex items-center justify-between">
-                    <span className="text-xs font-semibold text-gray-400">{project.year}</span>
-                    <span className="h-8 w-8 rounded-full border border-black/10 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-colors"><ArrowUpRight className="w-4 h-4" /></span>
+                    <span className="text-xs font-semibold text-gray-400">View →</span>
+                    <span className="h-8 w-8 rounded-full border border-black/10 flex items-center justify-center">
+                      <ArrowUpRight className="w-4 h-4" />
+                    </span>
                   </div>
                 </div>
               </a>
@@ -174,13 +311,9 @@ const ClientsHoverGallery: React.FC = () => {
           })}
         </div>
 
-        {/* Desktop/Medium: Vertical Rows (below lg) */}
-        <div
-          onMouseLeave={handleMouseLeaveList}
-          className="divide-y divide-black/10 border-y border-black/10 lg:hidden"
-        >
+        {/* Vertical stacked rows on small mobile */}
+        <div className="divide-y divide-black/10 border-y border-black/10 md:hidden">
           {clientProjects.map((project, idx) => {
-            const isHovered = modalActive && activeIndex === idx
             const isExternal = project.link.startsWith('http')
             return (
               <a
@@ -188,39 +321,18 @@ const ClientsHoverGallery: React.FC = () => {
                 href={project.link}
                 target={isExternal ? '_blank' : undefined}
                 rel={isExternal ? 'noopener noreferrer' : undefined}
-                onMouseEnter={() => handleMouseEnterRow(idx)}
-                className="group relative flex flex-col md:flex-row md:items-center justify-between py-8 sm:py-10 md:py-12 px-2 sm:px-4 transition-all duration-300 hover:px-6 cursor-pointer"
+                className="group relative flex flex-col py-8 px-2 transition-all duration-300"
               >
-                <div className="absolute inset-0 bg-white/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-2xl pointer-events-none -z-10" />
-                <div className="flex items-baseline gap-4 sm:gap-6 min-w-0">
-                  <span className="font-mono text-xs sm:text-sm text-gray-400 font-semibold group-hover:text-blue-600 transition-colors shrink-0">
-                    0{idx + 1}
-                  </span>
+                <div className="flex items-baseline gap-4 min-w-0">
+                  <span className="font-mono text-xs text-gray-400 font-semibold shrink-0">0{idx + 1}</span>
                   <div>
-                    <h3 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 group-hover:text-blue-600 group-hover:translate-x-2 transition-all duration-300 tracking-tight">
-                      {project.title}
-                    </h3>
-                    <p className="text-xs sm:text-sm text-gray-500 mt-1.5 line-clamp-1 group-hover:text-gray-700 transition-colors">
-                      {project.subtitle}
-                    </p>
+                    <h3 className="text-3xl font-bold text-gray-900 tracking-tight">{project.title}</h3>
+                    <p className="text-xs text-gray-500 mt-1.5 line-clamp-1">{project.subtitle}</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-4 sm:gap-6 mt-4 md:mt-0 self-start md:self-auto">
-                  <div className="hidden lg:flex items-center gap-2">
-                    {project.tech.map((t) => (
-                      <span
-                        key={t}
-                        className="text-[11px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-md bg-white border border-gray-200 text-gray-600 group-hover:border-blue-200 transition-colors"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                  <span className="text-xs sm:text-sm font-semibold text-gray-400 group-hover:text-gray-900 transition-colors whitespace-nowrap">
-                    {project.year}
-                  </span>
-                  <div className="h-10 w-10 sm:h-12 sm:w-12 rounded-full border border-gray-300 group-hover:border-blue-600 group-hover:bg-blue-600 group-hover:text-white flex items-center justify-center transition-all duration-300 text-gray-700 shrink-0">
-                    <ArrowUpRight className="w-5 h-5 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+                <div className="flex items-center justify-end mt-4">
+                  <div className="h-10 w-10 rounded-full border border-gray-300 flex items-center justify-center text-gray-700">
+                    <ArrowUpRight className="w-5 h-5" />
                   </div>
                 </div>
               </a>
@@ -228,7 +340,7 @@ const ClientsHoverGallery: React.FC = () => {
           })}
         </div>
 
-        {/* Mobile Inline Screenshots Cards (Shown on mobile when hover isn't available) */}
+        {/* Mobile cards grid fallback */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8 md:hidden">
           {clientProjects.map((p) => (
             <a
@@ -236,119 +348,32 @@ const ClientsHoverGallery: React.FC = () => {
               href={p.link}
               target={p.link.startsWith('http') ? '_blank' : undefined}
               rel={p.link.startsWith('http') ? 'noopener noreferrer' : undefined}
-              className="rounded-2xl border border-gray-200/90 bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow group flex flex-col"
+              className="rounded-2xl border border-gray-200/90 bg-white overflow-hidden shadow-sm group flex flex-col"
             >
-              <div
-                className={`h-48 relative overflow-hidden border-b border-gray-100 flex items-center justify-center ${
-                  p.id === 'coins-cloth' ? 'bg-[#121212] p-8' : p.previewType === 'logo' ? 'bg-[#f7f5f1] p-8' : 'bg-gray-100'
-                }`}
-              >
+              <div className={`h-48 relative overflow-hidden border-b border-gray-100 flex items-center justify-center ${p.id === 'coins-cloth' ? 'bg-[#121212] p-8' : p.previewType === 'logo' ? 'bg-[#f7f5f1] p-8' : 'bg-gray-100'}`}>
                 <img
                   src={p.previewImage}
                   alt={`${p.title} preview`}
                   style={p.id === 'coins-cloth' ? { filter: 'brightness(0) invert(1)' } : undefined}
-                  className={
-                    p.previewType === 'logo'
-                      ? 'max-h-full max-w-[80%] object-contain group-hover:scale-105 transition-transform duration-500'
-                      : 'w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500'
-                  }
+                  className={p.previewType === 'logo' ? 'max-h-full max-w-[80%] object-contain' : 'w-full h-full object-cover object-top'}
                 />
               </div>
               <div className="p-5 flex-1 flex flex-col justify-between">
                 <div>
                   <div className="flex items-center justify-between text-xs text-gray-400 font-medium mb-1">
-                    <span>{p.year}</span>
                     <span className="text-blue-600 font-semibold flex items-center gap-0.5">
                       View Project <ArrowUpRight className="w-3.5 h-3.5" />
                     </span>
+                    <ArrowUpRight className="w-4 h-4 text-gray-300" />
                   </div>
-                  <h4 className="text-xl font-bold text-gray-900 group-hover:text-blue-600 transition-colors">
-                    {p.title}
-                  </h4>
-                  <p className="text-xs text-gray-600 mt-1 line-clamp-2">
-                    {p.subtitle}
-                  </p>
-                </div>
-                <div className="flex flex-wrap gap-1.5 mt-4">
-                  {p.tech.slice(0, 3).map((t) => (
-                    <span
-                      key={t}
-                      className="text-[10px] font-medium px-2 py-0.5 rounded bg-gray-100 text-gray-600"
-                    >
-                      {t}
-                    </span>
-                  ))}
+                  <h4 className="text-xl font-bold text-gray-900">{p.title}</h4>
+                  <p className="text-xs text-gray-600 mt-1 line-clamp-2">{p.subtitle}</p>
                 </div>
               </div>
             </a>
           ))}
         </div>
       </div>
-
-      {/* ============================================================== */}
-      {/* THE FAMOUS FLOATING CURSOR SCREENSHOT MODAL (Desktop Only)       */}
-      {/* ============================================================== */}
-      <motion.div
-        style={{ x, y }}
-        variants={modalVariants}
-        initial="initial"
-        animate={modalActive ? 'open' : 'closed'}
-        className="fixed top-0 left-0 pointer-events-none z-50 hidden md:block -translate-x-1/2 -translate-y-1/2"
-      >
-        <div className="w-[380px] h-[240px] lg:w-[460px] lg:h-[290px] xl:w-[500px] xl:h-[315px] rounded-2xl overflow-hidden shadow-2xl border border-gray-800/10 bg-gray-900 flex flex-col">
-          {/* Simulated Browser Chrome Bar */}
-          <div className="h-7 bg-[#1c1c1f] px-3.5 flex items-center gap-1.5 border-b border-white/10 shrink-0">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#FF5F56]" />
-            <span className="w-2.5 h-2.5 rounded-full bg-[#FFBD2E]" />
-            <span className="w-2.5 h-2.5 rounded-full bg-[#27C93F]" />
-            <span className="ml-2 text-[10px] text-gray-400 font-mono truncate">
-              {clientProjects[activeIndex]?.title.toLowerCase().replace(/\s+/g, '')}.com
-            </span>
-          </div>
-
-          {/* Sliding Preview Viewport */}
-          <div className="relative w-full flex-1 overflow-hidden bg-black">
-            <div
-              className="w-full h-full flex flex-col transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)]"
-              style={{ transform: `translateY(-${activeIndex * 100}%)` }}
-            >
-              {clientProjects.map((project) => (
-                <div
-                  key={`modal-${project.id}`}
-                  className={`w-full h-full shrink-0 relative flex items-center justify-center ${
-                    project.previewType === 'logo'
-                      ? 'bg-white p-10 sm:p-12'
-                      : 'bg-[#121212]'
-                  }`}
-                >
-                  <img
-                    src={project.previewImage}
-                    alt={`${project.title} preview`}
-                    className={
-                      project.previewType === 'logo'
-                        ? 'max-h-[85%] max-w-[85%] w-auto h-auto object-contain filter drop-shadow-sm'
-                        : 'w-full h-full object-cover object-top'
-                    }
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </motion.div>
-
-      {/* Floating Circular "View" Cursor Follower Badge */}
-      <motion.div
-        style={{ x: badgeX, y: badgeY }}
-        variants={modalVariants}
-        initial="initial"
-        animate={modalActive ? 'open' : 'closed'}
-        className="fixed top-0 left-0 pointer-events-none z-50 hidden md:flex -translate-x-1/2 -translate-y-1/2 w-20 h-20 rounded-full bg-blue-600 text-white font-bold text-xs uppercase tracking-wider items-center justify-center shadow-xl shadow-blue-600/30 backdrop-blur-sm"
-      >
-        <span className="flex items-center gap-1">
-          View <ArrowUpRight className="w-3.5 h-3.5" />
-        </span>
-      </motion.div>
     </section>
   )
 }

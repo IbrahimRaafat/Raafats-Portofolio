@@ -2,6 +2,7 @@ import Head from "next/head";
 import StaggeredMenu from "@/components/StaggeredMenu";
 import Hero from "@/components/Hero";
 import ClientsHoverGallery from "@/components/ClientsHoverGallery";
+import LearnTogether from "@/components/LearnTogether";
 import TechStack from "@/components/TechStack";
 import Experience from "@/components/Experience";
 import Contact from "@/components/Contact";
@@ -203,6 +204,9 @@ export default function Home({ posts }: { posts: import("@/lib/blog").PostMeta[]
 
       {/* Clients & Projects Hover Screenshot Gallery */}
       <ClientsHoverGallery />
+
+      {/* Learn Together — TS Playground Intro */}
+      <LearnTogether />
 
       {/* Tech Stack Section */}
       <TechStack />

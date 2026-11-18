@@ -94,11 +94,6 @@ const Contact = () => {
                   Let&apos;s Build Something Together
                 </h2>
               </MaskReveal>
-              <MaskReveal delay={140}>
-                <p className="text-gray-600 text-base sm:text-lg leading-relaxed max-w-lg">
-                  Have a project in mind, an ERP that needs taming, or a pipeline to scale? Let&apos;s schedule a quick call or drop me a line below.
-                </p>
-              </MaskReveal>
             </div>
 
             {/* Location & Time Info — removed per request */}
