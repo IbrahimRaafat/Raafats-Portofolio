@@ -1,22 +1,21 @@
 # Portfolio & Engineering Blog — Session Progress & State
 
-**Date:** November 8, 2026  
+**Date:** November 21, 2026  
 **Repository:** `Raafats-Portofolio`  
-**Current Active Branch:** `feat/wireshark-refresher`  
-**Production Branch:** `main`  
+**Current Active Branch:** `main`  
+**Production Branch:** `main`
 
 ---
 
 ## 1. Executive Summary
 
-This session completed a full-stack enhancement across design, typography, client showcases, blog architecture, build stability, and technical content:
-* **Tech Stack**: Replaced cluttered filter pills and static metric counters with a continuous, high-impact sliding marquee featuring 21+ official Wikimedia SVGs and a dynamic cursor-following inspection preview.
-* **Clients Section**: Upgraded into a Dennis Snellenberg / Olivier Larose-style interactive floating gallery with live website screenshots (Spira, Kolr) and branded identity cards (Coins & Cloth, Maz Mrkt).
-* **Vercel Build Fix**: Identified and eliminated platform-specific `lightningcss-win32-x64-msvc` dependency conflict, ensuring clean Linux deployments.
-* **Blog Engine & Arabic RTL**: Added native Arabic support, Google `Cairo` font integration, LTR code block isolation, direction toggle buttons, and bilingual filtering tabs.
-* **Content Publishing**:
-  * **Article 1 (on `main`)**: *"Herdr: tmux Rebuilt for AI Coding Agents"* (English + Arabic companion).
-  * **Article 2 (on `feat/wireshark-refresher`)**: *"The Network Under the Hood: A Developer's Refresher with Wireshark"*.
+This session updated the portfolio's clients gallery, embedded playground, favorite creators, CV timeline, and responsive/XXL scroll behavior on `main`:
+* **New Clients Added**: Added **Xceltra** (`xceltra.com`), **Agatel** (`agatel.co.uk`), and **Anavera** (`anavera.co.uk`) with official logos downloaded from their websites, and reordered the gallery (`Coins & Cloth` → `Spira` → `Xceltra` → `Agatel` → `Anavera` → `Kolr Perfumes` → `Maz Mrkt`).
+* **Coins & Cloth Cover + Live Hover Iframes**: Updated Coins & Cloth's cover image and added lazy-mounted `LivePreviewIframe` previews on desktop card hover (`iframeAllowed: false` on Agatel due to `X-Frame-Options: SAMEORIGIN`).
+* **Embedded TS Playground (`LearnTogether.tsx`)**: Replaced the custom textarea/output evaluator with an embedded `https://code.ibrahimraafat.com/` iframe inside the macOS window chrome.
+* **Favorite Creators (`FavoriteCreators.tsx`)**: Replaced the broken YouTube thumbnail for ThePrimeagen's algorithms course with the official Master.dev posterframe (`public/images/primeagen-algorithms-cover.jpg`) and changed Ahmed Farghal's tag to `Distributed Systems`.
+* **CV / Experience (`Experience.tsx`)**: Added **Coin & Cloth** (`Cairo, Egypt`, `Full Stack Engineer`, `2026 — Present` — ERP, e-commerce, mobile application, AI automations) and updated **Maz Mrkt**'s period to `Jul 2024 — 2026`.
+* **Responsivity & XXL Scroll Fix**: Removed duplicate mobile client rows, fixed double horizontal padding in `Contact.tsx`, tightened `ClientsHoverGallery.tsx` (`h-[100dvh]`, `overflow-x-clip`, `clamp(170px,32vh,280px)`), switched GSAP `ScrollTrigger` from `scrub: 1` to `scrub: true` with `ResizeObserver` and `Math.max(0, ...)` clamping so the track, counter, and pin stay synchronized across all screen sizes.
 
 ---
 
@@ -24,79 +23,28 @@ This session completed a full-stack enhancement across design, typography, clien
 
 | Branch | Latest Commit | Status | Description |
 | :--- | :--- | :--- | :--- |
-| **`main`** | `cf33a16` | Deployed on Vercel | Clean UI, Herdr debut article (EN + AR), Arabic RTL engine, clean production build. |
-| **`feat/wireshark-refresher`** | `bb63fed` | Pushed to GitHub (Unmerged) | Standalone branch containing Article #2 on Wireshark, awaiting review. |
+| **`main`** | `a3855a1` | Pushed to `origin/main` | Clients update, live iframe previews, `code.ibrahimraafat.com` embed, CV update, responsive & XXL scroll fixes. |
+
+### Recent Commits (`main`)
+* `a3855a1` — `fix: sync ScrollTrigger scrub and handle XXL resize measurements`
+* `52776c3` — `feat: update CV, embed code.ibrahimraafat.com, fix covers & responsive layout`
+* `e3362d6` — `feat: update Coins & Cloth cover and add live iframe hover previews`
+* `598bcc9` — `feat: add Xceltra, Agatel, and Anavera to clients gallery`
 
 ---
 
-## 3. Key Milestones
-
-### A. Design, Typography & UI Polish
-* **Sans-Serif Standard**: Purged `Instrument_Serif` completely. Standardized on `Inter` for Latin scripts and Google `Cairo` for Arabic scripts.
-* **Subtle Tactile Grain**: Added an ultra-light GPU-accelerated SVG fractal noise overlay (`.noise-overlay` at 2.8% opacity).
-* **Restored Hero**: Maintained WebGL `Grainient` canvas, animated rotating words (`['Portfolio', 'Blog', 'World']`), and spinning `CircularText` badge (*"SCROLL DOWN"*).
-* **Clutter Removal**:
-  * Removed availability badge (*"Available for New Projects & Roles"*) from `Contact.tsx`.
-  * Removed category filter pills and workbench card from `TechStack.tsx`.
-  * Removed helper hint strings: *"Hover over any project to inspect live homepage preview →"* and *"Hover over any icon to inspect production role →"*.
-  * Renamed blog section to **"Ibra's Blog"**.
-
-### B. Clients Hover Gallery (`ClientsHoverGallery.tsx`)
-* Implemented spring physics floating modal following the mouse cursor.
-* High-res live captures of `spirahouse.com` and `kolr.store` in simulated browser chrome.
-* Vector logo cards for `Coins & Cloth` and `Maz Mrkt`.
-
-### C. Big-Icon Sliding Marquee (`TechStack.tsx`)
-* Enlarged tech icons (64px–72px) with 21+ official Wikimedia vector SVGs.
-* Dynamic cursor follower showing *"What I Did With This Technology"*, measured impact metrics, and project case study links.
-
-### D. Blog Engine Architecture (`/blog`)
-* **Subdirectory Strategy**: Retained blog under `ibrahimraafat.com/blog` (following industry standard used by Lee Robinson, Josh Comeau, and Paco Coursey) to preserve 100% of domain authority and SEO equity.
-* **Arabic RTL Engine**:
-  * Frontmatter `lang: "ar"` and `dir: "rtl"` support with auto-detection via Arabic Unicode range regex.
-  * Localized reading times (e.g., `دقيقتان`, `٤ دقائق قراءة`).
-  * Right-aligned typography with expanded line-height (`1.85-1.9`).
-  * **Code block protection**: Code snippets and preformatted blocks are strictly forced to `direction: ltr !important; text-align: left; unicode-bidi: isolate;` to prevent punctuation inversions.
-  * Interactive `[ ⇄ English (LTR) / عربي (RTL) ]` toggle on article pages.
-  * Bilingual language filter tabs (`All Posts`, `English`, `العربية`) on `/blog`.
-
----
-
-## 4. Content Library
-
-| File | Language | Direction | Status | Covered Topics |
-| :--- | :--- | :--- | :--- | :--- |
-| `01-herdr-tmux-for-coding-agents.mdx` | English | LTR | Live on `main` | AI coding agents, terminal deadlocks, Herdr daemon, state tracking, socket API. |
-| `02-herdr-tmux-ai-agents-ar.mdx` | Arabic | RTL | Live on `main` | Full Arabic translation and RTL showcase for the Herdr article. |
-| `03-networking-refresher-wireshark.mdx` | English | LTR | On `feat/wireshark-refresher` | TCP handshakes, TLS 1.3 vs 1.2, DNS caching, connection pooling, Wireshark filters. |
-
----
-
-## 5. Verification & Health
+## 3. Verification & Health
 
 * **TypeScript**: `npx tsc --noEmit` passes with **0 errors**.
-* **Next.js SSG Build**: `npm run build` prerenders all 11 routes in **~8.1s**.
-* **Local Previews**: Captured and saved in `wireshark-preview.md`.
+* **Next.js Production Build**: `npm run build` compiled and generated all 8 routes cleanly.
+* **Local Windows Build Note**: Installed `lightningcss-win32-x64-msvc@1.30.2` with `--no-save` so `npm run build` runs on Windows without modifying `package.json` or `package-lock.json`.
 
 ---
 
-## 6. How to Resume Next Session
+## 4. Open / Follow-Up Notes
 
-1. **To preview the Wireshark article locally**:
-   ```bash
-   git checkout feat/wireshark-refresher
-   npm run dev -- -p 3000
-   ```
-   Open [http://localhost:3000/blog/networking-refresher-wireshark](http://localhost:3000/blog/networking-refresher-wireshark).
-
-2. **To merge Wireshark article into `main` when ready**:
-   ```bash
-   git checkout main
-   git merge feat/wireshark-refresher
-   git push origin main
-   ```
-
-3. **To switch back to `main`**:
-   ```bash
-   git checkout main
-   ```
+1. **`public/resume.pdf`**: The downloadable résumé PDF is a static binary and still reflects the pre-Coin & Cloth CV if not regenerated separately.
+2. **Untracked Directory**: `_archived_pages/` remains untracked locally (pre-existing).
+3. **Minor Polish Ideas**:
+   * Update the divider border on the dark featured card in `Experience.tsx` (`border-gray-100` → `border-white/10` when `idx === 0`).
+   * Align section numbering (`01`, `01.5`, `02`, `02`, `03`, `05`).
