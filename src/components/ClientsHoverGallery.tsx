@@ -145,63 +145,73 @@ const ClientsHoverGallery: React.FC = () => {
     if (mqlReduced.matches || !mqlDesktop.matches) return
 
     let ctx: { revert: () => void } | null = null
+    let ro: ResizeObserver | null = null
+    let disposed = false
 
     const init = async () => {
       const gsap = (await import('gsap')).default
       const { ScrollTrigger } = await import('gsap/ScrollTrigger')
+      if (disposed) return
       gsap.registerPlugin(ScrollTrigger)
 
-      ctx = gsap.context(() => {
-        const getScrollAmount = () => track.scrollWidth - window.innerWidth
-
-        const tween = gsap.to(track, {
-          x: () => -getScrollAmount(),
-          ease: 'none',
-          scrollTrigger: {
-            trigger: pin,
-            start: 'top top',
-            end: () => `+=${getScrollAmount()}`,
-            pin: true,
-            scrub: 1,
-            anticipatePin: 1,
-            invalidateOnRefresh: true,
-            onUpdate: (self) => {
-              setProgress(self.progress)
-              const idx = Math.min(
-                clientProjects.length - 1,
-                Math.floor(self.progress * clientProjects.length + 0.0001)
-              )
-              setActiveIdx(idx)
-            },
-          },
-        })
-        // ensure correct measurement after images load
-        const imgs = track.querySelectorAll('img')
-        let loaded = 0
-        const onLoad = () => {
-          loaded++
-          if (loaded === imgs.length) ScrollTrigger.refresh()
+      const setup = () => {
+        ctx?.revert()
+        const getScrollAmount = () => Math.max(0, track.scrollWidth - window.innerWidth)
+        if (getScrollAmount() <= 0) {
+          setProgress(0)
+          setActiveIdx(0)
+          return
         }
-        imgs.forEach((img) => {
-          if ((img as HTMLImageElement).complete) onLoad()
-          else img.addEventListener('load', onLoad, { once: true })
+
+        ctx = gsap.context(() => {
+          gsap.to(track, {
+            x: () => -getScrollAmount(),
+            ease: 'none',
+            scrollTrigger: {
+              trigger: pin,
+              start: 'top top',
+              end: () => `+=${getScrollAmount()}`,
+              pin: true,
+              scrub: true,
+              anticipatePin: 1,
+              invalidateOnRefresh: true,
+              onUpdate: (self) => {
+                setProgress(self.progress)
+                const idx = Math.min(
+                  clientProjects.length - 1,
+                  Math.floor(self.progress * clientProjects.length + 0.0001)
+                )
+                setActiveIdx(idx)
+              },
+            },
+          })
+        }, pin)
+      }
+
+      setup()
+
+      let rafId = 0
+      ro = new ResizeObserver(() => {
+        cancelAnimationFrame(rafId)
+        rafId = requestAnimationFrame(() => {
+          if (!window.matchMedia('(min-width: 1024px)').matches) {
+            ctx?.revert()
+            setProgress(0)
+            setActiveIdx(0)
+            return
+          }
+          ScrollTrigger.refresh()
         })
-      }, pin)
+      })
+      ro.observe(track)
+      ro.observe(pin)
     }
 
     init()
 
-    const onResize = () => {
-      // re-evaluate desktop vs mobile — if switched to mobile, kill pin
-      if (!window.matchMedia('(min-width: 1024px)').matches) {
-        ctx?.revert()
-        setProgress(0)
-      }
-    }
-    window.addEventListener('resize', onResize)
-
     return () => {
-      window.removeEventListener('resize', onResize)
+      disposed = true
+      ro?.disconnect()
       ctx?.revert()
     }
   }, [])
@@ -286,7 +296,6 @@ const ClientsHoverGallery: React.FC = () => {
                     <img
                       src={project.previewImage}
                       alt={`${project.title} preview`}
-                      loading="lazy"
                       className={
                         project.previewType === 'logo'
                           ? 'max-h-[160px] max-w-[78%] object-contain group-hover:scale-[1.02] transition-transform duration-500'
