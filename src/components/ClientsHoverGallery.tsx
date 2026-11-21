@@ -12,6 +12,7 @@ export type ClientProject = {
   previewImage: string
   previewType: 'screenshot' | 'logo'
   accentColor: string
+  iframeAllowed?: boolean
 }
 
 const clientProjects: ClientProject[] = [
@@ -55,7 +56,7 @@ const clientProjects: ClientProject[] = [
     tech: ['Shopify', 'n8n Automations', 'Slack Alerts'],
     year: '2024',
     link: 'https://coinandcloth.com',
-    previewImage: '/images/coins-cloth-home.png',
+    previewImage: '/images/coins-cloth-home.jpg',
     previewType: 'screenshot',
     accentColor: '#121212',
   },
@@ -80,6 +81,7 @@ const clientProjects: ClientProject[] = [
     previewImage: '/images/agatel-logo.png',
     previewType: 'logo',
     accentColor: '#f97316',
+    iframeAllowed: false,
   },
   {
     id: 'anavera',
@@ -94,11 +96,44 @@ const clientProjects: ClientProject[] = [
   },
 ]
 
+const LivePreviewIframe: React.FC<{ url: string; title: string; active: boolean }> = ({
+  url,
+  title,
+  active,
+}) => {
+  const [loaded, setLoaded] = useState(false)
+
+  useEffect(() => {
+    if (!active) setLoaded(false)
+  }, [active])
+
+  if (!active) return null
+
+  return (
+    <div className="absolute inset-0 z-10 overflow-hidden pointer-events-none bg-white transition-opacity duration-300" style={{ opacity: loaded ? 1 : 0 }}>
+      <iframe
+        src={url}
+        title={`${title} live preview`}
+        loading="lazy"
+        onLoad={() => setLoaded(true)}
+        tabIndex={-1}
+        aria-hidden="true"
+        className="w-[1440px] h-[940px] border-0 origin-top-left scale-[0.32] xl:scale-[0.362] bg-white"
+      />
+      <span className="absolute top-4 right-4 z-20 inline-flex items-center gap-1.5 rounded-full bg-black/75 backdrop-blur-sm text-white font-mono text-[10px] uppercase tracking-wider px-2.5 py-1">
+        <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+        Live
+      </span>
+    </div>
+  )
+}
+
 const ClientsHoverGallery: React.FC = () => {
   const pinRef = useRef<HTMLElement>(null)
   const trackRef = useRef<HTMLDivElement>(null)
   const [progress, setProgress] = useState(0)
   const [activeIdx, setActiveIdx] = useState(0)
+  const [hoveredId, setHoveredId] = useState<string | null>(null)
 
   useEffect(() => {
     const pin = pinRef.current
@@ -239,6 +274,8 @@ const ClientsHoverGallery: React.FC = () => {
                   href={project.link}
                   target={isExternal ? '_blank' : undefined}
                   rel={isExternal ? 'noopener noreferrer' : undefined}
+                  onMouseEnter={() => setHoveredId(project.id)}
+                  onMouseLeave={() => setHoveredId((prev) => (prev === project.id ? null : prev))}
                   className="group relative flex-none w-[460px] xl:w-[520px] rounded-[22px] border border-black/10 bg-white overflow-hidden shadow-[0_12px_30px_rgba(0,0,0,0.07)] hover:shadow-[0_18px_40px_rgba(0,0,0,0.12)] transition-shadow duration-300 flex flex-col"
                 >
                   <div
@@ -256,7 +293,14 @@ const ClientsHoverGallery: React.FC = () => {
                           : 'w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-500'
                       }
                     />
-                    <span className="absolute top-4 left-4 bg-blue-600 text-white font-mono text-[11px] font-bold px-2.5 py-1 rounded-full">
+                    {project.iframeAllowed !== false && (
+                      <LivePreviewIframe
+                        url={project.link}
+                        title={project.title}
+                        active={hoveredId === project.id}
+                      />
+                    )}
+                    <span className="absolute top-4 left-4 z-20 bg-blue-600 text-white font-mono text-[11px] font-bold px-2.5 py-1 rounded-full">
                       0{idx + 1}
                     </span>
                   </div>
