@@ -24,7 +24,7 @@ const creators: Creator[] = [
     description: 'Clear, Arabic-first deep dive into distributed systems — from consensus to real-world patterns. My go-to when I want to actually understand the why.',
     thumbnail: 'https://img.youtube.com/vi/s_p3I5CMGJw/hqdefault.jpg',
     icon: <Server className="w-4 h-4" />,
-    tag: 'Arabic · Systems',
+    tag: 'Distributed Systems',
   },
   {
     name: 'ThePrimeagen',
@@ -33,7 +33,7 @@ const creators: Creator[] = [
     contentTitle: 'The Last Algorithms Course You’ll Need — 1 & 2',
     contentUrl: 'https://master.dev/courses/algorithms/',
     description: 'No fluff, just data structures & algorithms the way they should be taught — practical, fast, and fun. Both parts are worth every minute.',
-    thumbnail: 'https://img.youtube.com/vi/tNzcM1YYQos/hqdefault.jpg',
+    thumbnail: '/images/primeagen-algorithms-cover.jpg',
     icon: <GraduationCap className="w-4 h-4" />,
     tag: 'Algorithms',
   },

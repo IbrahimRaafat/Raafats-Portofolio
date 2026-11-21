@@ -17,15 +17,15 @@ export type ClientProject = {
 
 const clientProjects: ClientProject[] = [
   {
-    id: 'maz',
-    title: 'Maz Mrkt',
-    subtitle: 'Odoo 18 ERP, Automated Pipelines & AWS Infrastructure',
-    tech: ['Odoo 18', 'AWS EC2', 'CloudFront', 'PostgreSQL'],
-    year: '2024 — Present',
-    link: '/maz',
-    previewImage: '/images/maz-logo.svg',
-    previewType: 'logo',
-    accentColor: '#3b82f6',
+    id: 'coins-cloth',
+    title: 'Coins & Cloth',
+    subtitle: 'Streetwear Apparel Storefront, n8n & Slack Integrations',
+    tech: ['Shopify', 'n8n Automations', 'Slack Alerts'],
+    year: '2024',
+    link: 'https://coinandcloth.com',
+    previewImage: '/images/coins-cloth-home.jpg',
+    previewType: 'screenshot',
+    accentColor: '#121212',
   },
   {
     id: 'spira',
@@ -37,28 +37,6 @@ const clientProjects: ClientProject[] = [
     previewImage: '/images/spira-home.png',
     previewType: 'screenshot',
     accentColor: '#5c6f3a',
-  },
-  {
-    id: 'kolr',
-    title: 'Kolr Perfumes',
-    subtitle: 'Luxury Fragrance E-Commerce & Curated Catalog',
-    tech: ['Shopify Liquid', 'Realtime Inventory', 'Tailwind'],
-    year: '2024',
-    link: 'https://kolr.store',
-    previewImage: '/images/kolr-home.png',
-    previewType: 'screenshot',
-    accentColor: '#1f2acc',
-  },
-  {
-    id: 'coins-cloth',
-    title: 'Coins & Cloth',
-    subtitle: 'Streetwear Apparel Storefront, n8n & Slack Integrations',
-    tech: ['Shopify', 'n8n Automations', 'Slack Alerts'],
-    year: '2024',
-    link: 'https://coinandcloth.com',
-    previewImage: '/images/coins-cloth-home.jpg',
-    previewType: 'screenshot',
-    accentColor: '#121212',
   },
   {
     id: 'xceltra',
@@ -94,6 +72,28 @@ const clientProjects: ClientProject[] = [
     previewType: 'logo',
     accentColor: '#0e7490',
   },
+  {
+    id: 'kolr',
+    title: 'Kolr Perfumes',
+    subtitle: 'Luxury Fragrance E-Commerce & Curated Catalog',
+    tech: ['Shopify Liquid', 'Realtime Inventory', 'Tailwind'],
+    year: '2024',
+    link: 'https://kolr.store',
+    previewImage: '/images/kolr-home.png',
+    previewType: 'screenshot',
+    accentColor: '#1f2acc',
+  },
+  {
+    id: 'maz',
+    title: 'Maz Mrkt',
+    subtitle: 'Odoo 18 ERP, Automated Pipelines & AWS Infrastructure',
+    tech: ['Odoo 18', 'AWS EC2', 'CloudFront', 'PostgreSQL'],
+    year: '2024 — Present',
+    link: '/maz',
+    previewImage: '/images/maz-logo.svg',
+    previewType: 'logo',
+    accentColor: '#3b82f6',
+  },
 ]
 
 const LivePreviewIframe: React.FC<{ url: string; title: string; active: boolean }> = ({
@@ -118,7 +118,7 @@ const LivePreviewIframe: React.FC<{ url: string; title: string; active: boolean 
         onLoad={() => setLoaded(true)}
         tabIndex={-1}
         aria-hidden="true"
-        className="w-[1440px] h-[940px] border-0 origin-top-left scale-[0.32] xl:scale-[0.362] bg-white"
+        className="w-[1440px] h-[940px] border-0 origin-top-left scale-[0.306] xl:scale-[0.348] bg-white"
       />
       <span className="absolute top-4 right-4 z-20 inline-flex items-center gap-1.5 rounded-full bg-black/75 backdrop-blur-sm text-white font-mono text-[10px] uppercase tracking-wider px-2.5 py-1">
         <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
@@ -221,30 +221,30 @@ const ClientsHoverGallery: React.FC = () => {
       />
 
       {/* ===== DESKTOP PINNED HORIZONTAL ===== */}
-      <div className="hidden lg:flex flex-col h-[100vh] justify-center relative">
+      <div className="hidden lg:flex flex-col h-[100dvh] py-4 xl:py-6 justify-between relative">
         {/* Header row — stays visible while pinned */}
-        <div className="max-w-7xl mx-auto w-full px-8 lg:px-16 xl:px-24 pt-10 pb-6 flex items-end justify-between gap-8 shrink-0">
+        <div className="max-w-7xl mx-auto w-full px-8 lg:px-16 xl:px-24 pt-2 pb-2 flex items-end justify-between gap-8 shrink-0">
           <div>
             <MaskReveal>
-              <p className="text-gray-500 text-[11px] font-mono tracking-[0.18em] uppercase mb-3 flex items-center gap-3">
+              <p className="text-gray-500 text-[11px] font-mono tracking-[0.18em] uppercase mb-2 flex items-center gap-3">
                 <span className="h-px w-6 bg-gray-300" aria-hidden /> 01 — Selected Work
               </p>
             </MaskReveal>
             <MaskReveal delay={80}>
               <h2
                 id="clients-heading"
-                className="text-4xl xl:text-5xl font-bold text-gray-900 tracking-tight leading-none"
+                className="text-3xl xl:text-5xl font-bold text-gray-900 tracking-tight leading-none"
               >
                 Clients &amp; Projects
               </h2>
             </MaskReveal>
-            <p className="mt-3 text-sm text-gray-500 flex items-center gap-2">
+            <p className="mt-2 text-sm text-gray-500 flex items-center gap-2">
               <span className="hidden xl:inline">Scroll down ↓</span>
               <span className="xl:hidden">Scroll ↓</span>
               <span className="text-gray-400">— vertical scroll drives horizontal</span>
             </p>
           </div>
-          <div className="hidden xl:flex flex-col items-end gap-2 shrink-0">
+          <div className="hidden lg:flex flex-col items-end gap-2 shrink-0">
             <span className="font-mono text-xs text-gray-400">
               {String(activeIdx + 1).padStart(2, '0')} / {String(clientProjects.length).padStart(2, '0')}
             </span>
@@ -260,7 +260,7 @@ const ClientsHoverGallery: React.FC = () => {
         </div>
 
         {/* Horizontal track */}
-        <div className="overflow-hidden">
+        <div className="flex-1 min-h-0 flex items-center overflow-x-clip">
           <div
             ref={trackRef}
             className="flex gap-6 will-change-transform pl-8 lg:pl-16 xl:pl-24 pr-8"
@@ -276,11 +276,11 @@ const ClientsHoverGallery: React.FC = () => {
                   rel={isExternal ? 'noopener noreferrer' : undefined}
                   onMouseEnter={() => setHoveredId(project.id)}
                   onMouseLeave={() => setHoveredId((prev) => (prev === project.id ? null : prev))}
-                  className="group relative flex-none w-[460px] xl:w-[520px] rounded-[22px] border border-black/10 bg-white overflow-hidden shadow-[0_12px_30px_rgba(0,0,0,0.07)] hover:shadow-[0_18px_40px_rgba(0,0,0,0.12)] transition-shadow duration-300 flex flex-col"
+                  className="group relative flex-none w-[440px] xl:w-[500px] rounded-[22px] border border-black/10 bg-white overflow-hidden shadow-[0_12px_30px_rgba(0,0,0,0.07)] hover:shadow-[0_18px_40px_rgba(0,0,0,0.12)] transition-shadow duration-300 flex flex-col"
                 >
                   <div
-                    className={`h-[300px] xl:h-[340px] relative overflow-hidden border-b border-black/5 flex items-center justify-center ${
-                      project.previewType === 'logo' ? 'bg-[#f7f5f1] p-10' : 'bg-[#121212]'
+                    className={`h-[clamp(170px,32vh,280px)] relative overflow-hidden border-b border-black/5 flex items-center justify-center ${
+                      project.previewType === 'logo' ? 'bg-[#f7f5f1] p-8' : 'bg-[#121212]'
                     }`}
                   >
                     <img
@@ -289,7 +289,7 @@ const ClientsHoverGallery: React.FC = () => {
                       loading="lazy"
                       className={
                         project.previewType === 'logo'
-                          ? 'max-h-[180px] max-w-[78%] object-contain group-hover:scale-[1.02] transition-transform duration-500'
+                          ? 'max-h-[160px] max-w-[78%] object-contain group-hover:scale-[1.02] transition-transform duration-500'
                           : 'w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-500'
                       }
                     />
@@ -304,12 +304,12 @@ const ClientsHoverGallery: React.FC = () => {
                       0{idx + 1}
                     </span>
                   </div>
-                  <div className="p-6 flex flex-col flex-1">
-                    <h3 className="text-2xl font-black tracking-tight text-gray-900 group-hover:text-blue-600 transition-colors">
+                  <div className="p-5 flex flex-col flex-1">
+                    <h3 className="text-xl xl:text-2xl font-black tracking-tight text-gray-900 group-hover:text-blue-600 transition-colors">
                       {project.title}
                     </h3>
-                    <p className="text-sm text-gray-500 mt-1.5 line-clamp-1">{project.subtitle}</p>
-                    <div className="mt-5 flex items-center justify-between">
+                    <p className="text-sm text-gray-500 mt-1 line-clamp-1">{project.subtitle}</p>
+                    <div className="mt-3.5 flex items-center justify-between">
                       <span className="text-xs font-semibold text-gray-400">View project</span>
                       <span className="h-9 w-9 rounded-full border border-black/10 flex items-center justify-center group-hover:bg-blue-600 group-hover:text-white group-hover:border-blue-600 transition-colors">
                         <ArrowUpRight className="w-4 h-4" />
@@ -329,7 +329,7 @@ const ClientsHoverGallery: React.FC = () => {
         </div>
 
         {/* Bottom progress bar */}
-        <div className="max-w-7xl mx-auto w-full px-8 lg:px-16 xl:px-24 mt-6 shrink-0">
+        <div className="max-w-7xl mx-auto w-full px-8 lg:px-16 xl:px-24 mt-3 shrink-0">
           <div className="h-px w-full bg-black/10 rounded-full overflow-hidden">
             <div className="h-full bg-blue-600 transition-none" style={{ width: `${progress * 100}%` }} />
           </div>
@@ -386,38 +386,9 @@ const ClientsHoverGallery: React.FC = () => {
           })}
         </div>
 
-        {/* Vertical stacked rows on small mobile */}
-        <div className="divide-y divide-black/10 border-y border-black/10 md:hidden">
-          {clientProjects.map((project, idx) => {
-            const isExternal = project.link.startsWith('http')
-            return (
-              <a
-                key={project.id}
-                href={project.link}
-                target={isExternal ? '_blank' : undefined}
-                rel={isExternal ? 'noopener noreferrer' : undefined}
-                className="group relative flex flex-col py-8 px-2 transition-all duration-300"
-              >
-                <div className="flex items-baseline gap-4 min-w-0">
-                  <span className="font-mono text-xs text-gray-400 font-semibold shrink-0">0{idx + 1}</span>
-                  <div>
-                    <h3 className="text-3xl font-bold text-gray-900 tracking-tight">{project.title}</h3>
-                    <p className="text-xs text-gray-500 mt-1.5 line-clamp-1">{project.subtitle}</p>
-                  </div>
-                </div>
-                <div className="flex items-center justify-end mt-4">
-                  <div className="h-10 w-10 rounded-full border border-gray-300 flex items-center justify-center text-gray-700">
-                    <ArrowUpRight className="w-5 h-5" />
-                  </div>
-                </div>
-              </a>
-            )
-          })}
-        </div>
-
         {/* Mobile cards grid fallback */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mt-8 md:hidden">
-          {clientProjects.map((p) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:hidden">
+          {clientProjects.map((p, idx) => (
             <a
               key={`mobile-${p.id}`}
               href={p.link}
@@ -431,6 +402,9 @@ const ClientsHoverGallery: React.FC = () => {
                   alt={`${p.title} preview`}
                   className={p.previewType === 'logo' ? 'max-h-full max-w-[80%] object-contain' : 'w-full h-full object-cover object-top'}
                 />
+                <span className="absolute top-3 left-3 bg-blue-600 text-white font-mono text-[11px] font-bold px-2 py-0.5 rounded-full">
+                  0{idx + 1}
+                </span>
               </div>
               <div className="p-5 flex-1 flex flex-col justify-between">
                 <div>

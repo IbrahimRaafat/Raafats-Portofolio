@@ -11,10 +11,21 @@ type ExperienceItem = {
 
 const experiences: ExperienceItem[] = [
   {
+    company: 'Coin & Cloth',
+    location: 'Cairo, Egypt',
+    role: 'Full Stack Engineer',
+    period: '2026 — Present',
+    bullets: [
+      'Architecting and maintaining end-to-end ERP and e-commerce systems for multi-brand fashion retail.',
+      'Building and shipping the mobile application alongside the online storefront experience.',
+      'Designing AI automations and operational workflows across inventory, orders, and internal tooling.',
+    ],
+  },
+  {
     company: 'Maz Mrkt',
     location: 'Cairo, Egypt (Remote)',
     role: 'Full Stack Engineer',
-    period: 'Jul 2024 — Present',
+    period: 'Jul 2024 — 2026',
     bullets: [
       'Deployed Odoo 18 on AWS EC2 + PostgreSQL, CloudFront + ACM — uptime +40%, latency -30%.',
       'Built custom Odoo automations with Python and Odoo ORM, cutting manual workflows by 50%.',

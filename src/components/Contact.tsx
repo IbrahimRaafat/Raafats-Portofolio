@@ -72,7 +72,7 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="py-16 md:py-24 px-4 relative bg-[var(--paper)] border-t border-black/10 overflow-hidden"
+      className="py-16 md:py-24 relative bg-[var(--paper)] border-t border-black/10 overflow-hidden"
       aria-labelledby="contact-heading"
     >
       <div className="pointer-events-none absolute inset-0 opacity-[0.03]" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='0.9'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")` }} />
